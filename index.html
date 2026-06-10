@@ -74,6 +74,7 @@
 
     <button onclick="izvrsiProracun()">Pokreni trostepenu aktuarsku simulaciju</button>
 
+    <!-- OVDE JE DODAT ID="RESULTS" KOJI JE BLOKIRAO IZVRŠAVANJE NAREDBE -->
     <div id="results" class="results">
         <div class="phase-title">Faza 1: Faktor matrice i centralna jednačina</div>
         <div class="data-box">
@@ -119,8 +120,7 @@
             return;
         }
 
-        // DuBois & DuBois stabilan proračun
-        var SF = 0.007184 * window.Math.exp(0.425 * window.Math.log(M)) * window.Math.exp(0.725 * window.Math.log(H));
+        var SF = 0.007184 * Math.exp(0.425 * Math.log(M)) * Math.exp(0.725 * Math.log(H));
         var FM = 1.0;
         var Fto = 0.0;
         
@@ -132,8 +132,8 @@
             Fto = -0.25;
         }
 
-        var N_optimalno = window.Math.round(12 * SF * FM);
-        var dnevniVolumen = window.Math.round(N_optimalno * 0.833);
+        var N_optimalno = Math.round(12 * SF * FM);
+        var dnevniVolumen = Math.round(N_optimalno * 0.833);
         var nocniAnker = N_optimalno - dnevniVolumen;
 
         var volumenVode = dnevniVolumen * 50;
@@ -141,7 +141,7 @@
         var preostaleKapi = dnevniVolumen;
         
         for (var sat = 8; sat <= 22; sat++) {
-            var kapiUSatu = window.Math.ceil(preostaleKapi / (22 - sat + 1));
+            var kapiUSatu = Math.ceil(preostaleKapi / (22 - sat + 1));
             preostaleKapi -= kapiUSatu;
             var vremeString = sat < 10 ? "0" + sat + ":00č" : sat + ":00č";
             hronologijaHtml += vremeString + " — 50 ml (" + kapiUSatu + " kapi)<br>";
