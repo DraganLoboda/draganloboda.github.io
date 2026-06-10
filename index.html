@@ -107,19 +107,20 @@
 
 <script>
     function izvrsiProracun() {
-        var Vstart = parseFloat(document.getElementById('starost').value);
-        var H = parseFloat(document.getElementById('visina').value);
-        var M = parseFloat(document.getElementById('masa').value);
+        var Vstart = Number(document.getElementById('starost').value);
+        var H = Number(document.getElementById('visina').value);
+        var M = Number(document.getElementById('masa').value);
         var pol = document.getElementById('pol').value;
         var dug = document.getElementById('toksicni_dug').value;
-        var N_proizvoljno = parseFloat(document.getElementById('proizvoljne_kapi').value);
+        var N_proizvoljno = Number(document.getElementById('proizvoljne_kapi').value);
 
-        if (isNaN(Vstart) || isNaN(H) || isNaN(M) || isNaN(N_proizvoljno)) {
-            alert("Molimo unesite ispravne numeričke vrednosti.");
+        if (Vstart <= 0 || H <= 0 || M <= 0) {
+            alert("Molimo unesite ispravne parametre.");
             return;
         }
 
-        var SF = 0.007184 * window.Math.pow(M, 0.425) * window.Math.pow(H, 0.725);
+        // DuBois & DuBois stabilan proračun
+        var SF = 0.007184 * window.Math.exp(0.425 * window.Math.log(M)) * window.Math.exp(0.725 * window.Math.log(H));
         var FM = 1.0;
         var Fto = 0.0;
         
