@@ -43,13 +43,15 @@
             <label for="starost">Starost subjekta (godina)</label>
             <input type="text" id="starost" value="55">
         </div>
-        <div class="form-group">
-            <label for="visina">Telesna visina (cm)</label>
-            <input type="text" id="visina" value="176">
-        </div>
-        <div class="form-group">
-            <label for="masa">Telesna masa (kg)</label>
-            <input type="text" id="masa" value="86">
+        <div class="grid-sub" style="display: contents;">
+            <div class="form-group">
+                <label for="visina">Telesna visina (cm)</label>
+                <input type="text" id="visina" value="176">
+            </div>
+            <div class="form-group">
+                <label for="masa">Telesna masa (kg)</label>
+                <input type="text" id="masa" value="86">
+            </div>
         </div>
         <div class="form-group">
             <label for="pol">Pol subjekta</label>
@@ -119,6 +121,7 @@
             return;
         }
 
+        // UKLONJENA REČ WINDOW ISPRED MATH FUNKCIJA KOJA JE BLOKIRALA LOGIKU DUGMETA
         var SF = 0.007184 * Math.exp(0.425 * Math.log(M)) * Math.exp(0.725 * Math.log(H));
         var FM = 1.0;
         var Fto = 0.0;
@@ -166,7 +169,3 @@
         var Ve_proizvoljna = Vstart + (preostaliZivotProizvoljan * (1 + Fto));
 
         document.getElementById('res-sf').innerText = SF.toFixed(4) + " m²";
-        document.getElementById('res-fm').innerText = FM.toFixed(1);
-        document.getElementById('res-n').innerText = N_optimalno + " kapi";
-        document.getElementById('res-dnevni').innerText = dnevniVolumen + " kapi";
-        document.getElementById('res-nocni').innerText = nocniAnker + " kapi";
