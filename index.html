@@ -41,19 +41,18 @@
     <div class="grid">
         <div class="form-group">
             <label for="starost">Starost subjekta (godina)</label>
-            <input type="number" id="starost" value="55">
+            <input type="text" id="starost" value="55">
         </div>
         <div class="form-group">
             <label for="visina">Telesna visina (cm)</label>
-            <input type="number" id="visina" value="176">
+            <input type="text" id="visina" value="176">
         </div>
         <div class="form-group">
             <label for="masa">Telesna masa (kg)</label>
-            <input type="number" id="masa" value="86">
+            <input type="text" id="masa" value="86">
         </div>
         <div class="form-group">
             <label for="pol">Pol subjekta</label>
-            <!-- OVDE JE DODAT ID="POL" KOJI JE NEDOSTAJAO I BLOKIRAO DUGME -->
             <select id="pol">
                 <option value="Muski">Muški</option>
                 <option value="Zenski">Ženski</option>
@@ -69,7 +68,7 @@
         </div>
         <div class="form-group">
             <label for="proizvoljne_kapi" style="color: var(--warning);">Proizvoljan unos kapi joda</label>
-            <input type="number" id="proizvoljne_kapi" class="highlight-input" value="12">
+            <input type="text" id="proizvoljne_kapi" class="highlight-input" value="12">
         </div>
     </div>
 
@@ -120,7 +119,7 @@
             return;
         }
 
-        var SF = 0.007184 * window.Math.exp(0.425 * window.Math.log(M)) * window.Math.exp(0.725 * window.Math.log(H));
+        var SF = 0.007184 * Math.exp(0.425 * Math.log(M)) * Math.exp(0.725 * Math.log(H));
         var FM = 1.0;
         var Fto = 0.0;
         
@@ -132,8 +131,8 @@
             Fto = -0.25;
         }
 
-        var N_optimalno = window.Math.round(12 * SF * FM);
-        var dnevniVolumen = window.Math.round(N_optimalno * 0.833);
+        var N_optimalno = Math.round(12 * SF * FM);
+        var dnevniVolumen = Math.round(N_optimalno * 0.833);
         var nocniAnker = N_optimalno - dnevniVolumen;
 
         var volumenVode = dnevniVolumen * 50;
@@ -141,7 +140,7 @@
         var preostaleKapi = dnevniVolumen;
         
         for (var sat = 8; sat <= 22; sat++) {
-            var kapiUSatu = window.Math.ceil(preostaleKapi / (22 - sat + 1));
+            var kapiUSatu = Math.ceil(preostaleKapi / (22 - sat + 1));
             preostaleKapi -= kapiUSatu;
             var vremeString = sat < 10 ? "0" + sat + ":00č" : sat + ":00č";
             hronologijaHtml += vremeString + " — 50 ml (" + kapiUSatu + " kapi)<br>";
@@ -169,3 +168,5 @@
         document.getElementById('res-sf').innerText = SF.toFixed(4) + " m²";
         document.getElementById('res-fm').innerText = FM.toFixed(1);
         document.getElementById('res-n').innerText = N_optimalno + " kapi";
+        document.getElementById('res-dnevni').innerText = dnevniVolumen + " kapi";
+        document.getElementById('res-nocni').innerText = nocniAnker + " kapi";
