@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protokol Loboda</title>
+    <title>Protokol Loboda - Knjiga i Računar</title>
     <style>
-        body { font-family: sans-serif; background-color: #0a0f1d; color: white; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: #141d34; padding: 25px; border-radius: 12px; border: 1px solid #00ffcc; }
+        /* --- STIL ZA RAČUNAR (ORIGINALNI IDENTITET) --- */
+        body { 
+            font-family: 'Arial', sans-serif; 
+            background-color: #0a0f1d; 
+            color: white; 
+            padding: 20px; 
+            line-height: 1.8;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .container { max-width: 600px; margin: 0 auto 40px auto; background: #141d34; padding: 25px; border-radius: 12px; border: 1px solid #00ffcc; }
         h1, h3 { color: #00ffcc; text-align: center; margin-top: 0; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-size: 14px; color: #8fa0dd; }
@@ -19,10 +30,42 @@
         .alert { color: #ff3366; font-weight: bold; }
         .warn { color: #ffcc00; font-weight: bold; }
         .list { max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; font-family: monospace; font-size: 13px; }
+
+        /* --- STIL ZA TEKST KNJIŽEVNOG MODULA --- */
+        .book-container { max-width: 750px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: #e2e8f0; }
+        .cover-box { text-align: center; background: linear-gradient(135deg, #0f172a, #1e293b); padding: 40px 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #334155; }
+        .cover-box h1 { color: #38bdf8; font-size: 2.2em; text-transform: uppercase; margin: 10px 0; }
+        .cover-box h2 { color: #cbd5e1; font-size: 1.3em; font-weight: normal; margin-bottom: 15px; }
+        .author-tag { font-weight: bold; color: #94a3b8; font-size: 1.1em; margin-top: 20px; }
+        .disclaimer-box { background-color: #7c2d12; border-left: 4px solid #f97316; padding: 20px; margin: 30px 0; border-radius: 4px; font-size: 0.95em; color: #ffedd5; }
+        .book-section-title { color: #38bdf8; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-top: 40px; font-size: 1.5em; text-align: left; }
+        
+        /* Matrica skoka (Tabela) */
+        .matrix-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; background: #0f172a; border-radius: 6px; overflow: hidden; }
+        .matrix-table th, .matrix-table td { padding: 12px; border: 1px solid #334155; text-align: left; }
+        .matrix-table th { background: #1e293b; color: #38bdf8; }
+        
+        /* Zaštitna digitalna rampa */
+        .blurred-content { filter: blur(6px); opacity: 0.2; pointer-events: none; user-select: none; }
+        .lock-overlay { background: #0f172a; border: 2px dashed #38bdf8; padding: 35px; text-align: center; border-radius: 8px; margin: 30px 0; position: relative; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .lock-title { font-size: 1.4em; font-weight: bold; color: #f43f5e; margin-bottom: 15px; letter-spacing: 1px; }
+        .btn-group { display: flex; gap: 20px; justify-content: center; margin-top: 25px; flex-wrap: wrap; }
+        .btn-book { padding: 12px 30px; font-size: 1em; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .btn-friend { background-color: #475569; color: white; }
+        .btn-friend:hover { background-color: #334155; border: 1px solid #38bdf8; }
+        .btn-pay { background-color: #059669; color: white; }
+        .btn-pay:hover { background-color: #047857; border: 1px solid #38bdf8; }
+        
+        /* Modalni prozori */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
+        .modal-content { background: #1e293b; padding: 35px; border-radius: 10px; max-width: 500px; width: 90%; border: 1px solid #38bdf8; color: #e2e8f0; position: relative; }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.6em; cursor: pointer; color: #94a3b8; }
+        .uplatnica { border: 2px solid #38bdf8; padding: 20px; background: #0f172a; font-family: monospace; color: #e2e8f0; margin-top: 15px; line-height: 1.6; border-radius: 4px; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
+<!-- ================= 1. RAČUNAR (PROTOKOL LOBODA) ================= -->
 <div class="container">
     <h1>Protokol Loboda</h1>
     <p style="text-align:center; color:#8fa0dd; font-size:13px; margin-top:-10px;">Biofizički proračun i trostepena prognoza</p>
@@ -56,7 +99,6 @@
     </div>
     <div class="form-group">
         <label style="color:#ffcc00;">Eksperimentalni unos kapi joda:</label>
-        <!-- OVDE JE PODESEN ID SUDRŽAN SA SKRIPTOM "PROIZVOLJNO" -->
         <input type="number" id="proizvoljno" value="12" style="border-color:#ffcc00;">
     </div>
     
@@ -77,7 +119,7 @@
         </div>
         
         <div class="phase">
-            <label style="color:#00ffcc; font-weight:bold; margin-bottom:5px; display:block;">Satnica vodenog štita:</label>
+            <div class="row"><span>Satnica vodenog štita:</span></div>
             <div id="out-satnica" class="list"></div>
         </div>
         
@@ -89,68 +131,26 @@
     </div>
 </div>
 
-<script>
-    function pokreniSimulaciju() {
-        var v = Number(document.getElementById('starost').value);
-        var h = Number(document.getElementById('visina').value);
-        var m = Number(document.getElementById('masa').value);
-        var p = document.getElementById('pol').value;
-        var d = document.getElementById('dug').value;
-        var pr = Number(document.getElementById('proizvoljno').value);
-        
-        if(v <= 0 || h <= 0 || m <= 0 || isNaN(pr)) {
-            alert("Unesite ispravne podatke.");
-            return;
-        }
-        
-        var sf = 0.007184 * Math.pow(m, 0.425) * Math.pow(h, 0.725);
-        var fm = 1.0;
-        var fto = 0.0;
-        
-        if(d === "srednje") { fm = 1.3; fto = -0.10; }
-        if(d === "maksimalno") { fm = 1.6; fto = -0.25; }
-        
-        var n = Math.round(12 * sf * fm);
-        var dan = Math.round(n * 0.833);
-        var noc = n - dan;
-        var voda = dan * 50;
-        
-        var html = "";
-        var preostalo = dan;
-        for(var s = 8; s <= 22; s++) {
-            var kapi = Math.ceil(preostalo / (22 - s + 1));
-            preostalo -= kapi;
-            html += (s < 10 ? "0" + s : s) + ":00č — doza 50 ml (" + kapi + " kapi)<br>";
-        }
-        
-        var vn = (p === "Muski") ? 82.9 : 89.0;
-        var khut = 6.6667;
-        
-        var pz1 = vn - v; if(pz1 < 0) pz1 = 0;
-        var v1 = v + (pz1 * (1 + fto));
-        
-        var pz2 = (vn - v) * khut; if(pz2 < 0) pz2 = 0;
-        var v2 = v + (pz2 * (1 + fto));
-        
-        var odnos = n > 0 ? (pr / n) : 0;
-        if(odnos > 1) odnos = 1;
-        var khu2 = khut * odnos;
-        var pz3 = (vn - v) * khu2; if(pz3 < 0) pz3 = 0;
-        var v3 = v + (pz3 * (1 + fto));
-        
-        document.getElementById('out-sf').innerText = sf.toFixed(4) + " m²";
-        document.getElementById('out-n').innerText = n + " kapi";
-        document.getElementById('out-dan').innerText = dan + " kapi";
-        document.getElementById('out-noc').innerText = noc + " kapi";
-        document.getElementById('out-voda').innerText = voda + " ml";
-        document.getElementById('out-satnica').innerHTML = html;
-        document.getElementById('out-v1').innerText = v1.toFixed(1) + " godina";
-        document.getElementById('out-v2').innerText = v2.toFixed(1) + " godina";
-        document.getElementById('out-v3').innerText = v3.toFixed(1) + " godina";
-        
-        document.getElementById('prikaz').style.display = 'block';
-    }
-</script>
+<!-- ================= 2. MASTER MONOGRAFIJA ================= -->
+<div class="book-container">
+    <div class="cover-box">
+        <p style="font-weight: bold; letter-spacing: 2px; color: #38bdf8;">NAUČNA ALTERNATIVNA MEDICINA</p>
+        <p style="font-style: italic; font-size: 0.95em; color: #94a3b8; padding: 0 25px;">
+            "Ne postoje hiljade bolesti, postoji samo jedna jedina hronična bolest – STARENJE (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara!"
+        </p>
+        <h1>REDOKS JURIŠ:</h1>
+        <h2>DOSTIZANJE MAKSIMALNOG GENETSKOG KODA DUGOVEČNOSTI</h2>
+        <p style="font-size: 0.95em; color: #94a3b8; max-width: 550px; margin: 20px auto;">
+            Inženjerski kod oksido-redukcione medicine u službi biološkog podmlađivanja tkiva i konzervacije ćelijskog sata
+        </p>
+        <p class="author-tag">Master inženjer Dragan Loboda</p>
+        <p style="font-size: 0.9em; font-weight: bold; margin-top: 15px; color: #38bdf8;">ISBN 978-86-903366-2-3</p>
+    </div>
 
-</body>
-</html>
+    <div class="disclaimer-box">
+        <strong>VAŽNA NAPOMENA: ODRICANJE OD ODGOVORNOSTI (DISCLAIMER)</strong><br><br>
+        Ova knjiga predstavlja naučno, inženjersko i teorijsko istraživanje u oblasti biofizičke homeostaze organizma i ne zamenjuje zvanične medicinske savete, dijagnostiku niti lečenje. Protokol Medicinske teorije oksido-redukcije, odnosno koncept pod nazivom "REDOKS JURIŠ", predlaže specifičan sistem unosa. Ceo protokol predviđen je i proračunat NE ZA ČOVEKA, VEĆ ZA ZAMIŠLJENOG „KLONA OD ČOVEKA“. Svaki čitalac koji odluči da preporuke primeni na sopstvenom telu – to čini isključivo na LIČNU ODGOVORNOST.
+    </div>
+
+    <div class="book-section-title">UVOD U REVOLUCIJU REDOKS PARADIGME</div>
+    <p>
