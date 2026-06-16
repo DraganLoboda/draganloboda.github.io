@@ -1,156 +1,280 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protokol Loboda</title>
-    <style>
-        body { font-family: sans-serif; background-color: #0a0f1d; color: white; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: #141d34; padding: 25px; border-radius: 12px; border: 1px solid #00ffcc; }
-        h1, h3 { color: #00ffcc; text-align: center; margin-top: 0; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-size: 14px; color: #8fa0dd; }
-        input, select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334767; background: #0a0f1d; color: white; box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; padding: 12px; font-size: 16px; font-weight: bold; background: #00ffcc; color: #0a0f1d; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px; }
-        .results { margin-top: 25px; padding-top: 20px; border-top: 1px dashed #334767; display: none; }
-        .phase { background: #0a0f1d; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #1f2d4a; }
-        .row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
-        .val { font-weight: bold; color: #00ffcc; }
-        .alert { color: #ff3366; font-weight: bold; }
-        .warn { color: #ffcc00; font-weight: bold; }
-        .list { max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; font-family: monospace; font-size: 13px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naučna alternativna medicina | Dragan Loboda</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    line-height:1.7;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+header{
+    text-align:center;
+    padding:70px 20px;
+}
+
+header h1{
+    font-size:3rem;
+    color:#d4af37;
+    margin-bottom:15px;
+}
+
+header h2{
+    font-size:1.6rem;
+    font-weight:normal;
+    margin-bottom:10px;
+}
+
+.author{
+    font-size:1.2rem;
+    color:#cbd5e1;
+}
+
+.quote{
+    margin-top:40px;
+    font-size:1.2rem;
+    font-style:italic;
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
+    color:#f8fafc;
+}
+
+.section{
+    padding:60px 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2rem;
+    color:#d4af37;
+    margin-bottom:35px;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.btn{
+    display:block;
+    text-decoration:none;
+    text-align:center;
+    background:#334155;
+    color:white;
+    padding:25px;
+    border-radius:15px;
+    transition:0.3s;
+    border:2px solid #475569;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+    border-color:#d4af37;
+}
+
+.btn-title{
+    font-size:1.2rem;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.about{
+    background:rgba(255,255,255,0.05);
+    border-radius:15px;
+    padding:30px;
+}
+
+.books{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    max-width:800px;
+    margin:auto;
+}
+
+.book{
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    border-radius:12px;
+}
+
+footer{
+    text-align:center;
+    padding:40px 20px;
+    color:#cbd5e1;
+}
+
+.cover-placeholder{
+    width:280px;
+    height:400px;
+    border:3px dashed #d4af37;
+    margin:40px auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#d4af37;
+    border-radius:15px;
+}
+
+@media(max-width:768px){
+
+header h1{
+    font-size:2rem;
+}
+
+header h2{
+    font-size:1.2rem;
+}
+
+.quote{
+    font-size:1rem;
+}
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Protokol Loboda</h1>
-    <p style="text-align:center; color:#8fa0dd; font-size:13px; margin-top:-10px;">Biofizički proračun i trostepena prognoza</p>
-    
-    <div class="form-group">
-        <label>Starost subjekta (godina):</label>
-        <input type="number" id="starost" value="55">
-    </div>
-    <div class="form-group">
-        <label>Telesna visina (cm):</label>
-        <input type="number" id="visina" value="176">
-    </div>
-    <div class="form-group">
-        <label>Telesna masa (kg):</label>
-        <input type="number" id="masa" value="86">
-    </div>
-    <div class="form-group">
-        <label>Pol subjekta:</label>
-        <select id="pol">
-            <option value="Muski">Muški</option>
-            <option value="Zenski">Ženski</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Ekološki i toksični dug:</label>
-        <select id="dug">
-            <option value="baza">Baza (Čist teren, nepušač)</option>
-            <option value="srednje">Srednji šum (Smog / bivši pušač)</option>
-            <option value="maksimalno">Maksimalni šum (Aktivni pušač)</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label style="color:#ffcc00;">Eksperimentalni unos kapi joda:</label>
-        <!-- OVDE JE PODESEN ID SUDRŽAN SA SKRIPTOM "PROIZVOLJNO" -->
-        <input type="number" id="proizvoljno" value="12" style="border-color:#ffcc00;">
-    </div>
-    
-    <button onclick="pokreniSimulaciju()">POKRENI PRORAČUN</button>
-    
-    <div id="prikaz" class="results">
-        <h3>REZULTATI SIMULACIJE</h3>
-        
-        <div class="phase">
-            <div class="row"><span>Površina tela (SF):</span><span id="out-sf" class="val">0</span></div>
-            <div class="row"><span>Optimalan dnevni unos (N):</span><span id="out-n" class="val" style="font-size:16px;">0 kapi</span></div>
-        </div>
-        
-        <div class="phase">
-            <div class="row"><span>Dnevni jurišni volumen (15h):</span><span id="out-dan" class="val">0 kapi</span></div>
-            <div class="row"><span>Noćni lipidni anker (9h):</span><span id="out-noc" class="val">0 kapi</span></div>
-            <div class="row"><span>Ukupan volumen vode:</span><span id="out-voda" class="val">0 ml</span></div>
-        </div>
-        
-        <div class="phase">
-            <label style="color:#00ffcc; font-weight:bold; margin-bottom:5px; display:block;">Satnica vodenog štita:</label>
-            <div id="out-satnica" class="list"></div>
-        </div>
-        
-        <div class="phase">
-            <div class="row"><span>1. Bez halogene jodne zaštite:</span><span id="out-v1" class="alert">0</span></div>
-            <div class="row"><span>2. Sa PUNOM jodnom zaštitom:</span><span id="out-v2" class="val">0</span></div>
-            <div class="row"><span>3. Sa EKSPERIMENTALNIM unosom:</span><span id="out-v3" class="warn">0</span></div>
-        </div>
-    </div>
+<header class="container">
+
+<h1>NAUČNA ALTERNATIVNA MEDICINA</h1>
+
+<h2>Dragan Loboda</h2>
+
+<div class="author">
+Autor Medicinske teorije oksido-redukcije
 </div>
 
-<script>
-    function pokreniSimulaciju() {
-        var v = Number(document.getElementById('starost').value);
-        var h = Number(document.getElementById('visina').value);
-        var m = Number(document.getElementById('masa').value);
-        var p = document.getElementById('pol').value;
-        var d = document.getElementById('dug').value;
-        var pr = Number(document.getElementById('proizvoljno').value);
-        
-        if(v <= 0 || h <= 0 || m <= 0 || isNaN(pr)) {
-            alert("Unesite ispravne podatke.");
-            return;
-        }
-        
-        var sf = 0.007184 * Math.pow(m, 0.425) * Math.pow(h, 0.725);
-        var fm = 1.0;
-        var fto = 0.0;
-        
-        if(d === "srednje") { fm = 1.3; fto = -0.10; }
-        if(d === "maksimalno") { fm = 1.6; fto = -0.25; }
-        
-        var n = Math.round(12 * sf * fm);
-        var dan = Math.round(n * 0.833);
-        var noc = n - dan;
-        var voda = dan * 50;
-        
-        var html = "";
-        var preostalo = dan;
-        for(var s = 8; s <= 22; s++) {
-            var kapi = Math.ceil(preostalo / (22 - s + 1));
-            preostalo -= kapi;
-            html += (s < 10 ? "0" + s : s) + ":00č — doza 50 ml (" + kapi + " kapi)<br>";
-        }
-        
-        var vn = (p === "Muski") ? 82.9 : 89.0;
-        var khut = 6.6667;
-        
-        var pz1 = vn - v; if(pz1 < 0) pz1 = 0;
-        var v1 = v + (pz1 * (1 + fto));
-        
-        var pz2 = (vn - v) * khut; if(pz2 < 0) pz2 = 0;
-        var v2 = v + (pz2 * (1 + fto));
-        
-        var odnos = n > 0 ? (pr / n) : 0;
-        if(odnos > 1) odnos = 1;
-        var khu2 = khut * odnos;
-        var pz3 = (vn - v) * khu2; if(pz3 < 0) pz3 = 0;
-        var v3 = v + (pz3 * (1 + fto));
-        
-        document.getElementById('out-sf').innerText = sf.toFixed(4) + " m²";
-        document.getElementById('out-n').innerText = n + " kapi";
-        document.getElementById('out-dan').innerText = dan + " kapi";
-        document.getElementById('out-noc').innerText = noc + " kapi";
-        document.getElementById('out-voda').innerText = voda + " ml";
-        document.getElementById('out-satnica').innerHTML = html;
-        document.getElementById('out-v1').innerText = v1.toFixed(1) + " godina";
-        document.getElementById('out-v2').innerText = v2.toFixed(1) + " godina";
-        document.getElementById('out-v3').innerText = v3.toFixed(1) + " godina";
-        
-        document.getElementById('prikaz').style.display = 'block';
-    }
-</script>
+<div class="cover-placeholder">
+OVDE ĆE KASNIJE BITI<br>
+KORICA KNJIGE
+</div>
+
+<div class="quote">
+"Ne postoje hiljade bolesti, postoji samo jedna hronična bolest – starenje (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara."
+</div>
+
+</header>
+
+<section class="section container">
+
+<h2 class="section-title">Pristup sadržaju</h2>
+
+<div class="buttons">
+
+<a href="kalkulator.html" class="btn">
+<div class="btn-title">🧮 KALKULATOR DUGOVEČNOSTI</div>
+PROTOKOL LOBODA
+</a>
+
+<a href="knjiga-sr.html" class="btn">
+<div class="btn-title">📖 REDOKS JURIŠ</div>
+Srpsko izdanje
+</a>
+
+<a href="book-en.html" class="btn">
+<div class="btn-title">🌍 MEĐUNARODNA IZDANJA</div>
+Engleski, nemački, ruski i kineski jezik
+</a>
+
+<a href="kontakt.html" class="btn">
+<div class="btn-title">📞 KONTAKT AUTORA</div>
+Informacije i zahtevi za pristup
+</a>
+
+</div>
+
+</section>
+
+<section class="section container">
+
+<h2 class="section-title">O projektu</h2>
+
+<div class="about">
+
+<p>
+Ova platforma predstavlja rad Dragana Lobode, autora Medicinske teorije oksido-redukcije i kreatora Protokola Loboda.
+</p>
+
+<br>
+
+<p>
+Na sajtu su dostupni kalkulator dugovečnosti, knjige autora, istraživački materijali i buduća međunarodna izdanja.
+</p>
+
+<br>
+
+<p>
+Cilj projekta je proučavanje biofizičkih, elektrohemijskih i oksido-redukcionih procesa povezanih sa zdravljem, vitalnošću i dugovečnošću.
+</p>
+
+</div>
+
+</section>
+
+<section class="section container">
+
+<h2 class="section-title">Knjige autora</h2>
+
+<div class="books">
+
+<div class="book">
+📘 Medicinska teorija – Lečenje oksido-redukcijom
+</div>
+
+<div class="book">
+📘 Redoks juriš – Dostizanje maksimalnog genetskog koda dugovečnosti
+</div>
+
+</div>
+
+</section>
+
+<section class="section container">
+
+<h2 class="section-title">Reč o autoru</h2>
+
+<div class="about">
+
+<p>
+Dragan Loboda je master inženjer za održavanje i eksploataciju mehanizacije u poljoprivredi, nezavisni istraživač i autor Medicinske teorije oksido-redukcije.
+</p>
+
+<br>
+
+<p>
+Višedecenijsko proučavanje prirodnih procesa, termodinamike, kinetike fluida i biofizičkih sistema dovelo je do razvoja teorijskih modela i praktičnih protokola usmerenih na proučavanje procesa starenja i ćelijske vitalnosti.
+</p>
+
+</div>
+
+</section>
+
+<footer>
+
+© Dragan Loboda | Naučna alternativna medicina
+
+</footer>
 
 </body>
 </html>
