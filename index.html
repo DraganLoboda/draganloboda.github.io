@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protokol Loboda - Knjiga i Kalkulator</title>
     <style>
-        /* --- ORIGINALNI DIZAJN VAŠEG RAČUNARA --- */
         body { 
             font-family: 'Arial', sans-serif; 
             background-color: #0a0f1d; 
             color: white; 
             padding: 20px; 
             line-height: 1.8;
-            /* Zastita od selektovanja teksta */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -32,7 +30,6 @@
         .warn { color: #ffcc00; font-weight: bold; }
         .list { max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; font-family: monospace; font-size: 13px; }
 
-        /* --- NOVI DIZAJN KNJIGE I PRELOMA --- */
         .book-container { max-width: 750px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: #e2e8f0; }
         .cover-box { text-align: center; background: linear-gradient(135deg, #0f172a, #1e293b); padding: 40px 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #334155; }
         .cover-box h1 { color: #38bdf8; font-size: 2.2em; text-transform: uppercase; margin: 10px 0; }
@@ -41,9 +38,8 @@
         .disclaimer-box { background-color: #7c2d12; border-left: 4px solid #f97316; padding: 20px; margin: 30px 0; border-radius: 4px; font-size: 0.95em; color: #ffedd5; }
         .book-section-title { color: #38bdf8; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-top: 40px; font-size: 1.5em; text-align: left; }
         
-        /* Zastitna Digitalna Rampa */
-        .blurred-content { filter: blur(5px); opacity: 0.25; pointer-events: none; user-select: none; }
-        .lock-overlay { background: #0f172a; border: 2px dashed #38bdf8; padding: 35px; text-align: center; border-radius: 8px; margin-top: -30px; position: relative; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .blurred-content { filter: blur(6px); opacity: 0.2; pointer-events: none; user-select: none; }
+        .lock-overlay { background: #0f172a; border: 2px dashed #38bdf8; padding: 35px; text-align: center; border-radius: 8px; margin: 30px 0; position: relative; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
         .lock-title { font-size: 1.4em; font-weight: bold; color: #f43f5e; margin-bottom: 15px; letter-spacing: 1px; }
         .btn-group { display: flex; gap: 20px; justify-content: center; margin-top: 25px; flex-wrap: wrap; }
         .btn-book { padding: 12px 30px; font-size: 1em; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
@@ -52,18 +48,14 @@
         .btn-pay { background-color: #059669; color: white; }
         .btn-pay:hover { background-color: #047857; border: 1px solid #38bdf8; }
         
-        /* Modalni Prozori */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
         .modal-content { background: #1e293b; padding: 35px; border-radius: 10px; max-width: 500px; width: 90%; border: 1px solid #38bdf8; color: #e2e8f0; position: relative; }
         .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.6em; cursor: pointer; color: #94a3b8; }
-        .close-btn:hover { color: #f43f5e; }
         .uplatnica { border: 2px solid #38bdf8; padding: 20px; background: #0f172a; font-family: monospace; color: #e2e8f0; margin-top: 15px; line-height: 1.6; border-radius: 4px; }
     </style>
 </head>
-<!-- Kompletno gasenje desnog klika i komandi tastature za nultu stopu kradje -->
-<body oncontextmenu="return false;" onkeydown="return false;">
+<body oncontextmenu="return false;">
 
-<!-- ================= ELEMENT A: VAŠ POLAZNI RAČUNAR ================= -->
 <div class="container">
     <h1>Protokol Loboda</h1>
     <p style="text-align:center; color:#8fa0dd; font-size:13px; margin-top:-10px;">Biofizički proračun i trostepena prognoza</p>
@@ -129,9 +121,7 @@
     </div>
 </div>
 
-<!-- ================= ELEMENT B: NOVA MODULARNA KNJIGA ================= -->
 <div class="book-container">
-    
     <div class="cover-box">
         <p style="font-weight: bold; letter-spacing: 2px; color: #38bdf8;">NAUČNA ALTERNATIVNA MEDICINA</p>
         <p style="font-style: italic; font-size: 0.95em; color: #94a3b8; padding: 0 25px;">
@@ -148,3 +138,11 @@
 
     <div class="disclaimer-box">
         <strong>VAŽNA NAPOMENA: ODRICANJE OD ODGOVORNOSTI (DISCLAIMER)</strong><br><br>
+        Ova knjiga predstavlja naučno, inženjersko i teorijsko istraživanje u oblasti biofizičke homeostaze organizma i ne zamenjuje zvanične medicinske savete, dijagnostiku niti lečenje. Protokol Medicinske teorije oksido-redukcije, odnosno koncept pod nazivom "REDOKS JURIŠ", predlaže specifičan sistem unosa. Ceo protokol predviđen je i proračunat NE ZA ČOVEKA, VEĆ ZA ZAMIŠLJENOG „KLONA OD ČOVEKA“. Svaki čitalac koji odluči da preporuke primeni na sopstvenom telu – to čini isključivo na LIČNU ODGOVORNOST.
+    </div>
+
+    <div class="book-section-title">UVOD U REVOLUCIJU REDOKS PARADIGME</div>
+    <p>
+        Svaki čitalac koji uzme ovu knjigu u ruke postavlja sebi jedno suštinsko, gotovo sudbonosno pitanje: Da li je dužina funkcionalnog veka unapred zapisana kao nepromenjiva biološka presuda, ili je starenje samo serija tehničkih kvarova unutar ćelijskih baterija koje možemo inženjerski da popravimo i vratimo na fabrička podešavanja?
+    </p>
+    <p>
