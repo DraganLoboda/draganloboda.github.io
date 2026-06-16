@@ -3,158 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REDOKS JURIŠ - Master Inženjer Dragan Loboda</title>
+    <title>Protokol Loboda - Knjiga i Kalkulator</title>
     <style>
-        /* Gvozdeni vizuelni identitet i geometrija stranice */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f7f6;
-            color: #2c3e50;
+        body { 
+            font-family: 'Arial', sans-serif; 
+            background-color: #0a0f1d; 
+            color: white; 
+            padding: 20px; 
             line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            /* Aktivna CSS zaštita od selektovanja teksta */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            background: #ffffff;
-            padding: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-radius: 8px;
-        }
-        .cover-box {
-            text-align: center;
-            background: linear-gradient(135deg, #e0eafc, #cfdef3);
-            padding: 40px 20px;
-            border-radius: 6px;
-            margin-bottom: 30px;
-        }
-        h1 { color: #1a365d; font-size: 2.2em; text-transform: uppercase; margin: 10px 0; letter-spacing: 1px; }
-        h2 { color: #2c3e50; font-size: 1.4em; margin-bottom: 20px; font-weight: normal; }
-        h3 { color: #2c3e50; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-top: 40px; }
-        .author-tag { font-weight: bold; color: #4a5568; margin-top: 20px; }
-        .disclaimer-box { background-color: #fffaf0; border-left: 4px solid #dd6b20; padding: 20px; margin: 30px 0; border-radius: 4px; }
+        .container { max-width: 600px; margin: 0 auto 40px auto; background: #141d34; padding: 25px; border-radius: 12px; border: 1px solid #00ffcc; }
+        h1, h3 { color: #00ffcc; text-align: center; margin-top: 0; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 14px; color: #8fa0dd; }
+        input, select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334767; background: #0a0f1d; color: white; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 12px; font-size: 16px; font-weight: bold; background: #00ffcc; color: #0a0f1d; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+        .results { margin-top: 25px; padding-top: 20px; border-top: 1px dashed #334767; display: none; }
+        .phase { background: #0a0f1d; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #1f2d4a; }
+        .row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .val { font-weight: bold; color: #00ffcc; }
+        .alert { color: #ff3366; font-weight: bold; }
+        .warn { color: #ffcc00; font-weight: bold; }
+        .list { max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; font-family: monospace; font-size: 13px; }
+
+        .book-container { max-width: 750px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: #e2e8f0; }
+        .cover-box { text-align: center; background: linear-gradient(135deg, #0f172a, #1e293b); padding: 40px 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #334155; }
+        .cover-box h1 { color: #38bdf8; font-size: 2.2em; text-transform: uppercase; margin: 10px 0; }
+        .cover-box h2 { color: #cbd5e1; font-size: 1.3em; font-weight: normal; margin-bottom: 15px; }
+        .author-tag { font-weight: bold; color: #94a3b8; font-size: 1.1em; margin-top: 20px; }
+        .disclaimer-box { background-color: #7c2d12; border-left: 4px solid #f97316; padding: 20px; margin: 30px 0; border-radius: 4px; font-size: 0.95em; color: #ffedd5; }
+        .book-section-title { color: #38bdf8; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-top: 40px; font-size: 1.5em; text-align: left; }
         
-        /* Zaštitni Blur i Rampa za Poglavlje 2 */
-        .blurred-content {
-            filter: blur(5px);
-            opacity: 0.3;
-            pointer-events: none;
-            user-select: none;
-        }
-        .lock-overlay {
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            padding: 30px;
-            text-align: center;
-            border-radius: 8px;
-            margin-top: -50px;
-            position: relative;
-            z-index: 10;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-        .lock-title { font-size: 1.3em; font-weight: bold; color: #e11d48; margin-bottom: 15px; }
+        .matrix-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; background: #0f172a; border-radius: 6px; overflow: hidden; }
+        .matrix-table th, .matrix-table td { padding: 12px; border: 1px solid #334155; text-align: left; }
+        .matrix-table th { background: #1e293b; color: #38bdf8; }
+        
+        .blurred-content { filter: blur(6px); opacity: 0.2; pointer-events: none; user-select: none; }
+        .lock-overlay { background: #0f172a; border: 2px dashed #38bdf8; padding: 35px; text-align: center; border-radius: 8px; margin: 30px 0; position: relative; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .lock-title { font-size: 1.4em; font-weight: bold; color: #f43f5e; margin-bottom: 15px; letter-spacing: 1px; }
         .btn-group { display: flex; gap: 20px; justify-content: center; margin-top: 25px; flex-wrap: wrap; }
-        .btn { padding: 12px 25px; font-size: 1em; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; transition: all 0.2s; }
+        .btn-book { padding: 12px 30px; font-size: 1em; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
         .btn-friend { background-color: #475569; color: white; }
-        .btn-friend:hover { background-color: #334155; }
+        .btn-friend:hover { background-color: #334155; border: 1px solid #38bdf8; }
         .btn-pay { background-color: #059669; color: white; }
-        .btn-pay:hover { background-color: #047857; }
+        .btn-pay:hover { background-color: #047857; border: 1px solid #38bdf8; }
         
-        /* Modalni prozori za opcije */
-        .modal { display: none; fixed; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 30px; border-radius: 8px; max-width: 500px; width: 90%; box-shadow: 0 20px 25px rgba(0,0,0,0.1); position: relative; }
-        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.5em; cursor: pointer; color: #94a3b8; }
-        .uplatnica { border: 2px solid #1e3a8a; padding: 20px; background: #fff; font-family: monospace; color: #000; margin-top: 15px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
+        .modal-content { background: #1e293b; padding: 35px; border-radius: 10px; max-width: 500px; width: 90%; border: 1px solid #38bdf8; color: #e2e8f0; position: relative; }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.6em; cursor: pointer; color: #94a3b8; }
+        .uplatnica { border: 2px solid #38bdf8; padding: 20px; background: #0f172a; font-family: monospace; color: #e2e8f0; margin-top: 15px; line-height: 1.6; border-radius: 4px; }
     </style>
 </head>
-<!-- Oncontextmenu i onkeydown skripte za potpunu blokadu desnog klika i Ctrl+C komandi -->
-<body oncontextmenu="return false;" onkeydown="return false;">
+<body>
 
 <div class="container">
+    <h1>Protokol Loboda</h1>
+    <p style="text-align:center; color:#8fa0dd; font-size:13px; margin-top:-10px;">Biofizički proračun i trostepena prognoza</p>
+    
+    <div class="form-group">
+        <label>Starost subjekta (godina):</label>
+        <input type="number" id="starost" value="55">
+    </div>
+    <div class="form-group">
+        <label>Telesna visina (cm):</label>
+        <input type="number" id="visina" value="176">
+    </div>
+    <div class="form-group">
+        <label>Telesna masa (kg):</label>
+        <input type="number" id="masa" value="86">
+    </div>
+    <div class="form-group">
+        <label>Pol subjekta:</label>
+        <select id="pol">
+            <option value="Muski">Muški</option>
+            <option value="Zenski">Ženski</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Ekološki i toksični dug:</label>
+        <select id="dug">
+            <option value="baza">Baza (Čist teren, nepušač)</option>
+            <option value="srednje">Srednji šum (Smog / bivši pušač)</option>
+            <option value="maksimalno">Maksimalni šum (Aktivni pušač)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label style="color:#ffcc00;">Eksperimentalni unos kapi joda:</label>
+        <input type="number" id="proizvoljno" value="12" style="border-color:#ffcc00;">
+    </div>
+    
+    <button onclick="pokreniSimulaciju()">POKRENI PRORAČUN</button>
+    
+    <div id="prikaz" class="results">
+        <h3>REZULTATI SIMULACIJE</h3>
+        
+        <div class="phase">
+            <div class="row"><span>Površina tela (SF):</span><span id="out-sf" class="val">0</span></div>
+            <div class="row"><span>Optimalan dnevni unos (N):</span><span id="out-n" class="val" style="font-size:16px;">0 kapi</span></div>
+        </div>
+        
+        <div class="phase">
+            <div class="row"><span>Dnevni jurišni volumen (15h):</span><span id="out-dan" class="val">0 kapi</span></div>
+            <div class="row"><span>Noćni lipidni anker (9h):</span><span id="out-noc" class="val">0 kapi</span></div>
+            <div class="row"><span>Ukupan volumen vode:</span><span id="out-voda" class="val">0 ml</span></div>
+        </div>
+        
+        <div class="phase">
+            <label style="color:#00ffcc; font-weight:bold; margin-bottom:5px; display:block;">Satnica vodenog štita:</label>
+            <div id="out-satnica" class="list"></div>
+        </div>
+        
+        <div class="phase">
+            <div class="row"><span>1. Bez halogene jodne zaštite:</span><span id="out-v1" class="alert">0</span></div>
+            <div class="row"><span>2. Sa PUNOM jodnom zaštitom:</span><span id="out-v2" class="val">0</span></div>
+            <div class="row"><span>3. Sa EKSPERIMENTALNIM unosom:</span><span id="out-v3" class="warn">0</span></div>
+        </div>
+    </div>
+</div>
 
-    <!-- ZONA A: Prednja korica i Impresum -->
+<div class="book-container">
     <div class="cover-box">
-        <p style="font-weight: bold; letter-spacing: 2px; color: #4a5568;">NAUČNA ALTERNATIVNA MEDICINA</p>
-        <p style="font-style: italic; font-size: 0.95em; color: #4a5568; padding: 0 20px;">
+        <p style="font-weight: bold; letter-spacing: 2px; color: #38bdf8;">NAUČNA ALTERNATIVNA MEDICINA</p>
+        <p style="font-style: italic; font-size: 0.95em; color: #94a3b8; padding: 0 25px;">
             "Ne postoje hiljade bolesti, postoji samo jedna jedina hronična bolest – STARENJE (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara!"
         </p>
         <h1>REDOKS JURIŠ:</h1>
         <h2>DOSTIZANJE MAKSIMALNOG GENETSKOG KODA DUGOVEČNOSTI</h2>
-        <p style="font-size: 0.95em; color: #718096; max-width: 500px; margin: 20px auto;">
+        <p style="font-size: 0.95em; color: #94a3b8; max-width: 550px; margin: 20px auto;">
             Inženjerski kod oksido-redukcione medicine u službi biološkog podmlađivanja tkiva i konzervacije ćelijskog sata
         </p>
         <p class="author-tag">Master inženjer Dragan Loboda</p>
-        <p style="font-size: 0.85em; font-weight: bold; margin-top: 15px; color: #1a365d;">ISBN 978-86-903366-2-3</p>
+        <p style="font-size: 0.9em; font-weight: bold; margin-top: 15px; color: #38bdf8;">ISBN 978-86-903366-2-3</p>
     </div>
 
     <div class="disclaimer-box">
         <strong>VAŽNA NAPOMENA: ODRICANJE OD ODGOVORNOSTI (DISCLAIMER)</strong><br><br>
-        Ova knjiga predstavlja naučno, inženjersko i teorijsko istraživanje u oblasti biofizičke homeostaze organizma i ne zamenjuje zvanične medicinske savete, dijagnostiku niti lečenje. Sve preporuke i jednačine proračunate su isključivo za zamišljeni model "čovekovog klona". Svaki čitalac koji odluči da ove teorijske postavke samoinicijativno primeni na sopstvenom telu – to čini isključivo na LIČNU ODGOVORNOST [2.36].
+        Ova knjiga predstavlja naučno, inženjersko i teorijsko istraživanje u oblasti biofizičke homeostaze organizma i ne zamenjuje zvanične medicinske savete, dijagnostiku niti lečenje. Protokol Medicinske teorije oksido-redukcije, odnosno koncept pod nazivom "REDOKS JURIŠ", predlaže specifičan sistem unosa. Ceo protokol predviđen je i proračunat NE ZA ČOVEKA, VEĆ ZA ZAMIŠLJENOG „KLONA OD ČOVEKA“. Svaki čitalac koji odluči da preporuke primeni na sopstvenom telu – to čini isključivo na LIČNU ODGOVORNOST.
     </div>
 
-    <!-- POGLAVLJE 1: Potpuno besplatno čitanje -->
-    <h3>UVOD U REVOLUCIJU REDOKS PARADIGME</h3>
+    <div class="book-section-title">UVOD U REVOLUCIJU REDOKS PARADIGME</div>
     <p>
-        Svaki čitalac koji uzme ovu knjigu u ruke postavlja sebi jedno suštinsko, gotovo sudbonosno pitanje: Da li je dužina funkcionalnog veka unapred zapisana kao nepromenjiva biološka presuda, ili je starenje samo serija tehničkih kvarova unutar ćelijskih baterija koje možemo inženjerski da popravimo i vratimo na fabrička podešavanja [2.36]?
+        Svaki čitalac koji uzme ovu knjigu u ruke postavlja sebi jedno suštinsko, gotovo sudbonosno pitanje: Da li je dužina funkcionalnog veka unapred zapisana kao nepromenjiva biološka presuda, ili je starenje samo serija tehničkih kvarova unutar ćelijskih baterija koje možemo inženjerski da popravimo i vratimo na fabrička podešavanja?
     </p>
     <p>
-        Zvanična alopatska medicina nas decenijama dogmatski uči da je progresivno propadanje tkiva, gubitak energije i gašenje vitalnosti nakon pedesete godine života neminovnost biološkog sata. Ova knjiga razbija tu iluziju i dokazuje suprotnu, egzaktnu fiziko-hemijsku realnost. Živi organizam nije mistična dogma, već visokoprecizni elektrohemijski reaktor koji radi na strogim principima napona i provodljivosti.
-    </p>
-    <p>
-        Kroz rigorozne zakone termodinamike, kvantne biofizike i fluidne reologije, u ovoj monografiji predočavamo vam revolucionarni model u kome svesno uvođenje blagog, kontinuiranog halogenog hormezisa preseca unutrašnje kiselinske požare na samom izvoru. Primenom Protokola Loboda – kroz sistem satnog mikrodoziranja kap po kap i napredni Lipidni kod – mi ne lečimo simptome, već direktno menjamo Zeta potencijal ćelijskih opna, stabilizujemo spoljašnji membranski napon na nominalnih –70 mV, podižemo unutrašnji napon mitohondrija na optimalnih –180 mV i preokrećemo smer razorne lipidne peroksidacije unutar tkiva [2.36].
-    </p>
-
-    <!-- ZONA B: Prekid i Digitalna rampa na početku Poglavlja 2 -->
-    <div class="lock-overlay">
-        <div class="lock-title">🔒 PROTOKOL LOBODA: SISTEM JE ZAKLJUČAN</div>
-        <p style="font-size: 0.95em; color: #475569; margin: 0 10px;">
-            Za nastavak čitanja ove naučne monografije, pristup kompletnim poglavljima i operativnim inženjerskim proračunima dugovečnosti, izaberite jednu od dve opcije:
-        </p>
-        <div class="btn-group">
-            <button class="btn btn-friend" onclick="openModal('friendModal')">🤝 Prijatelj (Dozvola)</button>
-            <button class="btn btn-pay" onclick="openModal('payModal')">💳 Slobodna uplata</button>
-        </div>
-    </div>
-
-    <!-- Zamagljeni tekst u pozadini koji simulira nastavak knjige -->
-    <div class="blurred-content">
-        <h3>POGLAVLJE 2: PROTOKOL LOBODA – METODOLOGIJA SATNOG MIKRODOZIRANJA HALOGENA</h3>
-        <p>
-            Moja teorija oksido-redukcije „Protokol Loboda“, a kako je ja, kao diplomirani inženjer za održavanje i eksploataciju mehanizacije u poljoprivredi, procesno i tehnološki nazivam „procesni protokol kap po kap“, jedinstvena je u svetu. Globalne pretrage i analize baza podataka nisu pronašle zapis da je iko ikada u istoriji nauke razmatrao, a kamoli istraživao ili eksperimentisao sa ovakvom nelinearnom geometrijom unosa elemenata Periodnog sistema.
-        </p>
-        <p>
-            Moja ideja – da se jod unosi isključivo i samo u obliku čistog Lugolovog rastvora 5%, a nikada u formi sintetičkih i stabilnih jedinjenja, i to u kontinuirano niskim, satnim mikrokoncentracijama od 1, a najviše 2 kapi – u potpunosti zaobilazi bio-senzore modela [2.36].
-        </p>
-    </div>
-
-</div>
-
-<!-- MODAL 1: Opcija Prijatelj -->
-<div id="friendModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('friendModal')">&times;</span>
-        <h3 style="margin-top:0; color:#1e293b;">🤝 Pristup za prijatelje i saradnike</h3>
-        <p style="font-size: 0.95em; color: #334155;">
-            Ukoliko ste lični prijatelj autora, saradnik ili istraživač koji trenutno nije u mogućnosti da finansijski podrži projekat, pošaljite imejl direktno na adresu:
-        </p>
-        <p style="font-weight: bold; text-align: center; font-size: 1.1em; color: #1a365d; background: #f1f5f9; padding: 10px; border-radius: 4px;">
-            lobodasd@gmail.com
-        </p>
-        <p style="font-size: 0.9em; color: #64748b;">
-            U naslovu poruke napišite <strong>"Dozvola za čitanje"</strong>. Autor će vam u najkraćem roku poslati ličnu šifru ili gotov PDF dokument za nesmetan rad [15.1].
-        </p>
-    </div>
-</div>
-
-<!-- MODAL 2: Opcija Slobodna uplata -->
-<div id="payModal" class="modal">
-    <div class="modal-content" style="max-width: 550px;">
-        <span class="close-btn" onclick="closeModal('payModal')">&times;</span>
-        <h3 style="margin-top:0; color:#065f46;">💳 Podrška istraživanju dugovečnosti</h3>
-        <p style="font-size: 0.95em; color: #334155; margin-bottom: 10px;">
