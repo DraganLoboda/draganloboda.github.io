@@ -21,28 +21,58 @@
             max-width: 750px; 
             margin: 0 auto; 
             background: #141d34; 
-            padding: 25px; 
+            padding: 30px; 
             border-radius: 12px; 
             border: 1px solid #334155; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
-        /* Korica prilagođena da na telefonu bude pun, raširen pravougaonik */
+        
+        /* 
+           GVOZDENI KOD ZA KORICU: 
+           Zaključan vertikalni oblik A4 knjige na računaru, 
+           fleksibilan i raširen na telefonu.
+        */
         .cover-box { 
             text-align: center; 
             background: linear-gradient(135deg, #dfecb4, #73b3db); 
-            padding: 40px 20px; 
+            padding: 50px 30px; 
             border-radius: 8px; 
-            margin-bottom: 30px; 
+            margin: 0 auto 40px auto; 
             border: 1px solid #1f2d4a; 
             color: #0a0f1d;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.15);
+            /* Proporcije za računar */
+            width: 440px; 
+            min-height: 620px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .cover-box p { font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin: 0; font-size: 1em; color: #0a0f1d; }
-        .cover-motto { font-style: italic; font-size: 0.95em; color: #1e293b; padding: 15px 10px 0 10px; font-weight: bold; line-height: 1.5; text-align: center; }
-        .cover-badge { background: #fef08a; display: inline-block; padding: 20px 30px; border-radius: 50%; margin: 25px 0; border: 1px solid #eab308; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .cover-badge h1 { color: #0a0f1d; font-size: 1.5em; text-transform: uppercase; margin: 0 0 8px 0; font-weight: bold; letter-spacing: 0.5px; }
-        .cover-badge h2 { color: #1e293b; font-size: 1em; font-weight: bold; margin: 0; letter-spacing: 0.5px; }
+        
+        .cover-box p { font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin: 0; font-size: 1.05em; color: #0a0f1d; }
+        .cover-motto { font-style: italic; font-size: 0.95em; color: #1e293b; padding: 15px 5px 0 5px; font-weight: bold; line-height: 1.5; text-align: center; }
+        .cover-badge { background: #fef08a; display: inline-block; padding: 25px 35px; border-radius: 50%; margin: 30px 0; border: 1px solid #eab308; box-shadow: 0 5px 12px rgba(0,0,0,0.15); }
+        .cover-badge h1 { color: #0a0f1d; font-size: 1.6em; text-transform: uppercase; margin: 0 0 8px 0; font-weight: bold; letter-spacing: 0.5px; }
+        .cover-badge h2 { color: #1e293b; font-size: 1.05em; font-weight: bold; margin: 0; letter-spacing: 0.5px; }
         .cover-explanation { font-size: 1em; font-weight: bold; color: #0a0f1d; max-width: 100%; margin: 0 auto; line-height: 1.5; text-align: center; }
-        .cover-author { font-weight: bold; color: #0a0f1d; font-size: 1.1em; margin-top: 50px; text-align: right; font-family: monospace; }
+        .cover-author { font-weight: bold; color: #0a0f1d; font-size: 1.15em; margin-top: 40px; text-align: right; font-family: monospace; }
+        
+        /* Prilagođavanje za ekrane mobilnih telefona (ispod 600px širine) */
+        @media (max-width: 600px) {
+            .cover-box {
+                width: 100%;
+                min-height: auto;
+                padding: 35px 15px;
+            }
+            .cover-badge {
+                padding: 20px 25px;
+                margin: 20px 0;
+            }
+            .book-container {
+                padding: 15px;
+            }
+        }
         
         .impresum-box { font-size: 0.95em; color: #8fa0dd; text-align: left; margin-bottom: 35px; font-family: 'Courier New', monospace; border-bottom: 1px dashed #334767; padding-bottom: 20px; line-height: 1.7; }
         .section-title { color: #00ffcc; border-bottom: 2px solid #334767; padding-bottom: 8px; margin-top: 40px; font-size: 1.4em; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -74,7 +104,7 @@
 
 <div class="book-container">
 
-    <!-- ELASTIČNA PREDNJA KORICA (A4 SRAZMERA ZA TELEFON) -->
+    <!-- KALIBRISANA I ELEGANTNA PREDNJA KORICA -->
     <div class="cover-box">
         <p>NAUČNA ALTERNATIVNA MEDICINA</p>
         <div class="cover-motto">
@@ -114,7 +144,7 @@
         ISBN 978-86-903366-2-3
     </div>
 
-    <!-- STRANA 3: POSVETA (DOSLOVNO IZ PDF-a) -->
+    <!-- STRANA 3: POSVETA -->
     <div style="text-align: center; padding: 20px 0; font-style: italic; border-bottom: 1px dashed #334767; margin-bottom: 30px;">
         <h2 style="color: #00ffcc; text-transform: uppercase; font-size: 1.1em; letter-spacing: 2px; font-weight: bold; margin-bottom: 15px;">POSVETA</h2>
         <p style="text-align: justify; color: #e2e8f0;">
@@ -122,6 +152,6 @@
         </p>
         <p style="text-align: center; margin: 15px 0; color: #00ffcc;">***</p>
         <p style="text-align: justify; color: #cbd5e1; font-weight: bold;">
-            Ovu knjigu posvećujem svakom SLOBODNOM ČOVEKU i nezavisnom istraživaču koji odbija da bude pasivni objekat simptomatske medicine, i koji u elementima periodnog sistema prepoznaje sopsveni kod za preuzimanje kontrole nad zdravljem, energijom i dugovečnošću.
+            Ovu knjigu posvećujem svakom SLOBODNOM ČOVEKU i nezavisnom istraživaču koji odbija da bude pasivni objekat simptomatske medicine, i koji u elementima periodnog sistema prepoznaje sopstveni kod za preuzimanje kontrole nad zdravljem, energijom i dugovečnošću.
         </p>
     </div>
