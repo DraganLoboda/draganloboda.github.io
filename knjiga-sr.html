@@ -1014,19 +1014,20 @@ DVE PARADIGME ODBRANE ĆELIJE OD STARENJA
     </div>
 </div>
 
-<!-- MODALNI PROZOR 2: PRISTUP NA 30 DANA (UPLATNICA + PRAVI ŽIVI IPS QR KOD) -->
+<!-- MODALNI PROZOR 2: PRISTUP NA 30 DANA (UPLATNICA + MAKSIMALNO RAŠIREN IPS QR KOD) -->
 <div id="payModal" class="modal">
-    <div class="modal-content" style="max-width: 650px;">
+    <!-- Prozor proširen na 780px da pruži komforan prostor za ogromnu sliku -->
+    <div class="modal-content" style="max-width: 780px; padding: 45px 30px;">
         <span class="close-btn" onclick="closeModal('payModal')">&times;</span>
-        <h3 style="margin-top:0; color:#34d399; text-align: left;"> Skenirajte QR kod za instant uplatu (300 RSD)</h3>
+        <h3 style="margin-top:0; color:#34d399; text-align: left;">Skenirajte QR kod za instant uplatu (300 RSD)</h3>
         <p style="font-size: 0.95em; color: #cbd5e1; margin-bottom: 5px;">
             Skenirajte kod kamerom vaše m-banking aplikacije za automatsko popunjavanje uplatnice, ili izvršite ručni prenos na račun [15.1]:
         </p>
         
-        <!-- DUPLO VEĆI I KRUPNIJI FORMAT QR KODA ZA TRENUTNO SKENIRANJE BEZ ZUMLIRANJA -->
-        <div style="text-align: center; background: white; padding: 25px; display: block; margin: 20px auto; border-radius: 8px; width: 440px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-            <img src="QR%20kod%20za%20knjigu%20za%20plaćanja.jpg" alt="Zvanični IPS NBS QR Kod" style="display: block; margin: 0 auto; width: 440px; height: 440px; object-fit: contain;">
-            <span style="color: #0a0f1d; font-size: 0.95em; font-weight: bold; display: block; margin-top: 12px; font-family: sans-serif; letter-spacing: 0.5px;">IPS SKENIRAJ (300,00 RSD)</span>
+        <!-- MAKSIMALNI MONITORSKI FORMAT OD 550px ZA TRENUTNO SKENIRANJE SA UDALJENOSTI -->
+        <div style="text-align: center; background: white; padding: 30px; display: block; margin: 25px auto; border-radius: 8px; max-width: 550px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+            <img src="QR%20kod%20za%20knjigu%20za%20plaćanja.jpg" alt="Zvanični IPS NBS QR Kod" style="display: block; margin: 0 auto; width: 100%; max-width: 550px; height: auto; object-fit: contain;">
+            <span style="color: #0a0f1d; font-size: 1.05em; font-weight: bold; display: block; margin-top: 15px; font-family: sans-serif; letter-spacing: 0.5px;">IPS SKENIRAJ (300,00 RSD)</span>
         </div>
 
         <div class="uplatnica">
@@ -1057,6 +1058,7 @@ DVE PARADIGME ODBRANE ĆELIJE OD STARENJA
 
 </body>
 </html>
+
 
 
 
