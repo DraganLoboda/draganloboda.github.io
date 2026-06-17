@@ -1014,24 +1014,19 @@ DVE PARADIGME ODBRANE ĆELIJE OD STARENJA
     </div>
 </div>
 
-<!-- MODALNI PROZOR 2: PRISTUP NA 30 DANA (UPLATNICA + ŽIVI IPS QR KOD) -->
+<!-- MODALNI PROZOR 2: PRISTUP NA 30 DANA (UPLATNICA + PRAVI ŽIVI IPS QR KOD) -->
 <div id="payModal" class="modal">
     <div class="modal-content" style="max-width: 600px;">
         <span class="close-btn" onclick="closeModal('payModal')">&times;</span>
-        <h3 style="margin-top:0; color:#34d399; text-align: left;">💳 Podaci za instant uplatu (300 RSD)</h3>
+        <h3 style="margin-top:0; color:#34d399; text-align: left;">💳 Skenirajte QR kod za instant uplatu (300 RSD)</h3>
         <p style="font-size: 0.95em; color: #cbd5e1; margin-bottom: 5px;">
-            Izvršite uplatu elektronskim putem preko vaše m-banking aplikacije (unosom podataka) ili standardnim prenosom na račun u banci [15.1]:
+            Skenirajte kod kamerom vaše m-banking aplikacije за аутоматско попуњавање уплатнице, или извршите ручни пренос на рачун [15.1]:
         </p>
         
-        <!-- MEHANIČKI KONTRASTAN I SIGURAN OKVIR ZA PLATNI ČVOR -->
-        <div style="text-align: center; background: #0f172a; padding: 20px; border: 2px dashed #34d399; margin: 20px auto; border-radius: 8px; max-width: 450px;">
-            <div style="font-family: monospace; font-size: 1.1em; color: #34d399; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;">
-                ⚡ IPS INSTANT PLAĆANJE
-            </div>
-            <div style="font-family: monospace; font-size: 0.9em; color: #cbd5e1; line-height: 1.5; text-align: left; background: #020617; padding: 12px; border-radius: 4px; border: 1px solid #334155;">
-                <span style="color: #38bdf8;">[Standardni NBS format prenosa]</span><br>
-                Račun primaoca je verifikovan u sistemu e-plaćanja. Unesite tačan iznos i svrhu uplate za automatsku autorizaciju tridesetodnevnog ključa [15.1].
-            </div>
+        <!-- KRISTALNO ČIST, KONTRASTAN I SIGURAN QR KOD KOJI SE CRTA UŽIVO -->
+        <div style="text-align: center; background: white; padding: 20px; display: block; margin: 20px auto; border-radius: 8px; width: 220px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+            <div id="qrcode" style="display: block; margin: 0 auto; width: 220px; height: 220px;"></div>
+            <span style="color: #0a0f1d; font-size: 0.85em; font-weight: bold; display: block; margin-top: 10px; font-family: sans-serif; letter-spacing: 0.5px;">IPS SKENIRAJ (300,00 RSD)</span>
         </div>
 
         <div class="uplatnica">
@@ -1043,13 +1038,29 @@ DVE PARADIGME ODBRANE ĆELIJE OD STARENJA
         </div>
         
         <p style="font-size: 0.9em; color: #94a3b8; margin-top: 15px;">
-            🚀 <strong>Potvrda:</strong> Nakon izvršene uplate, pošaljite sliku ekrana (potvrdu o prenosu) na imejl <strong style="color:#38bdf8;">lobodasd@gmail.com</strong> i autor će vam odmah generisati i poslati šifru koja otključava kompletno izdanje knjige [1.1, 15.1]!
+            🚀 <strong>Potvrda:</strong> Nakon uplate, pošaljite sliku ekrana (potvrdu) na imejl <strong style="color:#38bdf8;">lobodasd@gmail.com</strong> i autor će vam odmah poslati aktivnu šifru koja važi narednih 30 dana [1.1, 15.1]!
         </p>
     </div>
 </div>
 
+<!-- UGRADNJA BRZOG I BEZBEDNOG SKRIPTA ZA CRTANJE QR KODOVA UŽIVO (KOD KOJI GITHUB NE BLOKIRA) -->
+<script src="https://cloudflare.com"></script>
 <script>
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function openModal(id) { 
+        document.getElementById(id).style.display = 'flex'; 
+        // Generiši kod samo jednom kada se prozor otvori
+        if(id === 'payModal' && document.getElementById('qrcode').innerHTML === "") {
+            var ipsString = "IPS:BR|V:1.0|R:205006160154769391|N:Dragan Loboda|I:RSD300,00|SF:289|S:Podrska istrazivanju - Protokol Loboda";
+            new QRCode(document.getElementById("qrcode"), {
+                text: ipsString,
+                width: 220,
+                height: 220,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.M
+            });
+        }
+    }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     
     // Potpuna hardverska blokada selektovanja i prekopiravanja rečenica
