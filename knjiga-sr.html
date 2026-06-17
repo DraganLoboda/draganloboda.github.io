@@ -722,14 +722,25 @@ Zahvaljujući ovoj triangulaciji, standardni 5% Lugolov rastvor u bočici zaprav
 
     </div>
 
-    <!-- ZID ZA PLAĆANJE / AUTORIZACIJU -->
-    <div id="paywall-zone" class="paywall">
-        <h3>🔒 Otključajte ostatak knjige</h3>
-        <input type="text" id="access-code" placeholder="Unesite kod...">
-        <button class="btn-action" onclick="<!-- ZID ZA PLAĆANJE / AUTORIZACIJU -->
+   <!-- ZID ZA PLAĆANJE / AUTORIZACIJU -->
 <div id="paywall-zone" class="paywall" style="border: 2px dashed #d4af37; padding: 20px; text-align: center; margin-top: 40px; background: #1e293b; border-radius: 8px;">
     <h3 style="color: #d4af37;">🔒 Otključajte ostatak knjige (Čitajte narednih mesec dana)</h3>
     <p style="font-size: 14px; margin-bottom: 20px;">Cena pristupa celoj knjizi iznosi <strong>300 RSD</strong>.</p>
+    
+    <!-- GENERISANI QR KOD -->
+    <div style="margin: 20px 0;">
+        <img src="https://qrserver.com" alt="IPS QR Kod Dragan Loboda" style="border: 10px solid white; border-radius: 4px;">
+        <p style="font-size: 12px; color: #94a3b8; margin-top: 5px;">Skenirajte kod aplikacijom vaše banke (opcija IPS Skeniraj)</p>
+    </div>
+
+    <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #334155;">
+        <p style="font-size: 14px; margin-bottom: 8px;"><strong>1. Prijatelj sam / Izvršio sam uplatu:</strong></p>
+        <input type="text" id="access-code" placeholder="Unesite kod za otključavanje..." style="padding: 10px; width: 60%; max-width: 250px; border-radius: 4px; border: 1px solid #475569; background: #0f172a; color: white;">
+        <button class="btn-action" onclick="checkCode()" style="padding: 10px 20px; background: #d4af37; color: #0f172a; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; margin-left: 5px;">Otključaj</button>
+        <p style="font-size: 11px; color: #94a3b8; margin-top: 5px;">*Ako ste uplatili preko QR koda, pošaljite potvrdu autoru da vam dostavi jedinstveni kod.</p>
+    </div>
+</div>
+
     
     <!-- GENERISANI QR KOD -->
     <div style="margin: 20px 0;">
