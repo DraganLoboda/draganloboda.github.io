@@ -3,124 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REDOKS JURIŠ - Srpsko Izdanje (A4 Format)</title>
+    <title>Protokol Loboda - Knjiga i Računar</title>
     <style>
         body { 
             font-family: 'Arial', sans-serif; 
             background-color: #0a0f1d; 
-            color: #cbd5e1; 
-            padding: 50px 20px; 
+            color: white; 
+            padding: 20px; 
             line-height: 1.8;
-            /* Aktivna digitalna zaštita od selektovanja teksta */
+            /* Gvozdeni digitalni štit protiv krađe i selektovanja teksta */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
+        .container { max-width: 600px; margin: 0 auto 40px auto; background: #141d34; padding: 25px; border-radius: 12px; border: 1px solid #00ffcc; }
+        h1, h3 { color: #00ffcc; text-align: center; margin-top: 0; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 14px; color: #8fa0dd; }
+        input, select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334767; background: #0a0f1d; color: white; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 12px; font-size: 16px; font-weight: bold; background: #00ffcc; color: #0a0f1d; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+        .results { margin-top: 25px; padding-top: 20px; border-top: 1px dashed #334767; display: none; }
+        .phase { background: #0a0f1d; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #1f2d4a; }
+        .row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .val { font-weight: bold; color: #00ffcc; }
+        .alert { color: #ff3366; font-weight: bold; }
+        .warn { color: #ffcc00; font-weight: bold; }
+        .list { max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; font-family: monospace; font-size: 13px; }
+
+        /* --- STIL ZA TEKST KNJIŽEVNOG MODULA --- */
+        .book-container { max-width: 750px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: #e2e8f0; }
+        .cover-box { text-align: center; background: linear-gradient(135deg, #0f172a, #1e293b); padding: 40px 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #334155; }
+        .cover-box h1 { color: #38bdf8; font-size: 2.2em; text-transform: uppercase; margin: 10px 0; }
+        .cover-box h2 { color: #cbd5e1; font-size: 1.3em; font-weight: normal; margin-bottom: 15px; }
+        .author-tag { font-weight: bold; color: #94a3b8; font-size: 1.1em; margin-top: 20px; }
+        .disclaimer-box { background-color: #7c2d12; border-left: 4px solid #f97316; padding: 20px; margin: 30px 0; border-radius: 4px; font-size: 0.95em; color: #ffedd5; text-align: justify; }
+        .section-title { color: #38bdf8; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-top: 40px; font-size: 1.5em; text-align: left; }
         
-        /* Književni A4 format: Izduženi vertikalni pravougaonik */
-        .book-container { 
-            max-width: 820px; 
-            min-height: 1160px; /* Proporcionalna visina A4 formata */
-            margin: 0 auto 40px auto; 
-            background: #141d34; 
-            padding: 70px 60px; 
-            border-radius: 8px; 
-            border: 1px solid #334767; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
-        }
+        /* Matrica skoka (Tabela) */
+        .matrix-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; background: #0f172a; border-radius: 6px; overflow: hidden; border: 1px solid #334155; }
+        .matrix-table th, .matrix-table td { padding: 12px; border: 1px solid #334155; text-align: left; }
+        .matrix-table th { background: #1e293b; color: #38bdf8; }
         
-        /* Originalni identitet prednje korice prema dostavljenoj slici */
-        .cover-box { 
-            text-align: center; 
-            background: linear-gradient(135deg, #dfecb4, #73b3db); 
-            padding: 80px 40px; 
-            border-radius: 6px; 
-            margin-bottom: 50px; 
-            border: 1px solid #1f2d4a; 
-            color: #0a0f1d;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.15);
-        }
-        .cover-box p { font-weight: bold; letter-spacing: 2px; text-transform: uppercase; margin: 0; font-size: 1.15em; color: #0a0f1d; }
-        .cover-motto { font-style: italic; font-size: 1.05em; color: #1e293b; padding: 30px 40px 0 40px; font-weight: bold; line-height: 1.6; text-align: center; }
-        .cover-badge { background: #fef08a; display: inline-block; padding: 35px 55px; border-radius: 50%; margin: 55px 0; border: 1px solid #eab308; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-        .cover-badge h1 { color: #0a0f1d; font-size: 2em; text-transform: uppercase; margin: 0 0 12px 0; font-weight: bold; letter-spacing: 0.5px; }
-        .cover-badge h2 { color: #1e293b; font-size: 1.15em; font-weight: bold; margin: 0; letter-spacing: 0.5px; }
-        .cover-explanation { font-size: 1.15em; font-weight: bold; color: #0a0f1d; max-width: 650px; margin: 0 auto; line-height: 1.6; text-align: center; }
-        .cover-author { font-weight: bold; color: #0a0f1d; font-size: 1.25em; margin-top: 140px; text-align: right; font-family: monospace; }
+        /* Zaštitna digitalna rampa */
+        .blurred-content { filter: blur(6px); opacity: 0.2; pointer-events: none; user-select: none; }
+        .lock-overlay { background: #0f172a; border: 2px dashed #38bdf8; padding: 35px; text-align: center; border-radius: 8px; margin: 30px 0; position: relative; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .lock-title { font-size: 1.4em; font-weight: bold; color: #f43f5e; margin-bottom: 15px; letter-spacing: 1px; }
+        .btn-group { display: flex; gap: 20px; justify-content: center; margin-top: 25px; flex-wrap: wrap; }
+        .btn-book { padding: 12px 30px; font-size: 1em; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .btn-friend { background-color: #475569; color: white; }
+        .btn-friend:hover { background-color: #334155; border: 1px solid #38bdf8; }
+        .btn-pay { background-color: #059669; color: white; }
+        .btn-pay:hover { background-color: #047857; border: 1px solid #38bdf8; }
         
-        .impresum-box { font-size: 0.98em; color: #8fa0dd; text-align: left; margin-bottom: 50px; font-family: 'Courier New', monospace; border-bottom: 1px dashed #334767; padding-bottom: 35px; line-height: 1.8; max-width: 650px; }
-        .section-title { color: #00ffcc; border-bottom: 2px solid #334767; padding-bottom: 8px; margin-top: 60px; font-size: 1.65em; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
-        .sub-title { color: #ffcc00; font-size: 1.3em; margin-top: 35px; font-weight: bold; }
-        .disclaimer-box { background-color: #2d1510; border-left: 4px solid #ff3366; padding: 30px; margin: 40px 0; border-radius: 6px; font-size: 1em; color: #ffccd5; text-align: justify; line-height: 1.7; }
-        p { text-align: justify; margin-bottom: 25px; font-size: 1.1em; color: #cbd5e1; }
-        
-        /* Tabele u pravougaonom A4 prelomnom stilu */
-        .matrix-table { width: 100%; border-collapse: collapse; margin: 35px 0; font-size: 1em; background: #0a0f1d; border-radius: 6px; overflow: hidden; border: 1px solid #334767; }
-        .matrix-table th, .matrix-table td { padding: 16px; border: 1px solid #334767; text-align: left; }
-        .matrix-table th { background: #141d34; color: #00ffcc; font-weight: bold; }
-        .matrix-table tr:hover { background-color: #141d34; }
-        
-        /* Izdužena pravougaona rampa */
-        .blurred-content { filter: blur(7px); opacity: 0.2; pointer-events: none; }
-        .lock-overlay { background: #0a0f1d; border: 2px dashed #00ffcc; padding: 45px 35px; text-align: center; border-radius: 8px; margin: 50px 0; position: relative; z-index: 10; box-shadow: 0 25px 50px rgba(0,0,0,0.6); }
-        .lock-title { font-size: 1.55em; font-weight: bold; color: #ff3366; margin-bottom: 15px; letter-spacing: 1px; }
-        
-        .btn-group { display: flex; gap: 25px; justify-content: center; margin-top: 35px; flex-wrap: wrap; }
-        .btn-action { padding: 15px 40px; font-size: 1.05em; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-        .btn-friend { background-color: #334767; color: white; border: 1px solid #334767; }
-        .btn-friend:hover { background-color: #141d34; border-color: #00ffcc; }
-        .btn-pay { background-color: #00ffcc; color: #0a0f1d; border: 1px solid #00ffcc; }
-        .btn-pay:hover { background-color: #0a0f1d; color: #00ffcc; }
-        
-        /* Izduženi pravougaoni modalni prozori (A4 srazmera) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; justify-content: center; align-items: center; }
-        .modal-content { background: #141d34; padding: 45px 40px; border-radius: 8px; max-width: 650px; width: 90%; border: 1px solid #00ffcc; color: #cbd5e1; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2em; cursor: pointer; color: #8fa0dd; }
-        .close-btn:hover { color: #ff3366; }
-        .uplatnica { border: 2px solid #00ffcc; padding: 25px; background: #0a0f1d; font-family: monospace; color: #cbd5e1; margin-top: 25px; line-height: 1.8; border-radius: 4px; font-size: 0.98em; text-align: left; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
+        .modal-content { background: #1e293b; padding: 35px; border-radius: 10px; max-width: 500px; width: 90%; border: 1px solid #38bdf8; color: #e2e8f0; position: relative; }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.6em; cursor: pointer; color: #94a3b8; }
+        .uplatnica { border: 2px solid #38bdf8; padding: 22px; background: #0f172a; font-family: monospace; color: #e2e8f0; margin-top: 15px; line-height: 1.6; border-radius: 4px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-<div class="book-container">
-
-    <!-- VERTIKALNO BALANSIRANA PREDNJA KORICA -->
-    <div class="cover-box">
-        <p>NAUČNA ALTERNATIVNA MEDICINA</p>
-        <div class="cover-motto">
-            Ne postoje hiljade bolesti, postoji samo jedna jedina hronična bolest – STARENJE (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara!
+<!-- ================= 1. RAČUNAR (PROTOKOL LOBODA) ================= -->
+<div class="container">
+    <h1>Protokol Loboda</h1>
+    <p style="text-align:center; color:#8fa0dd; font-size:13px; margin-top:-10px;">Biofizički proračun i trostepena prognoza</p>
+    
+    <div class="form-group">
+        <label>Starost subjekta (godina):</label>
+        <input type="number" id="starost" value="55">
+    </div>
+    <div class="form-group">
+        <label>Telesna visina (cm):</label>
+        <input type="number" id="visina" value="176">
+    </div>
+    <div class="form-group">
+        <label>Telesna masa (kg):</label>
+        <input type="number" id="masa" value="86">
+    </div>
+    <div class="form-group">
+        <label>Pol subjekta:</label>
+        <select id="pol">
+            <option value="Muski">Muški</option>
+            <option value="Zenski">Ženski</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Ekološki i toksični dug:</label>
+        <select id="dug">
+            <option value="baza">Baza (Čist teren, nepušač)</option>
+            <option value="srednje">Srednji šum (Smog / bivši pušač)</option>
+            <option value="maksimalno">Maksimalni šum (Aktivni pušač)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label style="color:#ffcc00;">Eksperimentalni unos kapi joda:</label>
+        <input type="number" id="proizvoljno" value="12" style="border-color:#ffcc00;">
+    </div>
+    
+    <button onclick="pokreniSimulaciju()">POKRENI PRORAČUN</button>
+    
+    <div id="prikaz" class="results">
+        <h3>REZULTATI SIMULACIJE</h3>
+        
+        <div class="phase">
+            <div class="row"><span>Površina tela (SF):</span><span id="out-sf" class="val">0</span></div>
+            <div class="row"><span>Optimalan dnevni unos (N):</span><span id="out-n" class="val" style="font-size:16px;">0 kapi</span></div>
         </div>
         
-        <div class="cover-badge">
-            <h1>REDOKS JURIŠ:</h1>
-            <h2>DOSTIZANJE MAKSIMALNOG GENETSKOG KODA DUGOVEČNOSTI</h2>
+        <div class="phase">
+            <div class="row"><span>Dnevni jurišni volumen (15h):</span><span id="out-dan" class="val">0 kapi</span></div>
+            <div class="row"><span>Noćni lipidni anker (9h):</span><span id="out-noc" class="val">0 kapi</span></div>
+            <div class="row"><span>Ukupan volumen vode:</span><span id="out-voda" class="val">0 ml</span></div>
         </div>
         
-        <div class="cover-explanation">
-            Inženjerski kod oksido-redukcione medicine u službi biološkog podmlađivanja tkiva i konzervacije ćelijskog sata
+        <div class="phase">
+            <div class="row"><span>Satnica vodenog štita:</span></div>
+            <div id="out-satnica" class="list"></div>
         </div>
         
-        <div class="cover-author">
-            Master inženjer Dragan Loboda
+        <div class="phase">
+            <div class="row"><span>1. Bez halogene jodne zaštite:</span><span id="out-v1" class="alert">0</span></div>
+            <div class="row"><span>2. Sa PUNOM jodnom zaštitom:</span><span id="out-v2" class="val">0</span></div>
+            <div class="row"><span>3. Sa EKSPERIMENTALNIM unosom:</span><span id="out-v3" class="warn">0</span></div>
         </div>
     </div>
+</div>
 
-    <!-- STRANA 3: IMPRESUM (A4 PROREDI) -->
-    <div class="impresum-box">
-        Autor: Master inženjer Dragan Loboda<br><br>
-        Naslov:<br>
-        REDOKS JURIŠ:<br>
-        DOSTIZANJE MAKSIMALNOG GENETSKOG KODA DUGOVEČNOSTI<br><br>
-        Beograd; 2026.<br>
-        I ELEKTRONSKO IZDANJE (ONLINE)<br><br>
-        Format izdanja: PDF (A4 format)<br><br>
-        Izdavač:<br>
-        Dragan Loboda, Beograd<br>
-        Mileve Marić Ajnštajn 40/9, Novi Beograd<br>
-        Tel. 064 / 8813-345, e-mail: lobodasd@gmail.com<br><br>
-        Glavni urednik: Dragan Loboda<br><br>
-        Lektura i korektura: Tatjana Loboda / Danica Marković<br><br>
-        Dizajn / Prelom: Mirjana Dimitrijević<br><br>
-        ISBN 978-86-903366-2-3
+<!-- ================= 2. MASTER MONOGRAFIJA ================= -->
+<div class="book-container">
+    <div class="cover-box">
+        <p style="font-weight: bold; letter-spacing: 2px; color: #38bdf8;">NAUČNA ALTERNATIVNA MEDICINA</p>
+        <p style="font-style: italic; font-size: 0.95em; color: #94a3b8; padding: 0 25px;">
+            "Ne postoje hiljade bolesti, postoji samo jedna jedina hronična bolest – STARENJE (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara!"
+        </p>
+        <h1>REDOKS JURIŠ:</h1>
+        <h2>DOSTIZANJE MAKSIMALNOG GENETSKOG KODA DUGOVEČNOSTI</h2>
+        <p style="font-size: 0.95em; color: #94a3b8; max-width: 550px; margin: 20px auto;">
+            Inženjerski kod oksido-redukcione medicine u službi biološkog podmlađivanja tkiva i konzervacije ćelijskog sata
+        </p>
+        <p class="author-tag">Master inženjer Dragan Loboda</p>
+        <p style="font-size: 0.9em; font-weight: bold; margin-top: 15px; color: #38bdf8;">ISBN 978-86-903366-2-3</p>
     </div>
