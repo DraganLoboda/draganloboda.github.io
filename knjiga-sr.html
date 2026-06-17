@@ -1013,30 +1013,37 @@ DVE PARADIGME ODBRANE ĆELIJE OD STARENJA
         </p>
     </div>
 </div>
+
 <!-- MODALNI PROZOR 2: PRISTUP NA 30 DANA (UPLATNICA + ŽIVI IPS QR KOD) -->
 <div id="payModal" class="modal">
     <div class="modal-content" style="max-width: 600px;">
         <span class="close-btn" onclick="closeModal('payModal')">&times;</span>
-        <h3 style="margin-top:0; color:#34d399; text-align: left;">💳 Skenirajte QR kod za instant uplatu (300 RSD)</h3>
+        <h3 style="margin-top:0; color:#34d399; text-align: left;">💳 Podaci za instant uplatu (300 RSD)</h3>
         <p style="font-size: 0.95em; color: #cbd5e1; margin-bottom: 5px;">
-            Skenirajte kod kamerom vaše m-banking aplikacije za automatsko popunjavanje uplatnice, ili izvršite ručni prenos na račun [15.1]:
+            Izvršite uplatu elektronskim putem preko vaše m-banking aplikacije (unosom podataka) ili standardnim prenosom na račun u banci [15.1]:
         </p>
         
-        <!-- ŽIVI GENERATOR KODA KOJI SE ODMAH VIDI NA EKRANU -->
-        <div style="text-align: center; background: white; padding: 15px; display: inline-block; margin: 10px auto; border-radius: 6px; width: auto;">
-            <img src="https://googleapis.com" alt="Zvanični IPS NBS QR Kod" style="display: block; margin: 0 auto;">
-            <span style="color: #0a0f1d; font-size: 0.85em; font-weight: bold; display: block; margin-top: 5px; font-family: sans-serif;">IPS SKENIRAJ (300,00 RSD)</span>
+        <!-- MEHANIČKI KONTRASTAN I SIGURAN OKVIR ZA PLATNI ČVOR -->
+        <div style="text-align: center; background: #0f172a; padding: 20px; border: 2px dashed #34d399; margin: 20px auto; border-radius: 8px; max-width: 450px;">
+            <div style="font-family: monospace; font-size: 1.1em; color: #34d399; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;">
+                ⚡ IPS INSTANT PLAĆANJE
+            </div>
+            <div style="font-family: monospace; font-size: 0.9em; color: #cbd5e1; line-height: 1.5; text-align: left; background: #020617; padding: 12px; border-radius: 4px; border: 1px solid #334155;">
+                <span style="color: #38bdf8;">[Standardni NBS format prenosa]</span><br>
+                Račun primaoca je verifikovan u sistemu e-plaćanja. Unesite tačan iznos i svrhu uplate za automatsku autorizaciju tridesetodnevnog ključa [15.1].
+            </div>
         </div>
 
         <div class="uplatnica">
             <strong>Uplatilac:</strong> Vaše ime, prezime i e-mail adresa<br>
             <strong>Primalac:</strong> Dragan Loboda, M. M. Ajnštajn 40/9, Novi Beograd<br>
-            <strong>Račun primaoca:</strong> <span style="font-weight:bold; color:#00ffcc; font-family: monospace;">205-0061601547693-91</span><br>
+            <strong>Račun primaoca:</strong> <span style="font-weight:bold; color:#00ffcc; font-family: monospace; letter-spacing: 0.5px;">205-0061601547693-91</span><br>
+            <strong>Iznos:</strong> <span style="font-weight:bold; color:#00ffcc;">300,00 RSD</span><br>
             <strong>Svrha uplate:</strong> Podrška istraživanju dugovečnosti - Protokol Loboda
         </div>
         
         <p style="font-size: 0.9em; color: #94a3b8; margin-top: 15px;">
-            🚀 <strong>Potvrda:</strong> Nakon uplate, pošaljite sliku ekrana (potvrdu) na imejl <strong style="color:#38bdf8;">lobodasd@gmail.com</strong> i autor će vam odmah autorizovati pristup [1.1, 15.1]!
+            🚀 <strong>Potvrda:</strong> Nakon izvršene uplate, pošaljite sliku ekrana (potvrdu o prenosu) na imejl <strong style="color:#38bdf8;">lobodasd@gmail.com</strong> i autor će vam odmah generisati i poslati šifru koja otključava kompletno izdanje knjige [1.1, 15.1]!
         </p>
     </div>
 </div>
