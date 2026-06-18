@@ -3,44 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicinska Teorija - Lečenje Oksido-Redukcijom | Dragan Loboda</title>
+    <title>MEDICINSKA TEORIJA - Poklon Knjiga | Dragan Loboda</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #0f172a; color: #f8fafc; line-height: 1.6; margin: 0; padding: 0; -webkit-user-select: none; user-select: none; }
-        .container { max-width: 900px; margin: 40px auto; padding: 20px; }
-        .back-link { color: #ffcc00; text-decoration: none; font-weight: bold; display: inline-block; margin-bottom: 20px; font-size: 16px; }
-        .pdf-container { width: 100%; height: 850px; border: 2px solid #334155; border-radius: 8px; background: #1e293b; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative; }
-        iframe { width: 100%; height: 100%; border: none; }
-        .book-header { text-align: center; margin-bottom: 30px; border-bottom: 1px solid #334155; padding-bottom: 20px; }
-        .book-title { color: #ffcc00; margin-bottom: 5px; text-transform: uppercase; font-size: 28px; }
+        body { font-family: monospace; background-color: #020617; color: #cbd5e1; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
+        #book-viewer-zone { width: 100vw; height: 100vh; background-color: #020617; display: flex; flex-direction: column; }
+        .viewer-header { height: 50px; background: #020617; border-bottom: 1px solid #334155; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); box-sizing: border-box; }
+        .back-btn { color: #00ffcc; text-decoration: none; font-weight: bold; border: 1px solid #00ffcc; padding: 5px 15px; border-radius: 4px; background: rgba(0, 255, 204, 0.1); font-family: monospace; }
+        .back-btn:hover { background: #00ffcc; color: #020617; }
+        .book-frame { width: 100%; height: calc(100vh - 50px); border: none; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
-<div class="container">
-    <a href="index.html" class="back-link">⬅ Nazad na početnu stranicu</a>
-    
-    <div class="book-header">
-        <h1 class="book-title">МЕДИЦИНСКА ТЕОРИЈА</h1>
-        <h2 style="color: #cbd5e1; margin-top: 0; font-size: 20px;">„ЛЕЧЕЊЕ ОКСИДО-РЕДУКЦИЈОМ“</h2>
-        <p style="color: #94a3b8; margin-bottom: 0;">🎁 Poklon knjiga za čitanje - Autor: Dipl. inž. Dragan Loboda</p>
+    <div id="book-viewer-zone">
+        <div class="viewer-header">
+            <a href="index.html" class="back-btn">⬅ NAZAD</a>
+            <span style="color: #38bdf8; font-weight: bold; font-family: monospace;">📖 Dragan Loboda - MEDICINSKA TEORIJA "LEČENJE OKSIDO-REDUKCIJOM"</span>
+            <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz</span>
+        </div>
+        
+        <!-- 🎯 https://heyzine.com/flip-book/c66856c0f2.html: -->
+        <iframe class="book-frame" id="secure-iframe" src="https://heyzine.com/flip-book/c66856c0f2.html" allowfullscreen></iframe>
     </div>
 
-    <!-- PROZOR KOJI DIREKTNO PRIKAZUJE VAŠ PROFI PDF IZ ISTORIJE -->
-    <div class="pdf-container">
-        <iframe src="https://google.com"></iframe>
-    </div>
-</div>
-
-<script>
-    // MAKSIMALNA ZAŠTITA MATERIJALA
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('selectstart', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 85 || e.keyCode === 83 || e.shiftKey && e.keyCode === 73) || e.keyCode === 123) {
-            e.preventDefault();
-            return false;
-        }
-    });
-</script>
+    <script>
+        window.addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's' || e.key === 'c' || e.key === 'u') || e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+                alert("🛑 KÔD JE ZAŠTIĆEN: Strukturirani oklop ne dozvoljava preuzimanje elemenata.");
+            }
+        });
+    </script>
 </body>
 </html>
