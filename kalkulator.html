@@ -36,15 +36,15 @@
  
     <div class="form-group">
         <label>Starost subjekta (trenutne godine):</label>
-        <input type="number" id="starost" value="55" min="1" max="120">
+        <input type="number" id="starost" value="55">
     </div>
     <div class="form-group">
         <label>Telesna visina (cm):</label>
-        <input type="number" id="visina" value="176" min="100" max="250">
+        <input type="number" id="visina" value="176">
     </div>
     <div class="form-group">
         <label>Telesna masa (kg):</label>
-        <input type="number" id="masa" value="86" min="30" max="250">
+        <input type="number" id="masa" value="86">
     </div>
     <div class="form-group">
         <label>Pol subjekta:</label>
@@ -74,7 +74,7 @@
     </div>
     <div class="form-group">
         <label style="color:#ffcc00;">Eksperimentalni unos kapi joda:</label>
-        <input type="number" id="proizvoljno" value="12" style="border-color:#ffcc00;" min="0" max="100">
+        <input type="number" id="proizvoljno" value="12" style="border-color:#ffcc00;">
     </div>
  
     <button onclick="pokreniSimulaciju()">Pokreni proračun</button>
@@ -104,7 +104,6 @@
             <div class="row"><span>3. Sa EKSPERIMENTALNIM unosom:</span><span id="out-v3" class="warn">0</span></div>
         </div>
 
-        <!-- INŽENJERSKA PRESUDA I PREPORUKE -->
         <div class="presuda-box">
             <div class="presuda-title">📋 Inženjerska presuda i preporuke sistema:</div>
             <p class="presuda-text" id="out-presuda"></p>
@@ -128,21 +127,18 @@
          return;
      }
  
-     // DuBois & DuBois formula za površinu tela
+     // DuBois & DuBois formula
      var sf = 0.007184 * Math.pow(m, 0.425) * Math.pow(h, 0.725);
      
-     // Bazni ekološki i toksički faktori (fm za kapi, fto za jednačinu veka)
      var fm = 1.0;
      var fto = 0.0;
  
      if(d === "bivsi") { fm = 1.3; fto = -0.05; }
      if(d === "aktivni") { fm = 1.6; fto = -0.22; }
      
-     // Kumulativno dodavanje duga za alkohol i profi sport
      if(alk) { fto += -0.04; }
      if(sport) { fto += -0.06; }
  
-     // Proračun kapi i satnice
      var n = Math.round(12 * sf * fm);
      var dan = Math.round(n * 0.833);
      var noc = n - dan;
@@ -156,26 +152,19 @@
          html += (s < 10 ? "0" + s : s) + ":00č — doza 50 ml (" + kapi + " kapi)<br>";
      }
  
-     // Primarna aktuarska konstanta baznog prirodnog veka (vn)
      var vn = (p === "Muski") ? 82.9 : 89.0;
-     var khut = 6.6667; // Centralna hronobiološka konstanta halogene uštede
+     var khut = 6.6667;
  
-     // 1. VEK BEZ ZAŠTITE (Korigovan ukupnim toksičkim opterećenjem)
      var pz1 = vn - v; if(pz1 < 0) pz1 = 0;
      var v1 = v + (pz1 * (1 + fto));
  
-     // 2. VEK SA PUNOM JODNOM ZAŠTITOM (Aktuarska ekstrapolacija)
      var pz2 = (vn - v) * khut; if(pz2 < 0) pz2 = 0;
      var v2 = v + (pz2 * (1 + fto));
  
-     // 3. VEK SA EKSPERIMENTALNIM UNOSOM KAPI
-     var odnos = n > 0 ? (pr / n) : 0;
-     if(odnos > 1) odnos = 1;
-     var khu2 = khut * odnos;
-     var pz3 = (vn - v) * khu2; if(pz3 < 0) pz3 = 0;
+     var pz3 = (vn - v) * khut * (n > 0 ? (pr / n) : 0); 
+     if(pz3 < 0) pz3 = 0;
      var v3 = v + (pz3 * (1 + fto));
  
-     // ISPIS REZULTATA NA EKRAN
      document.getElementById('out-sf').innerText = sf.toFixed(4) + " m²";
      document.getElementById('out-n').innerText = n + " kapi";
      document.getElementById('out-dan').innerText = dan + " kapi";
@@ -186,8 +175,21 @@
      document.getElementById('out-v2').innerText = v2.toFixed(1) + " godina";
      document.getElementById('out-v3').innerText = v3.toFixed(1) + " godina";
  
-     // GENERISANJE INŽENJERSKIH PREPORUKA I PRESUDE
-     var bmi = m / Math.pow((h / 100), 2);
-     var idealnaMasa = 21.75 * Math.pow((h / 100), 2);
+     // BMI Proračun prebačen na dno radi stabilnosti
+     var hMetri = h / 100;
+     var bmi = m / (hMetri * hMetri);
+     var idealnaMasa = 21.75 * (hMetri * hMetri);
      var razlikaMase = Math.round(m - idealnaMasa);
      
+     var presuda = "Na osnovu unetih koordinata, vaš BMI iznosi <strong>" + bmi.toFixed(1) + "</strong>. ";
+     var saveti = [];
+
+     if (razlikaMase > 3) {
+         saveti.push("Predlaže se redukcija telesne mase (smanjiti za oko <strong>" + razlikaMase + " kg</strong>) radi rasterećenja kardiovaskularnog sistema i optimalne ćelijske saturacije.");
+     }
+     if (d === "aktivni") {
+         saveti.push("Savetuje se hitan prelazak u status bivšeg pušača kako bi se zaustavio kiselinski požar i drastična potrošnja Hajflikovih žetona u alveolarom epitelu.");
+     }
+     if (alk) {
+         saveti.push("Redukcija ili potpuno ostavljanje alkohola radi sprečavanja ubrzane lipidne peroksidacije i očuvanja integriteta masnih membrana.");
+     }
