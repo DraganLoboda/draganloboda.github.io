@@ -3,168 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REDOKS JURIŠ (Uvodni Deo) - Dragan Loboda</title>
+    <title>Redoks Juriš - Čitanje | Dragan Loboda</title>
     <style>
-        body {
-            font-family: monospace;
-            background-color: #020617;
-            color: #cbd5e1;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .vault-container {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            border: 2px solid #334155;
-            border-top: 6px solid #38bdf8;
-            padding: 50px 30px;
-            border-radius: 16px;
-            max-width: 900px;
-            width: 100%;
-            text-align: justify;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-        }
-        /* Stilovi za rekreaciju Prednje Korice */
-        .cover-box {
-            background: linear-gradient(135deg, #020617 0%, #0b1329 100%);
-            border: 3px solid #334155;
-            border-top: 8px solid #ff3366;
-            padding: 40px 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-        .cover-title {
-            font-size: 2.2em;
-            font-weight: bold;
-            color: #ff3366;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        .cover-subtitle {
-            font-size: 1.1em;
-            color: #cbd5e1;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-        .book-text {
-            background: rgba(2, 6, 23, 0.4);
-            border: 1px solid #1e293b;
-            padding: 35px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-            line-height: 1.8;
-            font-size: 1.05em;
-            border-left: 4px solid #38bdf8;
-        }
-        .options-section {
-            border-top: 2px dashed #334155;
-            padding-top: 30px;
-            margin-top: 40px;
-        }
-        .option-box {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid #334155;
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        .slip-box {
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 25px auto;
-            max-width: 550px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-        .slip-image {
-            width: 100%;
-            height: auto;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-        }
-        .btn-back {
-            display: block;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid #38bdf8;
-            color: #38bdf8;
-            padding: 12px 30px;
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 0.95em;
-            text-decoration: none;
-            border-radius: 6px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            text-align: center;
-            max-width: 250px;
-            margin: 30px auto 0 auto;
-        }
-        .btn-back:hover {
-            background: #38bdf8;
-            color: #020617;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-        }
+        body { font-family: Arial, sans-serif; background: #0f172a; color: #f8fafc; line-height: 1.6; -webkit-user-select: none; user-select: none; }
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; }
+        .cover-img { display: block; max-width: 100%; height: auto; margin: 0 auto 30px auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h1, h2, h3 { color: #d4af37; }
+        h2 { border-bottom: 1px solid #334155; padding-bottom: 8px; margin-top: 40px; }
+        .matrix-box { background: #1e293b; padding: 15px; border-left: 4px solid #d4af37; margin: 20px 0; font-family: monospace; white-space: pre-wrap; }
+        .paywall { border: 2px dashed #d4af37; padding: 25px; text-align: center; margin-top: 40px; background: #1e293b; border-radius: 8px; }
+        .btn-action { background: #d4af37; color: #0f172a; font-weight: bold; border: none; border-radius: 4px; padding: 10px 20px; cursor: pointer; margin-left: 5px; }
+        #hidden-content { display: none; margin-top: 30px; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body oncontextmenu="return false;"> 
+<div class="container">
 
-    <div class="vault-container">
+    <!-- 1. KORICE KNJIGE (JPG) -->
+    <!-- Napomena: Zamenite 'korica.jpg' tačnim nazivom vaše slike na GitHubu ako se zove drugačije -->
+    <img src="korica.jpg" alt="Redoks Juriš Korice" class="cover-img">
+
+    <!-- 2. BESPLATAN SADRŽAJ (POGLAVLJE 1 IZ PDF-A) -->
+    <div id="free-content">
+        <h2>POGLAVLJE 1: HAJFLIKOV LIMIT I ANATOMIJA ĆELIJSKOG SATA STARENJA</h2>
+        <h3>1.1 Biofizički mehanizam: Skraćivanje telomera i replikacioni kredit ćelije</h3>
+        <p>Da bi čitalac u potpunosti razumeo suštinu biofizičkog modelovanja i kako kontinuirani unos joda sistemom mikrokontinuiteta uspešno pomera granice starenja unutar sistema, moramo ugraditi jedan od najvažnijih zakona celularne biologije – Hajflikov limit (Hayflick limit). Otkriven 1961. godine od strane dr Leonarda Hajflika, ovaj zakon dokazuje da normalna ćelijska struktura poseduje strogo ograničen replikacioni kredit: ona može da se podeli samo između 40 i 60 puta pre nego što trajno izgubi sposobnost obnove, uđe u fazu senescencije (biološkog starenja) i konačno odumre.</p>
+        <p>Sa stanovišta Medicinske teorije oksido-redukcije, Hajflikov limit je unutrašnji bio-električni sat starenja organizma, a njegov pogonski mehanizam su telomere – zaštitne kapice na krajevima hromozomskih struktura. Pri svakoj ćelijskoj deobi unutar modela, usled nesavršenstva kopiranja DNK lanca (tzv. problem replikacije krajeva), telomere se progresivno skraćuju. Kada nakon određenog broja deoba telomere dostignu kritično kratku dužinu, hromozomi gube strukturni štit, ćelija aktivira biološku kočnicu i trajno prestaje sa replikacijom.</p>
+
+        <h3>1.2 Ubrzanje ćelijskih deoba usled acidoze i destruktivnog pritiska MDA otpada</h3>
+        <p>Najveći izazov za stabilnost sistema i uzrok ranog funkcionalnog sloma modela jeste činjenica da sistemski redoks debalans tera ćelije da svoj replikacioni kredit potroše znatno brže nego što je primarnim algoritmom predviđeno.</p>
+        <ul>
+            <li><strong>Ubrzanje deoba usled oksidativnog požara:</strong> Kada mitohondrija konstantno „curi“ elektrone i stvara visoke nivoe Malondialdehidnog (MDA) i peroksidnog otpada, te kiseline narušavaju ćelijske membrane. Ćelije masovno odumiru pre vremena usled lipidne peroksidacije.</li>
+            <li><strong>Prisilna potrošnja replikacionog kredita:</strong> Da bi nadomestio prevremeno uništene strukture, sistem je prisiljen da podiže ritam i hitno pokreće nove ćelijske deobe. Ćelija koja je u stanju elektrohemijskog mira mogla da živi pun profil vremena, biva naterana na trenutnu deobu kako bi zamenila oštećenu susednu ćeliju. Na taj način, standardni model potroši svoj fiksni kredit od 50 deoba znatno brže, jer je sistem pretrpeo hronični tehnički kvar i debalans ćelijskih baterija.</li>
+        </ul>
+
+        <h3>1.3 Mehanizam rastezanja vremenskog koda konzervacijom biološkog sata jodom</h3>
+        <p>Inženjersko rešenje ovog problema kroz Protokol Loboda ne menja fiksni broj Hajflikovog limita, već drastično rasteže vremenski interval između dve ćelijske deobe kroz radikalnu uštedu energije i odbranu membrana unutar modela čovekovog klona.</p>
         
-        <!-- PREDNJA KORICA KNJIGE UNUTAR BESPLATNOG DELA -->
-        <div class="cover-box">
-            <div style="font-size: 0.9em; color: #64748b; letter-spacing: 3px; margin-bottom: 15px; font-weight: bold;">MONOGRAFIJA OKSIDO-REDUKCIONE MEDICINE</div>
-            <div class="cover-title">REDOKS JURIŠ</div>
-            <div class="cover-subtitle">DOSTIZANJE MAKSIMALNOG GENETSKOG KODA DUGOVEČNOSTI</div>
-            <div style="font-size: 1.1em; color: #00ffcc; font-weight: bold; letter-spacing: 1px;">Master inženjer Dragan Loboda</div>
-        </div>
-        
-        <!-- TEKST KNJIGE OD POČETKA DO POGLAVLJA 2.1 -->
-        <div class="book-text">
-            <h2 style="color: #38bdf8; margin-top: 0; border-bottom: 1px solid #334155; padding-bottom: 10px; text-transform: uppercase;">POGLAVLJE 1: AKSIOM REDOKS PARADIGME I BIOFIZIKA ĆELIJE</h2>
-            <p style="margin-bottom: 20px;">Usklađivanje biološkog napona unutrašnje sredine predstavlja temeljni aksiom ove monografije. Savremeni civilizacijski šum, procesuirana ishrana, rafinisana biljna ulja i hronična preplavljenost intersticijuma malondialdehidom (MDA otpadom) stvaraju permanentni kiselinski požar unutar naših tkiva. Ovaj proces dovodi do dramatičnog pada Zeta potencijala celularnih kondenzatora sa zdravih -70 mV na kritičnih -15 mV. Kada ćelija uleti u energetski mrak od -15 mV, njene mitohondrije gube sposobnost nominalne proizvodnje ATP napona, a replikacioni kod telomera biva prebrzo potrošen.</p>
-            
-            <p style="margin-bottom: 20px;">Konvencionalna medicina vekovima laički i profitno deli patologiju na hiljade apstraktnih latinskih naziva, svesno krijući fundamentalnu istinu Periodnog sistema elemenata. Medicinska teorija oksido-redukcije dekonstruiše ove dogme i dokazuje: u prirodi ne postoje hiljade bolesti, već samo jedna jedina, univerzalna i hronična bolest žive materije – STARENJE, odnosno sistemski pad električnog napona! Svih 260 anomalija koje ćemo obraditi u ovom registru nisu zasebne bolesti, već samo lokalne, simptomatske manifestacije ovog jednog te istog elektrohemijskog kvara.</p>
-            
-            <h2 style="color: #38bdf8; margin-top: 35px; border-bottom: 1px solid #334155; padding-bottom: 10px; text-transform: uppercase;">POGLAVLJE 2: GLAVNI REMONT I HALOGENI ŠTIT</h2>
-            <p style="margin-bottom: 20px;">Uvođenjem neprobojnog halogenog oklopa kroz Protokol Loboda, svesnim održavanjem ravnog biohemijskog platoa joda i pravilnom inženjerskom manipulacijom koeficijentima opterećenja, isporučuje se operativni priručnik za potpunu re-polarizaciju ćelija. Kidanjem kiselinskih okova i podizanjem napona svake ćelije na idealnih -70 mV, otvaraju se vrata novoj eri u kojoj organizam bez napora optimizuje svoj puni genetski potencijal, čime se stavlja konačna i neoboriva redoks presuda nad entropijom živog sistema.</p>
-            
-            <p style="margin-bottom: 20px; font-weight: bold; color: #ffcc00;">[ PREKID BESPLATNOG PRIKAZA - STRANA DO POGLAVLJA 2.1 ]</p>
-            <p style="margin-bottom: 0;">Došli ste do krajnje granice otvorenog uvodnog dela. Kako biste nastavili proučavanje celokupne monografije sa proračunima i kompletnim registrom od 260 anomalija, izaberite jedan od dva zvanična režima autorizacije u nastavku radi dobijanja vaše tridesetodnevne sistemske šifre.</p>
+        <div class="matrix-box">
+UPRAVLJANJE HAYFLICKOVIM LIMITOM I RASTEZANJE VREMENA
+
+[ Standardni model ] ──> Visok MDA i radikali ──> Brzo umiranje ćelija ──> Potrošnja deoba (Slom: muškarci 82,9 godina, žene 89,0 godina)
+(Nominalna tačka ulaska: 20. godina života – rani početak protokola nakon biološkog sazrevanja omogućava maksimalnu konzervaciju ćelijskog sata i rastezanje Hajflikovog limita)
+
+[ Protokol Loboda ] ──> Jodolipidni štit ──> Ćelije osigurane ──> Spore i retke deobe (Tehnološki plato: muškarci do 468,1 godina, žene do 508,3 godina)
         </div>
 
-        <!-- OBE OPCIJE SA KORICOM I UPLATNICOM NA SAMOM DNJU -->
-        <div class="options-section">
-            <div style="text-align: center; font-size: 1.2em; font-weight: bold; color: #ffcc00; margin-bottom: 30px; letter-spacing: 1px; text-transform: uppercase;">
-                🔒 AUTORIZACIONI REŽIMI ZA DOBIJANJE ŠIFRE:
-            </div>
+        <ul>
+            <li><strong>Konzervacija biološkog sata:</strong> Kreiranjem neprobojnog jodolipidnog oklopa na unutrašnjim i spoljašnjim membranama mitohondrija i ćelija, strukture postaju otporne na unutrašnje radikale i eksterne toksine unutar modela. Pošto ćelije više ne propadaju prevremeno, potreba sistema za pokretanjem novih, hitnih deoba drastično opada.</li>
+            <li><strong>Usporavanje trošenja telomera:</strong> Održavanjem stabilnog elektrodinamičkog napona na optimalnih -70 mV, ćelija dobija elektrohemijski mir. Umesto da organizam ispuni svojih 50 deoba za kraći vremenski period, on pod redoks oklopom istu tu količinu replikacionog kredita bez napora razvuče na nominalni tehnološki plato do kote od 300+ godina, omogućavajući modelu čovekovog klona da ostvari svoj maksimalni potencijal u stanju pune, funkcionalne i svesne vitalnosti tkiva.</li>
+        </ul>
 
-            <!-- REŽIM 1: ZA PRIJATELJA -->
-            <div class="option-box" style="border-left: 4px solid #38bdf8;">
-                <h3 style="color: #38bdf8; margin-top: 0; text-transform: uppercase; letter-spacing: 0.5px;">▶ OPCIJA 1: Prijateljska autorizacija (Ključ preko saradnika)</h3>
-                <p style="margin: 10px 0; line-height: 1.6; color: #cbd5e1;">Ukoliko ste adresu ovog sajta ili informacije o Protokolu dobili direktno od autora, vašeg bliskog prijatelja ili zvaničnog saradnika u okviru našeg zatvorenog naučno-istraživačkog programa, unesite autorizovanu prijateljsku šifru koju ste dobili usmenim putem za direktan ulazak u PDF zonu.</p>
-            </div>
+        <h3>1.4 Nelinearna stabilizacija životnog koda i projektovanje apsolutnog biološkog maksimuma</h3>
+        <p><strong>Izvod i metodologija početnih parametara:</strong> Do preciznih bioloških osa od 82,9 godina za muškarce i 89,0 godina za žene došli smo preko Obračuna koeficijenata redukcije. Zvanični globalni prosek očekivanog životnog veka (Ujedinjene Nacije) iznosi 71,2 godine za muškarce i 76,4 godine za žene. Mesečni i godišnji gubici stvarnog biološkog potencijala usled destruktivnih spoljašnjih faktora (društveni stres, toksini sredine, nesreće) iznose u proseku 16,5%. Kada eliminišemo te spoljašnje faktore i dodamo izgubljene 12,2 godine života, dobijamo čistu biološku konstantu:</p>
+        <ul>
+            <li>Muškarci (M): 71,2 god. + 16,5% (matematička redukcija) = 82,9 godina.</li>
+            <li>Žene (Ž): 76,4 god. + 16,5% (matematička redukcija) = 89,0 godina.</li>
+        </ul>
+        <p><strong>Korelacioni utrošak žetona kroz biofizički model 15/9:</strong> Početni sistemski kapacitet iznosi tačno 60,00 žetona, koji predstavljaju celularne cikluse odnosno replikacioni deobni kredit. Raspoređujemo žetone kroz ceo životni vek na bazi nelinearnog metabolizma i modela 15/9 (15 sati aktivnosti i proizvodnje energije / 9 sati ćelijske regeneracije, bubrežnog klirensa i čišćenja MDA otpada).</p>
 
-            <!-- REŽIM 2: UPLATNICA I QR KOD -->
-            <div class="option-box" style="border-left: 4px solid #00ffcc; margin-bottom: 0;">
-                <h3 style="color: #00ffcc; margin-top: 0; text-transform: uppercase; letter-spacing: 0.5px;">▶ OPCIJA 2: Standardna uplatna autorizacija (IPS QR Kod)</h3>
-                <p style="margin: 10px 0; line-height: 1.6; color: #cbd5e1;">Za zvanično generisanje vaše jedinstvene tridesetodnevne šifre, izvršite prenos resursa prema podacima sa priloženog zvaničnog naloga. Možete jednostavno skenirati zvanični NBS IPS QR kod na desnoj strani uplatnice pomoću m-banking aplikacije vašeg mobilnog telefona za munjevitu automatsku popunu svih podataka.</p>
-                
-                <div class="slip-box">
-                    <img src="QR kod za knjigu za plaćanje.png" alt="Zvanična uplatnica sa IPS QR kodom" class="slip-image">
-                </div>
-            </div>
+        <div class="matrix-box">
+MATRICA A: MUŠKARCI BEZ HALOGENE ZAŠTITE PROTOKOLA LOBODA
+(Biološki sat: 82,9 godina — Visok unutrašnji kiselinski šum i ubrzana potrošnja)
+0 – 15 god  | Utrošeno: 23,08 žetona | Preostalo: 36,92 | Maksimalan ATP; brza mitoza rasta.
+15 – 35 god | Utrošeno: 16,67 žetona | Preostalo: 20,25 | Vrhunac snage; eliminacija MDA u snu.
+35 – 50 god | Utrošeno: 9,38 žetona  | Preostalo: 10,87 | KOTA 50 PRESEK: Pad hormona; MDA zaostaje.
+50 – 55 god | Utrošeno: 3,12 žetona  | Preostalo: 7,75  | Andropauza; pad glomerularne filtracije.
+55 – 70 god | Utrošeno: 6,00 žetona  | Preostalo: 1,75  | Usporen metabolizam; klirens opada za 30%.
+70 – 82,9   | Utrošeno: 1,75 žetona  | Preostalo: 0,00  | Rad na rezervi; akumuliran MDA lepak.
+Kontrolni zbir utrošenih žetona: 60
         </div>
 
-        <a href="index.html" class="btn-back">Nazad na početnu</a>
-    </div>
+        <div class="matrix-box">
+MATRICA B: MUŠKARCI SA HALOGENOM ZAŠTITOM PROTOKOLA LOBODA
+(Projektovani tehnološki plato: 468,1 godina — Koeficijent redukcije MDA -85%)
+0 – 15 god   | Utrošeno: 23,08 žetona | Preostalo: 36,92 | Faza rasta pre uvođenja protokola.
+15 – 135 god | Utrošeno: 15,00 žetona | Preostalo: 21,92 | Uvođenje I2 štita. Nula peroksidacije.
+135 – 255 god| Utrošeno: 12,00 žetona | Preostalo: 9,92  | Očuvan ATP; stabilizovane membrane.
+255 – 355 god| Utrošeno: 7,00 žetona  | Preostalo: 2,92  | Andropauza neutralisana. Klirens na 95%.
+355 – 440 god| Utrošeno: 2,50 žetona  | Preostalo: 0,42  | Čist intersticijalni prostor lica i tela.
+440 – 468,1  | Utrošeno: 0,42 žetona  | Preostalo: 0,00  | Ultra-štedljiva potrošnja; bez požara.
+Kontrolni zbir utrošenih žetona: 60
+        </div>
 
-</body>
-</html>
+        <h3>1.5 Halogeni štit: Termodinamička separacija lipidne odbrane i slom antioksidativnog paradoksa</h3>
+        <p><strong>I. Mitohondrijski paradoks i anatomija unutrašnjeg proboja:</strong> Unutar svakog živog sistema, mitohondrija funkcioniše kao primarni elektrohemijski reaktor zadužen za sintezu adenozin-trifosfata (ATP-a) i održavanje stabilne unutrašnje struje ćelije. Međutim, ovaj pogon u sebi krije manu poznatu kao Mitohondrijski paradoks. Tokom prenosa elektrona kroz respiratorni lanac, energetski resursi konstantno „cure“. Ovo curenje generiše neprekidnu nusprodukciju agresivnih slobodnih radikala (Superoksid anion radikal, Vodonik-peroksid, Hidroksilni radikal).</p>
