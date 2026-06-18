@@ -481,3 +481,31 @@ DVE PARADIGME ODBRANE ĆELIJE OD STARENJA
         </div>
         <p style="font-size: 0.9em; color: #94a3b8; margin-top: 15px;">
             <strong>Potvrda:</strong> Nakon uplate, pošaljite sliku ekrana (potvrdu) na imejl <strong style="color:#38bdf8;">lobodasd@gmail.com</strong> i autor će vam odmah poslati aktivnu šifru koja važi narednih 30 dana!
+            </div>
+</div>
+
+<script>
+    // 1. FUNKCIJE ZA OTVARANJE I ZATVARANJE PROZORA (OPCIJA 1 i 2)
+    function openModal(id) { 
+        document.getElementById(id).style.display = 'flex'; 
+    }
+    function closeModal(id) { 
+        document.getElementById(id).style.display = 'none'; 
+    }
+    
+    // 2. POTPUNA DIGITALNA ZAŠTITA PROTIV KOPIRANJA
+    document.addEventListener('selectstart', function(e) { 
+        e.preventDefault(); 
+    });
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 85 || e.keyCode === 80 || e.keyCode === 83)) { 
+            return false; 
+        }
+        if (e.keyCode === 123) { 
+            return false; 
+        }
+    };
+</script>
+</body>
+</html>
+    
