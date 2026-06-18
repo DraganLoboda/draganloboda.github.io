@@ -159,7 +159,7 @@
  
      var odnos = n > 0 ? (pr / n) : 0;
      if(odnos > 1) { odnos = 1; }
-     var khu2 = khut * odnos;
+     var khu2 = 1 + (khut - 1) * odnos;
      var pz3 = (vn - v) * khu2; if(pz3 < 0) pz3 = 0;
      var v3 = v + (pz3 * (1 + fto));
  
