@@ -118,7 +118,7 @@
      var d = document.getElementById('dug').value;
      var alk = document.getElementById('alkohol').checked;
      var sport = document.getElementById('sportista').checked;
-     var pr = Number(document.getElementById('proizvoljno').value);
+    var pr = Math.max(0, Number(document.getElementById('proizvoljno').value));
  
      if(v <= 0 || h <= 0 || m <= 0 || isNaN(pr)) {
          alert("Unesite ispravne podatke.");
