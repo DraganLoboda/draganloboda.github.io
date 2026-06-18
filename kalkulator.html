@@ -180,6 +180,10 @@
      
      var presuda = "Na osnovu unetih koordinata, vaš BMI iznosi <strong>" + bmi.toFixed(1) + "</strong>. ";
      var saveti = [];
+          // INŽENJERSKA NAPOMENA O SATURACIJI I FILTERIMA TELA
+     if (n > 15) {
+         saveti.push("<strong>Inženjerska napomena o saturaciji:</strong> Iako sistem projektuje optimalan jurišni volumen od " + n + " kapi za trenutni dug, u praksi se preporučuje postepeno zasićenje. Težite polovičnoj dozi kroz satni protokol u dužem periodu kako bi se formirao stabilan jodolipidni štit, a nakon saturacije pređite na režim održavanja sa manjim brojem kapi radi bezbednosti i rasterećenja filtera tela (bubrega).");
+     }
 
      if (razlikaMase > 3) {
          saveti.push("Predlaže se redukcija telesne mase (smanjiti za oko <strong>" + razlikaMase + " kg</strong>) radi rasterećenja kardiovaskularnog sistema.");
