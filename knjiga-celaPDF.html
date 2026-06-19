@@ -124,11 +124,20 @@
             <span style="color: #38bdf8; font-weight: bold; font-family: monospace;">📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
             <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz za čitanje</span>
         </div>
-        <!-- NEPROBOJNA ODREDBA: sandbox bez allow-top-navigation ubija Heyzine-ovo preusmeravanje, dozvoljava samo listanje -->
-        <iframe class="book-frame" id="secure-iframe" src="" sandbox="allow-scripts allow-same-origin allow-forms" allowfullscreen></iframe>
+        <!-- MAKSIMALNA HTML5 ZABRANA: Isključena allow-top-navigation dozvola -->
+        <iframe class="book-frame" id="secure-iframe" src="" sandbox="allow-scripts allow-forms" allowfullscreen></iframe>
     </div>
 
     <script>
+        // GLOBALNA ZAMKA ZA SPREČAVANJE NAPUŠTANJA STRANICE (ANTI-REDIRECT)
+        var preusmeravanjeBlokirano = false;
+        window.onbeforeunload = function() {
+            if (preusmeravanjeBlokirano) {
+                // Generiše sistemski stop i drži korisnika u tabu
+                return "Sistem sprečava spoljno skretanje sa knjige.";
+            }
+        };
+
         function verifyRedoxVault() {
             var inputPass = document.getElementById("redox-pass").value;
             var errorBox = document.getElementById("error-box");
@@ -137,7 +146,10 @@
                 document.getElementById("lock-screen").style.display = "none";
                 document.getElementById("book-viewer-zone").style.display = "block";
 
-                // Punjenje embed verzije sa brisanjem reklama tek kada prođe verifikacija
+                // Aktiviramo zamku sekundu pre učitavanja iframe-a
+                preusmeravanjeBlokirano = true;
+
+                // Učitavanje tačne, očišćene embed verzije
                 document.getElementById("secure-iframe").src = "https://heyzine.com";
 
                 errorBox.style.display = "none";
