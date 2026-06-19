@@ -82,8 +82,6 @@
             font-weight: bold;
             display: none;
         }
-        
-        /* ČUVAR STRANICE: Knjiga je učitana, ali je skrivena iza ekrana */
         #book-viewer-zone {
             display: none;
             width: 100vw;
@@ -125,13 +123,13 @@
         <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN! PROVERITE RESURSE.</div>
     </div>
 
-    <!-- OKVIR KNJIGE (IDENTIČNA ARHITEKTURA KAO U MEDICINSKOJ TEORIJI) -->
+    <!-- OKVIR KNJIGE (PREKOPIRANA ARHITEKTURA IZ MEDICINSKE TEORIJE) -->
     <div id="book-viewer-zone">
         <div class="viewer-header">
             <span style="color: #38bdf8; font-weight: bold; font-family: monospace;">📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
             <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz za čitanje</span>
         </div>
-        <!-- 🎯 Link je upisan ODMAH u HTML kako pretraživač ne bi bacao grešku i preusmeravao sajt! -->
+        <!-- TAČAN FORMAT LINKA (flip-book umesto embed) KOJI SPREČAVA IZBACIVANJE SA SAJTA -->
         <iframe class="book-frame" id="secure-iframe" src="https://heyzine.com" allowfullscreen></iframe>
     </div>
 
@@ -141,7 +139,7 @@
             var errorBox = document.getElementById("error-box");
 
             if (inputPass === "REDOX2026") {
-                // Samo skidamo zavesu i prikazujemo već učitanu knjigu (Nema menjanja adrese i nema šoka za browser!)
+                // Podižemo zavesu i prikazujemo već učitanu flip-book knjigu bez ikakvog diranja src adrese
                 document.getElementById("lock-screen").style.display = "none";
                 document.getElementById("book-viewer-zone").style.display = "block";
                 errorBox.style.display = "none";
