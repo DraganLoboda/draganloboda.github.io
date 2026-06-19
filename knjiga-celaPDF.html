@@ -124,7 +124,7 @@
             <span style="color: #38bdf8; font-weight: bold; font-family: monospace;">📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
             <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz za čitanje</span>
         </div>
-        <!-- Prozor je prazan na početku, puni se tek nakon unosa šifre -->
+        <!-- PROZOR JE PRAZAN NA POČETKU, BEZ MEŠANJA SIROVOG PDF-A -->
         <iframe class="book-frame" id="secure-iframe" src="" allowfullscreen></iframe>
     </div>
 
@@ -137,7 +137,7 @@
                 document.getElementById("lock-screen").style.display = "none";
                 document.getElementById("book-viewer-zone").style.display = "block";
 
-                // UGRADNJA NOVOG PROJEKTA KNJIGE SA PRELEPIM LISTANJEM BEZ REKLAMA
+                // TIHO UČITAVANJE HEYZINE-A TEK NAKON ŠIFRE U ČIST EMBED FORMAT SA ?clear ZAŠTITOM
                 document.getElementById("secure-iframe").src = "https://heyzine.com";
 
                 errorBox.style.display = "none";
