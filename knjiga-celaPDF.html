@@ -125,7 +125,13 @@
             <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz: Kopiranje i preuzimanje blokirano</span>
         </div>
         <!-- PROMENA U /embed/ SA ?clear OPCIJOM KOJA UKLANJA BLOKADU HEYZINE-A -->
-        <iframe class="book-frame" id="secure-iframe" src="https://heyzine.com" allowfullscreen></iframe>
+        <iframe
+    class="book-frame"
+    id="secure-iframe"
+    src=""
+    allowfullscreen
+    scrolling="no">
+</iframe>
     </div>
 
     <script>
@@ -137,8 +143,7 @@
                 document.getElementById("lock-screen").style.display = "none";
                 document.getElementById("book-viewer-zone").style.display = "block";
                 
-                // POPRAVLJENO: Ovde se aktivira čist ugradni format koji ne dozvoljava preusmeravanje
-                document.getElementById("secure-iframe").src = "https://heyzine.com";
+               document.getElementById("secure-iframe").src = "https://heyzine.com/flip-book/3b697f93f2.html";
                 errorBox.style.display = "none";
                 document.getElementById("redox-pass").value = "";
             } else {
