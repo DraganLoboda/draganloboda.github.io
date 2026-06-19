@@ -30,6 +30,8 @@
             text-align: center;
             max-width: 450px;
             width: 90%;
+            position: relative;
+            z-index: 10000;
         }
         .neon-title {
             font-size: 1.3em;
@@ -80,6 +82,8 @@
             font-weight: bold;
             display: none;
         }
+        
+        /* ČUVAR STRANICE: Knjiga je učitana, ali je skrivena iza ekrana */
         #book-viewer-zone {
             display: none;
             width: 100vw;
@@ -99,6 +103,7 @@
             justify-content: space-between;
             padding: 0 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-sizing: border-box;
         }
         .book-frame {
             width: 100%;
@@ -109,6 +114,7 @@
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
+    <!-- EKRAN ZA ZAKLJUČAVANJE -->
     <div class="lock-container" id="lock-screen">
         <div class="neon-title">🔒 REDOKS JURIŠ<br><span style="font-size: 0.8em; color: #cbd5e1;">Cela knjiga PDF</span></div>
         <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 25px; color: #94a3b8;">Unesite vašu tridesetodnevnu autorizovanu šifru za pristup originalnom PDF rukopisu.</p>
@@ -119,13 +125,14 @@
         <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN! PROVERITE RESURSE.</div>
     </div>
 
+    <!-- OKVIR KNJIGE (IDENTIČNA ARHITEKTURA KAO U MEDICINSKOJ TEORIJI) -->
     <div id="book-viewer-zone">
         <div class="viewer-header">
             <span style="color: #38bdf8; font-weight: bold; font-family: monospace;">📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
             <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz za čitanje</span>
         </div>
-        <!-- PROZOR JE PRAZAN NA POČETKU, BEZ MEŠANJA SIROVOG PDF-A -->
-        <iframe class="book-frame" id="secure-iframe" src="" allowfullscreen></iframe>
+        <!-- 🎯 Link je upisan ODMAH u HTML kako pretraživač ne bi bacao grešku i preusmeravao sajt! -->
+        <iframe class="book-frame" id="secure-iframe" src="https://heyzine.com" allowfullscreen></iframe>
     </div>
 
     <script>
@@ -134,12 +141,9 @@
             var errorBox = document.getElementById("error-box");
 
             if (inputPass === "REDOX2026") {
+                // Samo skidamo zavesu i prikazujemo već učitanu knjigu (Nema menjanja adrese i nema šoka za browser!)
                 document.getElementById("lock-screen").style.display = "none";
                 document.getElementById("book-viewer-zone").style.display = "block";
-
-                // TIHO UČITAVANJE HEYZINE-A TEK NAKON ŠIFRE U ČIST EMBED FORMAT SA ?clear ZAŠTITOM
-                document.getElementById("secure-iframe").src = "https://heyzine.com";
-
                 errorBox.style.display = "none";
                 document.getElementById("redox-pass").value = "";
             } else {
