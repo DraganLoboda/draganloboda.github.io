@@ -185,15 +185,18 @@
          saveti.push("<strong>Inženjerska napomena o saturaciji:</strong> Iako sistem projektuje optimalan jurišni volumen od " + n + " kapi za trenutni dug, u praksi se preporučuje postepeno zasićenje. Težite polovičnoj dozi kroz satni protokol u dužem periodu kako bi se formirao stabilan jodolipidni štit, a nakon saturacije pređite na režim održavanja sa manjim brojem kapi radi bezbednosti i rasterećenja filtera tela (bubrega).");
      }
 
-         if (razlikaMase > 0) {
+              if (razlikaMase > 0) {
          saveti.push("Predlaže se redukcija telesne mase (smanjiti za oko <strong>" + razlikaMase + " kg</strong>) radi rasterećenja kardiovaskularnog sistema.");
      }
      
      if (d === "maksimalno") {
-         // Izvlačenje čistih varijabli iz gornjeg dela koda za precizan dinamički proračun
-         var bazaBezDuga = parseFloat(v1) || 82.9;
-         var saDugomPusaca = (v + (vn - v) * (1 + fto));
-         var gubitakGodina = (bazaBezDuga - saDugomPusaca).toFixed(1);
+         // HIRURŠKI TAČAN MATEMATIČKI ANTIDOT: Računamo čist teren (fm = 1.0) naspram pušačkog duga
+         var pz_nepusac = s * 1.0 * khut;
+         if(pz_nepusac < 0) { pz_nepusac = 0; }
+         var prognozaNepusac = v + (pz_nepusac * 1.0); // fto za nepušača je 0
+         
+         var saDugomPusaca = (v + (vn - v) * (1 + -0.22)); // -0.22 je fto za maksimalni šum
+         var gubitakGodina = (prognozaNepusac - saDugomPusaca).toFixed(1);
          
          // Simulacija nelinearnog unosa od tačno 2 kapi pod pušačkim šumom
          var n_test = parseFloat(n) || 0;
@@ -202,7 +205,7 @@
          if(odnos2 > 1) { odnos2 = 1; }
          var khu2_mat = 1 + (khut_test - 1) * odnos2;
          var pz3_mat = (vn - v) * khu2_mat; if(pz3_mat < 0) { pz3_mat = 0; }
-         var v3_2KapiSimulacija = v + (pz3_mat * (1 + fto));
+         var v3_2KapiSimulacija = v + (pz3_mat * (1 + -0.22));
          
          saveti.push("<strong>Upozorenje za pušače:</strong> Ukoliko ovog trenutka ostavite pušenje, povećaćete sebi životni vek za <strong>" + gubitakGodina + "</strong> godina. Međutim, ukoliko odlučite da i dalje pušite, sa samo 2 kapi dnevnog unosa joda (Lugolovog rastvora, a prema Protokolu Loboda) vaša prognoza raste na <strong>" + v3_2KapiSimulacija.toFixed(1) + "</strong> godina, čime u potpunosti nelinearno anulirate uticaj pušenja!");
      }
@@ -226,4 +229,5 @@
 </script>
 </body>
 </html>
+
 
