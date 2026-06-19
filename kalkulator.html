@@ -283,58 +283,64 @@ function pokreniSimulacijuObnove() {
         rezervaElement.classList.add("badge-niska");
     }
 
-        // 8. NAPREDNI PRORAČUN MAKSIMALNIH PROGNOZA I POTENCIJALA (POBOLJŠANJA 1 I 2)
+            // 8. NAPREDNI PRORAČUN MAKSIMALNIH PROGNOZA I POTENCIJALA (NELINEARNI HAJFLICK KLIK)
     var preostaliVekMax = vn - v;
     if (preostaliVekMax < 0) preostaliVekMax = 0;
 
     // Proračun pojedinačnih šteta u godinama na osnovu biofizičkog opterećenja
     var stetaPusnja = (d === "maksimalno") ? (preostaliVekMax * 0.22) : 0;
     var stetaDijab = dijab ? (preostaliVekMax * 0.12) : 0;
-    var stetaGojaznost = (bmi >= 30) ? (preostaliVekMax * 0.08) : ((bmi >= 25) ? (preostaliVekMax * 0.03) : 0);
+    
+    // NELINEARNI MODEL ZA GOJAZNOST (Poboljšanje 2): Prati procenat prekomernog masnog tkiva
+    var stetaGojaznost = 0;
+    if (razlikaMase > 0 && idealnaMasa > 0) {
+        var procenatViska = razlikaMase / idealnaMasa;
+        // Kvadratni nelinearni skok: teži i stariji subjekti dobijaju drastično više godina povratka
+        stetaGojaznost = (preostaliVekMax * 0.45 * Math.pow(procenatViska, 1.3));
+        // Osiguravamo stabilne biofizičke granice
+        if (stetaGojaznost > preostaliVekMax * 0.40) { stetaGojaznost = preostaliVekMax * 0.40; }
+    }
+    
     var stetaSrce = srce ? (preostaliVekMax * 0.18) : 0;
     var stetaBubr = bubr ? (preostaliVekMax * 0.20) : 0;
     var stetaAlk = (alk === "svakodnevno") ? (preostaliVekMax * 0.15) : ((alk === "redovno") ? (preostaliVekMax * 0.06) : 0);
 
     var ukupnaStetaZajedno = stetaPusnja + stetaDijab + stetaGojaznost + stetaSrce + stetaBubr + stetaAlk;
 
-    // 1. MAKSIMALNE OSTVARIIVE PROGNOZE (Poboljšanje 1)
-    // Maksimalna prognoza bez joda (v1) dobija se kada neutrališemo sve bolesti/šumove na čistom terenu
+    // 1. MAKSIMALNE OSTVARIVE PROGNOZE
     var maxMogucaV1 = vn; 
-    // Sa trenutnim eksperimentalnim unosom joda (v3) maksimizujemo stabilizaciju preostalog veka uz dodati potencijal
     var maxMogucaV3 = v + (preostaliVekMax * khu2);
-    // Sa punom halogenom zaštitom (v2) dostižemo teoretski tehnološki limit
     var maxMogucaV2 = v + (preostaliVekMax * khut);
 
     document.getElementById('out-max-v1').innerText = maxMogucaV1.toFixed(1) + " godina";
     document.getElementById('out-max-v3').innerText = maxMogucaV3.toFixed(1) + " godina";
     document.getElementById('out-max-v2').innerText = maxMogucaV2.toFixed(1) + " godina";
 
-    // 2. PRIKAZ POTENCIJALA BIOLOŠKOG POBOLJŠANJA KROZ TRI SCENARIJA (Poboljšanje 2)
+    // 2. PRIKAZ POTENCIJALA BIOLOŠKOG POBOLJŠANJA KROZ TRI SCENARIJA
     var potencijalHtmlV2 = "";
     
     if (ukupnaStetaZajedno > 0) {
         potencijalHtmlV2 += "<div style='margin-bottom: 8px; font-weight: bold; color: #ff3366;'>Scenario 1: Bez halogene zaštite (Eliminacijom faktora opterećenja dobijate):</div>";
         if (stetaPusnja > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Prestanak pušenja:</span><span class='potencijal-val' style='color:#ff3366;'>+" + stetaPusnja.toFixed(1) + " god.</span></div>";
-        if (stetaGojaznost > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Regulacija telesne mase:</span><span class='potencijal-val' style='color:#ff3366;'>+" + stetaGojaznost.toFixed(1) + " god.</span></div>";
+        if (stetaGojaznost > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Regulacija telesne mase (na optimalnu):</span><span class='potencijal-val' style='color:#ff3366;'>+" + stetaGojaznost.toFixed(1) + " god.</span></div>";
         if (stetaDijab > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Kontrola/Remisija dijabetesa:</span><span class='potencijal-val' style='color:#ff3366;'>+" + stetaDijab.toFixed(1) + " god.</span></div>";
-        if (stetaSrce > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Stabilizacija kardio-statusa:</span><span class='potencijal-val' style='color:#ff3366;'>+" + stetaSrce.toFixed(1) + " god.</span></div>";
+        if (stetaSrce > 0) append_html = potencijalHtmlV2 += "<div class='potencijal-item'><span>• Stabilizacija kardio-statusa:</span><span class='potencijal-val' style='color:#ff3366;'>+" + stetaSrce.toFixed(1) + " god.</span></div>";
         if (stetaAlk > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Redukcija konzumacije alkohola:</span><span class='potencijal-val' style='color:#ff3366;'>+" + stetaAlk.toFixed(1) + " god.</span></div>";
         
-        // Za v3 i v2 scenarije, faktori se množe sa nelinearnim jodnim koeficijentom jer jod pojačava efekat oporavka ćelija
         potencijalHtmlV2 += "<div style='margin-top: 10px; margin-bottom: 8px; font-weight: bold; color: #ffcc00;'>Scenario 2: Sa trenutnim eksperimentalnim unosom (Dobitak u godinama):</div>";
         if (stetaPusnja > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Prestanak pušenja uz trenutni jod:</span><span class='potencijal-val' style='color:#ffcc00;'>+" + (stetaPusnja * khu2).toFixed(1) + " god.</span></div>";
         if (stetaGojaznost > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Regulacija mase uz trenutni jod:</span><span class='potencijal-val' style='color:#ffcc00;'>+" + (stetaGojaznost * khu2).toFixed(1) + " god.</span></div>";
         
         potencijalHtmlV2 += "<div style='margin-top: 10px; margin-bottom: 8px; font-weight: bold; color: #00ffcc;'>Scenario 3: Sa PUNOM halogenom zaštitom (Maksimalni mogući povratak):</div>";
-        if (stetaPusnja > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Prestanak pušenja uz punu jodu zaštitu:</span><span class='potencijal-val' style='color:#00ffcc;'>+" + (stetaPusnja * khut).toFixed(1) + " god.</span></div>";
-        if (stetaGojaznost > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Regulacija mase uz punu jodu zaštitu:</span><span class='potencijal-val' style='color:#00ffcc;'>+" + (stetaGojaznost * khut).toFixed(1) + " god.</span></div>";
+        if (stetaPusnja > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Prestanak pušenja uz punu jodnu zaštitu:</span><span class='potencijal-val' style='color:#00ffcc;'>+" + (stetaPusnja * khut).toFixed(1) + " god.</span></div>";
+        if (stetaGojaznost > 0) potencijalHtmlV2 += "<div class='potencijal-item'><span>• Regulacija mase uz punu jodnu zaštitu:</span><span class='potencijal-val' style='color:#00ffcc;'>+" + (stetaGojaznost * khut).toFixed(1) + " god.</span></div>";
     } else {
         potencijalHtmlV2 = "<div style='color:#00ffcc; font-size:13px;'>✓ Vaš teren tkiva je izuzetno čist. Nema faktora hroničnog opterećenja!</div>";
     }
 
     document.getElementById('out-potencijal-lista-v2').innerHTML = potencijalHtmlV2;
 
-    // 9. FORMIRANJE TEKSTUALNE PRESUDE SA POPRAVLJENIM PUŠAČKIM TEXTOM (Poboljšanje 3)
+    // 9. FORMIRANJE TEKSTUALNE PRESUDE SA POPRAVLJENIM PUŠAČKIM TEKSTOM
     var presuda = "Vaš BMI iznosi <strong>" + bmi.toFixed(1) + "</strong>. ";
     var saveti = [];
 
@@ -346,15 +352,13 @@ function pokreniSimulacijuObnove() {
         saveti.push("Predlaže se redukcija telesne mase (smanjiti za oko <strong>" + razlikaMase + " kg</strong>) radi neposrednog rasterećenja kardiovaskularnog sistema.");
     }
 
-    // DINAMIČKI PUŠAČKI TEKST SA STRUKTURISANIM PRIKAZOM SKOKA "SA -> NA" (Poboljšanje 3)
     if (d === "maksimalno") {
-        var prognozaPusacBezJoda = v1.toFixed(1); // Trenutna prognoza pod pušačkim dugom bez joda
-        // Računamo nelinearni skok za tačno 2 kapi pod pušačkim šumom
+        var prognozaPusacBezJoda = v1.toFixed(1); 
         var khut_sim = 6.6667;
         var odnos2 = n > 0 ? (2 / n) : 0; if(odnos2 > 1) odnos2 = 1;
         var khu2_sim = 1 + (khut_sim - 1) * odnos2;
         var pz3_sim = (vn - v) * khu2_sim; if(pz3_sim < 0) pz3_sim = 0;
-        var v3_2KapiPusacPrognoza = v + (pz3_sim * (1 + -0.22)); // -0.22 je fto šum pušača
+        var v3_2KapiPusacPrognoza = v + (pz3_sim * (1 + -0.22)); 
         
         saveti.push("<strong>Upozorenje za pušače:</strong> Ukoliko ovog trenutka ostavite pušenje, povećaćete sebi životni vek za <strong>" + stetaPusnja.toFixed(1) + "</strong> godina (bez joda u kombinacijama). Međutim, ukoliko odlučite da i dalje pušite, sa samo 2 kapi dnevnog unosa joda (Lugolovog rastvora, a prema Protokolu Loboda) vaša prognoza nelinearno raste sa <strong>" + prognozaPusacBezJoda + "</strong> na <strong>" + v3_2KapiPusacPrognoza.toFixed(1) + "</strong> godina, čime u potpunosti neutrališete i anulirate razarajući uticaj toksina iz cigareta!");
     }
@@ -396,4 +400,5 @@ function pokreniSimulacijuObnove() {
 </script>
 </body>
 </html>
+
 
