@@ -1,167 +1,160 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REDOKS JURIŠ (Zaštićena Knjiga) - Protokol Loboda</title>
-    <style>
-        body {
-            font-family: monospace;
-            background-color: #020617;
-            color: #cbd5e1;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-        .lock-container {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            border: 2px solid #334155;
-            border-top: 6px solid #38bdf8;
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-        }
-        .neon-title {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #38bdf8;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-        input[type="password"] {
-            width: 80%;
-            padding: 12px 15px;
-            background: #020617;
-            border: 1px solid #334155;
-            border-radius: 6px;
-            color: #00ffcc;
-            font-family: monospace;
-            font-size: 1.1em;
-            text-align: center;
-            outline: none;
-            margin-bottom: 20px;
-        }
-        input[type="password"]:focus {
-            border-color: #00ffcc;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
-        }
-        .btn-submit {
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid #00ffcc;
-            color: #00ffcc;
-            padding: 12px 30px;
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 6px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-        .btn-submit:hover {
-            background: #00ffcc;
-            color: #020617;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
-        }
-        .error-msg {
-            color: #ff3366;
-            margin-top: 15px;
-            font-weight: bold;
-            display: none;
-        }
-        
-        /* Zaštićeni interaktivni prozor knjige */
-        #book-viewer-zone {
-            display: none;
-            width: 100vw;
-            height: 100vh;
-            background-color: #020617;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-        }
-        .viewer-header {
-            height: 50px;
-            background: #020617;
-            border-bottom: 1px solid #334155;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-        .book-frame {
-            width: 100%;
-            height: calc(100vh - 50px);
-            border: none;
-        }
-    </style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>REDOKS JURIŠ (Zaštićena Knjiga) - Protokol Loboda</title>
+ <style>
+ body {
+ font-family: monospace;
+ background-color: #020617;
+ color: #cbd5e1;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ min-height: 100vh;
+ user-select: none;
+ -webkit-user-select: none;
+ -moz-user-select: none;
+ -ms-user-select: none;
+ }
+ .lock-container {
+ background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+ border: 2px solid #334155;
+ border-top: 6px solid #38bdf8;
+ padding: 40px 30px;
+ border-radius: 12px;
+ box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+ text-align: center;
+ max-width: 450px;
+ width: 90%;
+ }
+ .neon-title {
+ font-size: 1.3em;
+ font-weight: bold;
+ color: #38bdf8;
+ letter-spacing: 2px;
+ margin-bottom: 25px;
+ text-transform: uppercase;
+ }
+ input[type="password"] {
+ width: 80%;
+ padding: 12px 15px;
+ background: #020617;
+ border: 1px solid #334155;
+ border-radius: 6px;
+ color: #00ffcc;
+ font-family: monospace;
+ font-size: 1.1em;
+ text-align: center;
+ outline: none;
+ margin-bottom: 20px;
+ }
+ input[type="password"]:focus {
+ border-color: #00ffcc;
+ box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+ }
+ .btn-submit {
+ background: rgba(0, 255, 204, 0.1);
+ border: 1px solid #00ffcc;
+ color: #00ffcc;
+ padding: 12px 30px;
+ font-family: monospace;
+ font-weight: bold;
+ font-size: 1em;
+ cursor: pointer;
+ border-radius: 6px;
+ text-transform: uppercase;
+ transition: all 0.3s ease;
+ }
+ .btn-submit:hover {
+ background: #00ffcc;
+ color: #020617;
+ box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+ }
+ .error-msg {
+ color: #ff3366;
+ margin-top: 15px;
+ font-weight: bold;
+ display: none;
+ }
+ 
+ #book-viewer-zone {
+ display: none;
+ width: 100vw;
+ height: 100vh;
+ background-color: #020617;
+ position: fixed;
+ top: 0;
+ left: 0;
+ z-index: 9999;
+ }
+ .viewer-header {
+ height: 50px;
+ background: #020617;
+ border-bottom: 1px solid #334155;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 20px;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+ }
+ .book-frame {
+ width: 100%;
+ height: calc(100vh - 50px);
+ border: none;
+ }
+ </style>
 </head>
-<!-- Kompletna blokada komandi miša na celoj stranici -->
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+ <div class="lock-container" id="lock-screen">
+ <div class="neon-title">🔒 REDOKS JURIŠ<br><span style="font-size: 0.8em; color: #cbd5e1;">Cela knjiga PDF</span></div>
+ <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 25px; color: #94a3b8;">Unesite vašu tridesetodnevnu autorizovanu šifru za pristup originalnom PDF rukopisu.</p>
+ 
+ <input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
+ <br>
+ <button class="btn-submit" onclick="verifyRedoxVault()">Pristupi</button>
+ <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN! PROVERITE RESURSE.</div>
+ </div>
 
-    <!-- LOCK EKRAN -->
-    <div class="lock-container" id="lock-screen">
-        <div class="neon-title">🔒 REDOKS JURIŠ<br><span style="font-size: 0.8em; color: #cbd5e1;">Cela knjiga PDF</span></div>
-        <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 25px; color: #94a3b8;">Unesite vašu tridesetodnevnu autorizovanu šifru za pristup originalnom PDF rukopisu.</p>
-        
-        <input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
-        <br>
-        <button class="btn-submit" onclick="verifyRedoxVault()">Pristupi</button>
-        <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN! PROVERITE RESURSE.</div>
-    </div>
+ <div id="book-viewer-zone">
+ <div class="viewer-header">
+ <span style="color: #38bdf8; font-weight: bold; font-family: monospace;">📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
+ <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz: Kopiranje i preuzimanje blokirano</span>
+ </div>
+ <iframe class="book-frame" id="secure-iframe" src="https://heyzine.com" allowfullscreen></iframe>
+ </div>
 
-    <!-- ZAŠTIĆENA INTERAKTIVNA ZONA KNJIGE -->
-    <div id="book-viewer-zone">
-        <div class="viewer-header">
-            <span style="color: #38bdf8; font-weight: bold; font-family: monospace;">📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
-            <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz: Kopiranje i preuzimanje blokirano</span>
-        </div>
-        <!-- Ugradnja neprobojnog Heyzine oklopa direktno u vašu skriptu -->
-       <iframe class="book-frame" id="secure-iframe" src="https://heyzine.com" allowfullscreen></iframe>
+ <script>
+ function verifyRedoxVault() {
+ var inputPass = document.getElementById("redox-pass").value;
+ var errorBox = document.getElementById("error-box");
+ 
+ if (inputPass === "REDOX2026") {
+ document.getElementById("lock-screen").style.display = "none";
+ document.getElementById("book-viewer-zone").style.display = "block";
+ 
+ // Stabilizovano učitavanje vaše knjige bez menjanja ili skretanja na spoljne sajtove
+ document.getElementById("secure-iframe").src = "https://heyzine.com";
+ errorBox.style.display = "none";
+ document.getElementById("redox-pass").value = "";
+ } else {
+ errorBox.style.display = "block";
+ }
+ }
 
-    </div>
-
-    <script>
-        function verifyRedoxVault() {
-            var inputPass = document.getElementById("redox-pass").value;
-            var errorBox = document.getElementById("error-box");
-            
-            if (inputPass === "REDOX2026") {
-                document.getElementById("lock-screen").style.display = "none";
-                document.getElementById("book-viewer-zone").style.display = "block";
-                
-                // Hirurški tačna integracija vašeg generisanog linka u sistem zaštićenog okvira
-document.getElementById("secure-iframe").src = "https://heyzine.com";
-
-                errorBox.style.display = "block";
-                document.getElementById("redox-pass").value = "";
-            }
-        }
-
-        // Ekstremna blokada interventnih tastera na tastaturi (Ctrl+S, Ctrl+P, F12, Ctrl+C)
-        window.addEventListener('keydown', function (e) {
-            if (
-                (e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's' || e.key === 'c' || e.key === 'u') || 
-                e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I')
-            ) {
-                e.preventDefault();
-                alert("🛑 KÔD JE ZAŠTIĆEN: Strukturirani oklop ne dozvoljava preuzimanje elemenata.");
-            }
-        });
-    </script>
+ window.addEventListener('keydown', function (e) {
+ if (
+ (e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's' || e.key === 'c' || e.key === 'u') || 
+ e.key === 'F12' || 
+ (e.ctrlKey && e.shiftKey && e.key === 'I')
+ ) {
+ e.preventDefault();
+ alert("🛑 KÔD JE ZAŠTIĆEN: Strukturirani oklop ne dozvoljava preuzimanje elemenata.");
+ }
+ });
+ </script>
 </body>
 </html>
