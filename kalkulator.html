@@ -27,7 +27,6 @@
         .warn { color: #ffcc00; font-weight: bold; }
         .good { color: #00ffcc; font-weight: bold; }
         
-        /* Indikatori biološke rezerve */
         .badge { padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; text-transform: uppercase; }
         .badge-visoka { background: rgba(0, 255, 204, 0.15); color: #00ffcc; border: 1px solid #00ffcc; }
         .badge-srednja { background: rgba(255, 204, 0, 0.15); color: #ffcc00; border: 1px solid #ffcc00; }
@@ -38,7 +37,6 @@
         .presuda-title { font-weight: bold; color: #ffcc00; margin-bottom: 6px; text-transform: uppercase; font-size: 13px; letter-spacing: 0.5px; }
         .presuda-text { font-size: 14px; margin: 0; color: #e2e8f0; text-align: justify; line-height: 1.5; }
         
-        /* Grafikon potencijala poboljšanja */
         .potencijal-box { background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #334155; margin-top: 15px; }
         .potencijal-item { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: #cbd5e1; }
         .potencijal-val { font-weight: bold; color: #38bdf8; }
@@ -49,7 +47,6 @@
     <h1>Protokol Loboda v2.0</h1>
     <p style="text-align:center; color:#8fa0dd; font-size:13px; margin-top:-10px;">Napredni biofizički skener i nelinearna simulacija veka</p>
     
-    <!-- OSNOVNI ANTROPOMETRIJSKI PARAMETRI SA ZAŠTITNIM GRANICAMA -->
     <div class="form-group">
         <label>Starost subjekta (1 – 120 godina):</label>
         <input type="number" id="starost" value="55" min="1" max="120">
@@ -70,7 +67,6 @@
         </select>
     </div>
 
-    <!-- EKOLOŠKI DUG I POBOLJŠANO PUŠENJE -->
     <div class="form-group">
         <label>Ekološki dug i status pušenja:</label>
         <select id="dug">
@@ -81,7 +77,6 @@
         </select>
     </div>
 
-    <!-- POBOLJŠANI ALKOHOL -->
     <div class="form-group">
         <label>Konzumacija alkohola:</label>
         <select id="alkohol">
@@ -92,7 +87,6 @@
         </select>
     </div>
 
-    <!-- PROFESIONALNI SPORT SA OBJAŠNJENJEM -->
     <div class="form-group">
         <label>Fizički i mitohondrijski napor:</label>
         <div class="checkbox-group">
@@ -103,7 +97,6 @@
         </div>
     </div>
 
-    <!-- NOVA GRUPA: HRONIČNE BOLESTI (Pravni i biofizički filteri) -->
     <div class="form-group">
         <label>Zabeležene hronične bolesti i opterećenja tkiva:</label>
         <div class="checkbox-group">
@@ -115,14 +108,13 @@
         </div>
     </div>
 
-    <!-- EKSPERIMENTALNI UNOS KAPI -->
     <div class="form-group">
         <label style="color:#ffcc00;">Eksperimentalni dnevni unos kapi joda (Protokol Loboda):</label>
         <input type="number" id="proizvoljno" value="12" style="border-color:#ffcc00;" min="0" max="100">
     </div>
 
     <button onclick="pokreniSimulacijuObnove()">POKRENI SKENIRANJE ORGANIZMA</button>
-    <!-- VIZUELNI PRIKAZ NAPREDNIH REZULTATA SKENIRANJA -->
+
     <div id="prikaz" class="results">
         <h3>REZULTATI SIMULACIJE v2.0</h3>
         
@@ -132,7 +124,6 @@
             <div class="row"><span>Optimalan dnevni unos (N):</span><span id="out-n" class="val" style="font-size:16px;">0 kapi</span></div>
         </div>
 
-        <!-- REZULTAT BIOLOŠKE REZERVE (NOVA TAČKA 9) -->
         <div class="phase" style="border-color: #38bdf8;">
             <div class="row">
                 <span style="font-weight: bold; color: #38bdf8;">🧬 Trenutna biološka rezerva tkiva:</span>
@@ -157,7 +148,6 @@
             <div class="row"><span>3. Sa TRENUTNIM EKSPERIMENTALNIM unosom:</span><span id="out-v3" class="warn">0</span></div>
         </div>
 
-        <!-- DIJAGNOSTIČKI GRAFIKON POTENCIJALA (TAČKE 10, 11 i 16) -->
         <div class="potencijal-box">
             <div class="presuda-title" style="color: #38bdf8; margin-bottom: 10px;">📈 Potencijal biološkog poboljšanja:</div>
             <div id="out-potencijal-lista"></div>
@@ -176,12 +166,10 @@
 
 <script>
 function pokreniSimulacijuObnove() {
-    // 1. INPUT I ZAŠTITA OD NEMOGUĆIH UNOSA (TAČKA 12)
     var v = Math.min(120, Math.max(1, Number(document.getElementById('starost').value)));
     var h = Math.min(250, Math.max(80, Number(document.getElementById('visina').value)));
     var m = Math.min(350, Math.max(20, Number(document.getElementById('masa').value)));
     
-    // Vraćanje korigovanih vrednosti u polja radi transparentnosti
     document.getElementById('starost').value = v;
     document.getElementById('visina').value = h;
     document.getElementById('masa').value = m;
@@ -192,52 +180,44 @@ function pokreniSimulacijuObnove() {
     var sport = document.getElementById('sportista').checked;
     var pr = Math.max(0, Number(document.getElementById('proizvoljno').value));
 
-    // Bolesti (TAČKA 1)
     var hiper = document.getElementById('hipertenzija').checked;
     var dijab = document.getElementById('dijabetes').checked;
     var pluca = document.getElementById('pluca').checked;
     var srce = document.getElementById('srce').checked;
     var bubr = document.getElementById('bubrezi').checked;
 
-    // 2. ANTROPOMETRIJSKI PRORAČUNI I UTICAJ BMI NA VEK (TAČKA 2)
     var sf = 0.007184 * Math.pow(m, 0.425) * Math.pow(h, 0.725);
     var hM = h / 100;
     var bmi = m / (hM * hM);
     var idealnaMasa = 21.75 * (hM * hM);
     var razlikaMase = Math.round(m - idealnaMasa);
 
-    // Bazni biološki vek bez pretnji
     var vn = (p === "Muski") ? 82.9 : 89.0;
     var khut = 6.6667;
 
-    // 3. MULTIPLIKATORI EKOLOŠKOG I TOKSIČNOG ŠUMA
     var fm = 1.0;
     var fto = 0.0;
 
     if(d === "srednje") { fm = 1.3; fto += -0.05; }
-    if(d === "bivsi") { fm = 1.1; fto += -0.02; } // Bivši pušač dobija blagi štit (TAČKA 1)
+    if(d === "bivsi") { fm = 1.1; fto += -0.02; } 
     if(d === "maksimalno") { fm = 1.6; fto += -0.22; }
     
-    // Unapređeni alkohol (TAČKA 14)
     if(alk === "povremeno") { fto += -0.02; }
     if(alk === "redovno") { fto += -0.06; }
     if(alk === "svakodnevno") { fto += -0.15; }
 
     if(sport) { fto += -0.06; }
 
-    // 4. DIREKTAN UTICAJ PROGRESIVNIH BOLESTI NA VEK (TAČKA 1 I 2)
-    if(hiper) { fto += -0.05; } // Hipertenzija: blag pad
-    if(dijab) { fto += -0.12; } // Dijabetes: srednji pad
-    if(pluca) { fto += -0.10; } // Plućna bolest: srednji pad
-    if(srce) { fto += -0.18; }  // Srčani bolesnik: jak pad
-    if(bubr) { fto += -0.20; }  // Bubrežna bolest: jak pad
+    if(hiper) { fto += -0.05; } 
+    if(dijab) { fto += -0.12; } 
+    if(pluca) { fto += -0.10; } 
+    if(srce) { fto += -0.18; }  
+    if(bubr) { fto += -0.20; }  
 
-    // Uticaj gojaznosti iz BMI parametra na ćelijski napon (TAČKA 2)
     if(bmi >= 25 && bmi < 30) { fto += -0.03; }
     if(bmi >= 30 && bmi < 35) { fto += -0.08; }
     if(bmi >= 35) { fto += -0.15; }
 
-    // 5. JODNI I VOLUMENSKI PRORAČUNI (PROTOKOL LOBODA)
     var n = Math.round(12 * sf * fm);
     var dan = Math.round(n * 0.833);
     var noc = n - dan;
@@ -251,7 +231,6 @@ function pokreniSimulacijuObnove() {
         html += (s < 10 ? "0" + s : s) + ":00č — doza 50 ml (" + kapi + " kapi)<br>";
     }
 
-    // 6. TROSTEPENE BIOFIZIČKE PROGNOZE VEKA
     var pz1 = vn - v; if(pz1 < 0) pz1 = 0;
     var v1 = v + (pz1 * (1 + fto));
 
@@ -264,7 +243,6 @@ function pokreniSimulacijuObnove() {
     var pz3 = (vn - v) * khu2; if(pz3 < 0) pz3 = 0;
     var v3 = v + (pz3 * (1 + fto));
 
-    // Ispis bazičnih numeričkih vrednosti na ekran
     document.getElementById('out-sf').innerText = sf.toFixed(4) + " m²";
     document.getElementById('out-bmi').innerText = bmi.toFixed(1);
     document.getElementById('out-n').innerText = n + " kapi";
@@ -275,13 +253,12 @@ function pokreniSimulacijuObnove() {
     document.getElementById('out-v1').innerText = v1.toFixed(1) + " godina";
     document.getElementById('out-v2').innerText = v2.toFixed(1) + " godina";
     document.getElementById('out-v3').innerText = v3.toFixed(1) + " godina";
-    // 7. PRORAČUN BIOLOŠKE REZERVE TKIVA (NOVA TAČKA 9)
+
     var rezervaElement = document.getElementById('out-rezerva');
-    rezervaElement.className = "badge"; // Reset klasa
+    rezervaElement.className = "badge"; 
     
-    // Faktor opterećenja na osnovu toksina i bolesti
     var loadFactor = Math.abs(fto);
-    if (v > 65) { loadFactor += 0.05; } // Starost blago smanjuje elastičnost rezerve
+    if (v > 65) { loadFactor += 0.05; } 
 
     if (loadFactor <= 0.10 && bmi < 26) {
         rezervaElement.innerText = "🟢 Visoka (Odličan ćelijski napon)";
@@ -294,17 +271,14 @@ function pokreniSimulacijuObnove() {
         rezervaElement.classList.add("badge-niska");
     }
 
-    // 8. IDENTIFIKACIJA NAJVEĆEG POJEDINAČNOG PROBLEMA I DOBITI (TAČKE 10, 11 i 16)
     var potencijalHtml = "";
     var maxMoguciDobitak = 0;
     var najteziFaktorIme = "Nema (Izuzetan teren)";
     var najteziFaktorVrednost = 0;
 
-    // Evaluacija faktora opterećenja (vrednosti preračunate u ekvivalentne godine)
     var preostaliVekMax = vn - v;
     if (preostaliVekMax < 0) preostaliVekMax = 0;
 
-    // Proračun pojedinačnih šteta u godinama
     var stetaPusnja = (d === "maksimalno") ? (preostaliVekMax * 0.22) : 0;
     var stetaDijab = dijab ? (preostaliVekMax * 0.12) : 0;
     var stetaGojaznost = (bmi >= 30) ? (preostaliVekMax * 0.08) : ((bmi >= 25) ? (preostaliVekMax * 0.03) : 0);
@@ -312,8 +286,7 @@ function pokreniSimulacijuObnove() {
     var stetaBubr = bubr ? (preostaliVekMax * 0.20) : 0;
     var stetaAlk = (alk === "svakodnevno") ? (preostaliVekMax * 0.15) : ((alk === "redovno") ? (preostaliVekMax * 0.06) : 0);
 
-    // Nalženje najvećeg faktora opterećenja (TAČKA 10)
-    var faktori = [
+    var tfaktori = [
         { ime: "Aktivno pušenje", steta: stetaPusnja },
         { ime: "Dijabetes Tip 2", steta: stetaDijab },
         { ime: "Izražena gojaznost", steta: stetaGojaznost },
@@ -322,14 +295,13 @@ function pokreniSimulacijuObnove() {
         { ime: "Konzumacija alkohola", steta: stetaAlk }
     ];
 
-    faktori.forEach(function(f) {
+    tfaktori.forEach(function(f) {
         if (f.steta > najteziFaktorVrednost) {
             najteziFaktorVrednost = f.steta;
             najteziFaktorIme = f.ime;
         }
     });
 
-    // Generisanje dinamičke liste potencijala poboljšanja (TAČKA 11 i 16)
     if (stetaPusnja > 0) {
         potencijalHtml += "<div class='potencijal-item'><span>+ Prestanak pušenja:</span><span class='potencijal-val'>+" + stetaPusnja.toFixed(1) + " god.</span></div>";
         maxMoguciDobitak += stetaPusnja;
@@ -358,44 +330,35 @@ function pokreniSimulacijuObnove() {
 
     document.getElementById('out-potencijal-lista').innerHTML = potencijalHtml;
     
-    // Izračunavanje maksimalne ostvarive prognoze (Baza sa punom jodnom zaštitom + dobitak)
     var maxOstvariva = v2 + maxMoguciDobitak;
     document.getElementById('out-max-prognoza').innerText = maxOstvariva.toFixed(1) + " godina";
 
-    // 9. FORMIRANJE IZDVOJENE TEKSTUALNE PRESUDE (LJUDSKI I NARODNI JEZIK)
     var presuda = "Vaš BMI iznosi <strong>" + bmi.toFixed(1) + "</strong>. ";
     var saveti = [];
 
-    // Dodavanje inženjerske napomene o saturaciji filtera (bubrega) (0.1.5)
     if (n > 15) {
-        saveti.push("<strong>Inženjerska napomena o saturaciji:</strong> Iako sistem projektuje optimalan jurišni volumen od " + n + " kapi za trenutni dug, u praksi se preporučuje postepeno zasićenje. Težite polovičnoj dozi kroz satni protokol u dužem periodu kako bi se formirao stabilan jodolipidni štit, a nakon saturacije pređite na režim održavanja sa manjim brojem kapi radi bezbednosti i rasterećenja filtera tela (bubrega).");
+        saveti.push("<strong>Inženjerska napomena o saturaciji:</strong> Iako sistem projektuje optimalan jurišni volumen od " + n + " kapi za trenutni dug, u praksi se preporučuje postepeno zasićenje. Težite polovičnoj dozi kroz satni protokol inženjerski u dužem periodu kako bi se formirao stabilan jodolipidni štit, a nakon saturacije pređite na režim održavanja sa manjim brojem kapi radi bezbednosti i rasterećenja filtera tela (bubrega).");
     }
 
-    // Korekcija telesne mase
     if (razlikaMase > 0) {
         saveti.push("Predlaže se redukcija telesne mase (smanjiti za oko <strong>" + razlikaMase + " kg</strong>) radi neposrednog rasterećenja kardiovaskularnog sistema i podizanja napona na ćelijskim membranama.");
     }
 
-    // Pušački dinamički savet sa nelinearnim poništavanjem duga pomoću 2 kapi (Inženjerski optimizovano)
     if (d === "maksimalno") {
         var gubitakPusacaZaPrikaz = stetaPusnja.toFixed(1);
-        // Simulacija skoka na 2 kapi pod pušačkim šumom
         var v3_2KapiPusac = v + (((vn - v) * (1 + (6.6667 - 1) * (2 / n))) * (1 + -0.22));
         
-        saveti.push("<strong>Upozorenje za pušače:</strong> Ukoliko ovog trenutka ostavite pušenje, povećali ste sebi životni vek za <strong>" + gubitakPusacaZaPrikaz + "</strong> godina (bez joda u kombinacijama). Međutim, ukoliko odlučite da i dalje pušite, sa samo 2 kapi dnevnog unosa joda (Lugolovog rastvora, a prema Protokolu Loboda) vaša prognoza nelinearno raste na <strong>" + v3_2KapiPusac.toFixed(1) + "</strong> godina, čime u potpunosti neutrališete i anulirate razarajući uticaj toksina iz cigareta!");
+        saveti.push("<strong>Upozorenje za pušače:</strong> Ukoliko ovog trenutka ostavite pušenje, povećaćete sebi životni vek za <strong>" + gubitakPusacaZaPrikaz + "</strong> godina (bez joda u kombinacijama). Međutim, ukoliko odlučite da i dalje pušite, sa samo 2 kapi dnevnog unosa joda (Lugolovog rastvora, a prema Protokolu Loboda) vaša prognoza nelinearno raste na <strong>" + v3_2KapiPusac.toFixed(1) + "</strong> godina, čime u potpunosti neutrališete i anulirate razarajući uticaj toksina iz cigareta!");
     }
 
-    // POSEBNA GRUPA ZA STARIJE OD 65 GODINA (NOVA TAČKA 13)
     if (v >= 65) {
-        saveti.push("<br><strong>⚠️ BIOFIZIČKA NAPOMENA ZA STARIJE OD 65 GODINA:</strong> Nakon 65. godine života, najveći i najbrži efekat na produženje funkcionalnog veka daju stroga kontrola postojećih hroničnih bolesti, očuvanje motoričke pokretljivosti i hitan prestanak pušenja.");
+        saveti.push("<br><strong>⚠️ BIOFIZIČKA NAPOMENA ZA STARIJE OD 65 GODINA:</strong> Nakon 65. godine života, najveći i najbrži efekat na produženje funkcionalnog veka daju stroga kontrola postojećih hroničnih bolesti, očuvanje motoričke pokretljivosti i prestanak pušenja.");
     }
 
-    // Najveći pojedinačni faktor opterećenja (NOVA TAČKA 10)
     if (najteziFaktorVrednost > 0) {
         saveti.push("<br><strong>🚨 NAJVEĆI FAKTOR OPTEREĆENJA ORGANIZMA:</strong> Glavni kradljivac vaših elektrona i najteži faktor opterećenja trenutno je <strong>" + najteziFaktorIme + "</strong>. Fokusiranjem na rešavanje ove tačke ostvarićete najveći biofizički skok u dugovečnosti.");
     }
 
-    // Spajanje i izbacivanje na ekran
     if(saveti.length > 0) {
         presuda += "Za postizanje maksimalnog tehnološkog platoa funkcionalnog veka, preporučuju se sledeće korekcije: <br><br>" + saveti.join(" ");
     } else {
@@ -408,5 +371,3 @@ function pokreniSimulacijuObnove() {
 </script>
 </body>
 </html>
-
-    
