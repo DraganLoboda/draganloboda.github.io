@@ -1,169 +1,159 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- GOOGLE OPTIMIZACIJA (SEO) - DRAGAN LOBODA -->
-    <meta name="description" content="Zvanični sajt Dragana Lobode. Otkrijte Protokol Loboda i lečenje oksido-redukcijom. Naučni rad o dugovečnosti, mitohondrijama i ćelijama uz Lugolov rastvor i jod kao lek protiv virusa, bakterija i hroničnih oboljenja.">
-    <meta name="keywords" content="Dragan Loboda, Redoks Juriš, Protokol Loboda, lečenje oksido redukcijom, jod kao lek, Lugolov rastvor, tumori, infektivne bolesti, korona, virusi, bakterije, ćelije, mitohondrije, dugovečnost, alternativna medicina knjiga">
-    <meta name="author" content="Dragan Loboda">
-    <meta name="robots" content="index, follow">
-
-       <!-- Facebook, WhatsApp & Viber deljenje linka (Open Graph) -->
-    <meta property="og:title" content="Naučna alternativna medicina | Dragan Loboda">
-    <meta property="og:description" content="Knjiga Redoks Juriš: Inženjerski kod biološkog podmlađivanja tkiva i slom starenja ćelija.">
-    <meta property="og:image" content="https://github.io">
-    <meta property="og:url" content="https://draganloboda.github.io">
-    <meta property="og:type" content="website">
-
-
-    <title>Naučna alternativna medicina | Dragan Loboda</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg,#0f172a,#1e293b);
-            color: white;
-            line-height: 1.7;
-        }
-        .container { width: 90%; max-width: 1200px; margin: auto; }
-        header { text-align: center; padding: 60px 20px 40px 20px; }
-        header h1 { font-size: 2.8rem; color: #d4af37; margin-bottom: 15px; text-transform: uppercase; }
-        header h2 { font-size: 1.5rem; font-weight: normal; margin-bottom: 10px; color: #cbd5e1; }
-        .author { font-size: 1.2rem; color: #00ffcc; font-weight: bold; }
-        
-        .quote {
-            margin: 40px auto;
-            font-size: 1.15rem;
-            font-style: italic;
-            max-width: 900px;
-            text-align: center;
-            color: #f8fafc;
-            line-height: 1.6;
-        }
-        .section { padding: 40px 20px; }
-        .section-title { text-align: center; font-size: 2rem; color: #d4af37; margin-bottom: 35px; text-transform: uppercase; }
-        
-        /* Fleksibilna mreža dugmadi koja radi savršeno i na telefonu */
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        .btn {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-decoration: none;
-            text-align: center;
-            background: #1e293b;
-            color: white;
-            padding: 25px 20px;
-            border-radius: 12px;
-            transition: 0.3s;
-            border: 2px solid #334155;
-            min-height: 110px;
-        }
-        .btn:hover {
-            transform: translateY(-5px);
-            border-color: #d4af37;
-            background: #141d34;
-        }
-        .btn-title { font-size: 1.2rem; font-weight: bold; color: #00ffcc; margin-bottom: 8px; }
-        
-        .about { background: rgba(255,255,255,0.03); border-radius: 15px; padding: 30px; border: 1px solid #334155; }
-        .books { display: flex; flex-direction: column; gap: 15px; max-width: 800px; margin: auto; }
-        .book { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border-left: 4px solid #d4af37; font-size: 1.1rem; }
-        footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #1e293b; margin-top: 40px; }
-        
-        @media(max-width:768px){
-            header h1 { font-size: 2rem; }
-            header h2 { font-size: 1.2rem; }
-            .quote { font-size: 1rem; }
-        }
-    </style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <!-- GOOGLE OPTIMIZACIJA (SEO) - DRAGAN LOBODA -->
+ <meta name="description" content="Zvanični sajt Dragana Lobode. Otkrijte Protokol Loboda i lečenje oksido-redukcijom. Naučni rad o dugovečnosti, mitohondrijama i ćelijama uz Lugolov rastvor i jod kao lek protiv virusa, bakterija i hroničnih oboljenja.">
+ <meta name="keywords" content="Dragan Loboda, Redoks Juriš, Protokol Loboda, lečenje oksido redukcijom, jod kao lek, Lugolov rastvor, tumori, infektivne bolesti, korona, virusi, bakterije, ćelije, mitohondrije, dugovečnost, alternativna medicina knjiga">
+ <meta name="author" content="Dragan Loboda">
+ <meta name="robots" content="index, follow">
+ <!-- Facebook, WhatsApp & Viber deljenje linka (Open Graph) -->
+ <meta property="og:title" content="Naučna alternativna medicina | Dragan Loboda">
+ <meta property="og:description" content="Knjiga Redoks Juriš: Inženjerski kod biološkog podmlađivanja tkiva i slom starenja ćelija.">
+ <meta property="og:image" content="https://github.io">
+ <meta property="og:url" content="https://github.io">
+ <meta property="og:type" content="website">
+ <title>Naučna alternativna medicina | Dragan Loboda</title>
+ <style>
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ body {
+ font-family: Arial, Helvetica, sans-serif;
+ background: linear-gradient(135deg,#0f172a,#1e293b);
+ color: white;
+ line-height: 1.7;
+ }
+ .container { width: 90%; max-width: 1200px; margin: auto; }
+ header { text-align: center; padding: 60px 20px 40px 20px; }
+ header h1 { font-size: 2.8rem; color: #d4af37; margin-bottom: 15px; text-transform: uppercase; }
+ header h2 { font-size: 1.5rem; font-weight: normal; margin-bottom: 10px; color: #cbd5e1; }
+ .author { font-size: 1.2rem; color: #00ffcc; font-weight: bold; }
+ 
+ .quote {
+ margin: 40px auto;
+ font-size: 1.15rem;
+ font-style: italic;
+ max-width: 900px;
+ text-align: center;
+ color: #f8fafc;
+ line-height: 1.6;
+ }
+ .section { padding: 40px 20px; }
+ .section-title { text-align: center; font-size: 2rem; color: #d4af37; margin-bottom: 35px; text-transform: uppercase; }
+ 
+ .buttons {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+ gap: 25px;
+ margin-bottom: 40px;
+ }
+ .btn {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ text-decoration: none;
+ text-align: center;
+ background: #1e293b;
+ color: white;
+ padding: 25px 20px;
+ border-radius: 12px;
+ transition: 0.3s;
+ border: 2px solid #334155;
+ min-height: 110px;
+ }
+ .btn:hover {
+ transform: translateY(-5px);
+ border-color: #d4af37;
+ background: #141d34;
+ }
+ .btn-title { font-size: 1.2rem; font-weight: bold; color: #00ffcc; margin-bottom: 8px; }
+ 
+ .about { background: rgba(255,255,255,0.03); border-radius: 15px; padding: 30px; border: 1px solid #334155; }
+ .books { display: flex; flex-direction: column; gap: 15px; max-width: 800px; margin: auto; }
+ .book { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border-left: 4px solid #d4af37; font-size: 1.1rem; }
+ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #1e293b; margin-top: 40px; }
+ 
+ @media(max-width:768px){
+ header h1 { font-size: 2rem; }
+ header h2 { font-size: 1.2rem; }
+ .quote { font-size: 1rem; }
+ }
+ </style>
 </head>
 <body>
+ <header class="container">
+ <h1>NAUČNA ALTERNATIVNA MEDICINA</h1>
+ <h2>Dragan Loboda</h2>
+ <div class="author">Autor Medicinske teorije oksido-redukcije</div>
+ 
+ <div class="quote">
+ "Ne postoje hiljade bolesti, postoji samo jedna jedina hronična bolest - starenje (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara!"
+ </div>
+ </header>
 
-    <header class="container">
-        <h1>NAUČNA ALTERNATIVNA MEDICINA</h1>
-        <h2>Dragan Loboda</h2>
-        <div class="author">Autor Medicinske teorije oksido-redukcije</div>
-        
-        <div class="quote">
-            "Ne postoje hiljade bolesti, postoji samo jedna jedina hronična bolest - starenje (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara!"
-        </div>
-    </header>
+ <section class="section container">
+ <h2 class="section-title">Pristup sadržaju</h2>
+ <div class="buttons">
+ 
+ <!-- DUGME 1: KALKULATOR -->
+ <a href="kalkulator.html" class="btn">
+ <div class="btn-title">📊 KALKULATOR DUGOVEČNOSTI</div>
+ PROTOKOL LOBODA (15h / 9h)
+ </a>
+ 
+ <!-- DUGME 2: BESPLATNI DEO KNJIGE -->
+ <a href="knjiga-sr.html" class="btn">
+ <div class="btn-title">导 REDOKS JURIŠ (Srpsko izdanje)</div>
+ Besplatno čitanje dela knjige sa opcijama za dobijanje šifre
+ </a>
+ 
+ <!-- DUGME 3: NOVA CELA KNJIGA UZ ŠIFRU -->
+ <a href="knjiga-celaPDF.html" class="btn" style="border-color: #00ffcc;">
+ <div class="btn-title" style="color: #ffcc00;">🔒 REDOKS JURIŠ (Cela knjiga PDF)</div>
+ Čitanje celokupnog rukopisa uz tridesetodnevnu šifru
+ </a>
 
-    <!-- PROLAZNA DIZALICA ZA PRISTUP SADRŽAJU (POVEZIVANJE FAJLOVA) -->
-    <section class="section container">
-        <h2 class="section-title">Pristup sadržaju</h2>
-        <div class="buttons">
-            
-            <!-- DUGME 1: KALKULATOR -->
-            <a href="kalkulator.html" class="btn">
-                <div class="btn-title">🧮 KALKULATOR DUGOVEČNOSTI</div>
-                PROTOKOL LOBODA (15h / 9h)
-            </a>
-            
-            <!-- DUGME 2: BESPLATNI DEO KNJIGE -->
-            <a href="knjiga-sr.html" class="btn">
-                <div class="btn-title">📖 REDOKS JURIŠ (Srpsko izdanje)</div>
-                Besplatno čitanje dela knjige sa opcijama za dobijanje šifre
-            </a>
-            
-            <!-- DUGME 3: NOVA CELA KNJIGA UZ ŠIFRU -->
-            <a href="knjiga-celaPDF.html" class="btn" style="border-color: #00ffcc;">
-                <div class="btn-title" style="color: #ffcc00;">🔒 REDOKS JURIŠ (Cela knjiga PDF)</div>
-                Čitanje celokupnog rukopisa uz tridesetodnevnu šifru
-            </a>
-                        <!-- DUGME 4: POKLON KNJIGA BESPLATAN PDF -->
-            <a href="medicina-teorija.html" class="btn" style="border-color: #ffcc00; margin-top: 15px;">
-                <div class="btn-title" style="color: #ffcc00; font-weight: bold;">🎁 MEDICINSKA TEORIJA "LEČENJE OKSIDO-REDUKCIJOM" (Cela knjiga PDF)</div>
-                Poklon knjiga za čitanje - Potpuno besplatno i otvoreno svima
-            </a>
+ <!-- DUGME 4: POKLON KNJIGA BESPLATAN PDF -->
+ <a href="medicina-teorija.html" class="btn" style="border-color: #ffcc00; margin-top: 1px;">
+ <div class="btn-title" style="color: #ffcc00; font-weight: bold;">🎁 MEDICINSKA TEORIJA "LEČENJE OKSIDO-REDUKCIJOM" (Cela knjiga PDF)</div>
+ Poklon knjiga za čitanje - Potpuno besplatno i otvoreno svima
+ </a>
+ 
+ <!-- DUGME 5: KONTAKT -->
+ <a href="kontakt.html" class="btn">
+ <div class="btn-title">📞 KONTAKT AUTORA</div>
+ Informacije i zahtevi za pristup ključevima
+ </a>
+ </div>
+ </section>
 
-            
-            <!-- DUGME 4: KONTAKT -->
-            <a href="kontakt.html" class="btn">
-                <div class="btn-title">📞 KONTAKT AUTORA</div>
-                Informacije i zahtevi za pristup ključevima
-            </a>
-            
-        </div>
-    </section>
+ <section class="section container">
+ <h2 class="section-title">O projektu</h2>
+ <div class="about">
+ <p>Ova platforma predstavlja rad Dragana Lobode, autora Medicinske teorije oksido-redukcije i kreatora Protokola Loboda [2.36].</p>
+ <br>
+ <p>Na sajtu su dostupni kalkulator dugovečnosti, knjige autora, istraživački materijali i buduća međunarodna izdanja na engleskom, nemačkom, ruskom i kineskom jeziku.</p>
+ <br>
+ <p>Cilj projekta je proučavanje biofizičkih, elektrohemijskih i oksido-redukcionih procesa povezanih sa zdravljem, vitalnošću i dugovečnošću čovekovog klona [2.36].</p>
+ </div>
+ </section>
 
-    <!-- O PROJEKTU -->
-    <section class="section container">
-        <h2 class="section-title">O projektu</h2>
-        <div class="about">
-            <p>Ova platforma predstavlja rad Dragana Lobode, autora Medicinske teorije oksido-redukcije i kreatora Protokola Loboda [2.36].</p>
-            <br>
-            <p>Na sajtu su dostupni kalkulator dugovečnosti, knjige autora, istraživački materijali i buduća međunarodna izdanja na engleskom, nemačkom, ruskom i kineskom jeziku.</p>
-            <br>
-            <p>Cilj projekta je proučavanje biofizičkih, elektrohemijskih i oksido-redukcionih procesa povezanih sa zdravljem, vitalnošću i dugovečnošću čovekovog klona [2.36, 0.1.5].</p>
-        </div>
-    </section>
+ <section class="section container">
+ <h2 class="section-title">Knjige autora</h2>
+ <div class="books">
+ <div class="book">📘 Medicinska teorija - Lečenje oksido-redukcijom</div>
+ <div class="book">📕 Redoks juriš - Dostizanje maksimalnog genetskog koda dugovečnosti (ISBN 978-86-903366-2-3)</div>
+ </div>
+ </section>
 
-    <!-- KNJIGE -->
-    <section class="section container">
-        <h2 class="section-title">Knjige autora</h2>
-        <div class="books">
-            <div class="book">📘 Medicinska teorija - Lečenje oksido-redukcijom</div>
-            <div class="book">📕 Redoks juriš - Dostizanje maksimalnog genetskog koda dugovečnosti (ISBN 978-86-903366-2-3)</div>
-        </div>
-    </section>
+ <footer>
+ © 2026 Dragan Loboda | Naučna alternativna medicina
+ </footer>
 
-    <footer>
-        © 2026 Dragan Loboda | Naučna alternativna medicina
-    </footer>
-    <!-- ODRICANJE ODGOVORNOSTI (DISCLAIMER) ZA GOOGLE -->
-    <div style="max-width: 800px; margin: 40px auto 20px auto; padding: 15px; border-top: 1px solid #334155; text-align: center;">
-        <p style="font-size: 12px; color: #94a3b8; line-height: 1.5; font-style: italic;">
-            *Sadržaj na ovom sajtu predstavlja lični naučno-istraživački rad autora i inženjerski model, i ne predstavlja zvanični medicinski savet niti zamenu za terapiju propisanu od strane lekara.
-        </p>
-    </div>
-
+ <div style="max-width: 800px; margin: 40px auto 20px auto; padding: 15px; border-top: 1px solid #334155; text-align: center;">
+ <p style="font-size: 12px; color: #94a3b8; line-height: 1.5; font-style: italic;">
+ *Sadržaj na ovom sajtu predstavlja lični naučno-istraživački rad autora i inženjerski model, i ne predstavlja zvanični medicinski savet niti zamenu za terapiju propisanu od strane lekara.
+ </p>
+ </div>
 </body>
 </html>
