@@ -129,33 +129,32 @@
     </div>
 
     <script>
-        function verifyRedoxVault() {
-            var inputPass = document.getElementById("redox-pass").value;
-            var errorBox = document.getElementById("error-box");
-            
-            if (inputPass === "REDOX2026") {
-                document.getElementById("lock-screen").style.display = "none";
-                document.getElementById("book-viewer-zone").style.display = "block";
-                
-                // VAŠ ORIGINALNI LINK SE AKTIVIRA NAKON UKUCAVANJA TAČNE ŠIFRE
-                document.getElementById("secure-iframe").src = "https://heyzine.com/flip-book/3b697f93f2.html";
-                errorBox.style.display = "none";
-                document.getElementById("redox-pass").value = "";
-            } else {
-                errorBox.style.display = "block";
-            }
-        }
+function verifyRedoxVault() {
+    var inputPass = document.getElementById("redox-pass").value;
+    var errorBox = document.getElementById("error-box");
+    
+    if (inputPass === "REDOX2026") {
+        document.getElementById("lock-screen").style.display = "none";
+        document.getElementById("book-viewer-zone").style.display = "block";
+        document.getElementById("secure-iframe").src = "https://heyzine.com";
+        errorBox.style.display = "none";
+        document.getElementById("redox-pass").value = "";
+    } else {
+        errorBox.style.display = "block";
+    }
+}
 
-        window.addEventListener('keydown', function (e) {
-            if (
-                (e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's' || e.key === 'c' || e.key === 'u') || 
-                e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I')
-            ) {
-                e.preventDefault();
-                alert("🛑 KÔD JE ZAŠTIĆEN: Strukturirani oklop ne dozvoljava preuzimanje elemenata.");
-            }
-        });
-    </script>
+window.addEventListener('keydown', function (e) {
+    if (
+        (e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's' || e.key === 'c' || e.key === 'u') || 
+        e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && e.key === 'I')
+    ) {
+        e.preventDefault();
+        alert("🛑 KÔD JE ZAŠTIĆEN: Strukturirani oklop ne dozvoljava preuzimanje elemenata.");
+    }
+});
+</script>
+
 </body>
 </html>
