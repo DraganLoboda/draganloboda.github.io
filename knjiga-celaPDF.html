@@ -130,21 +130,21 @@
 
     <script>
         function verifyRedoxVault() {
-            var inputPass = document.getElementById("redox-pass").value;
-            var errorBox = document.getElementById("error-box");
-            
-            if (inputPass === "REDOX2026") {
-    document.getElementById("lock-screen").style.display = "none";
-    document.getElementById("book-viewer-zone").style.display = "block";
+    var inputPass = document.getElementById("redox-pass").value;
+    var errorBox = document.getElementById("error-box");
 
-    document.getElementById("secure-iframe").src = "./Knjiga2.pdf#toolbar=0";
+    if (inputPass === "REDOX2026") {
+        document.getElementById("lock-screen").style.display = "none";
+        document.getElementById("book-viewer-zone").style.display = "block";
 
-    errorBox.style.display = "none";
-    document.getElementById("redox-pass").value = "";
-} else {
-    errorBox.style.display = "block";
+        document.getElementById("secure-iframe").src = "./Knjiga2.pdf#toolbar=0";
+
+        errorBox.style.display = "none";
+        document.getElementById("redox-pass").value = "";
+    } else {
+        errorBox.style.display = "block";
+    }
 }
-        }
 
         window.addEventListener('keydown', function (e) {
             if (
