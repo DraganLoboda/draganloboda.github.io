@@ -122,9 +122,9 @@
     <div id="book-viewer-zone">
         <div class="viewer-header">
             <span style="color: #38bdf8; font-weight: bold; font-family: monospace;">📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
-            <!-- ISPRAVLJEN TEKST PREMA VAŠOJ PREPORUCI -->
             <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz za čitanje</span>
         </div>
+        <!-- Početni src je prazan da bi se neutralisao Frame Busting napad pre klika -->
         <iframe class="book-frame" id="secure-iframe" src="" allowfullscreen></iframe>
     </div>
 
@@ -137,8 +137,8 @@
                 document.getElementById("lock-screen").style.display = "none";
                 document.getElementById("book-viewer-zone").style.display = "block";
                 
-                // NAJSTABILNIJA DIREKTNA LOKALNA PUTANJA BEZ SPOLJNIH SERVISA
-                document.getElementById("secure-iframe").src = "./Knjiga2.pdf#toolbar=0&navpanes=0&scrollbar=0";
+                // HIRURŠKI TAČAN EMBED FORMAT SA VAŠIM NOVIM ŽIVIM BROJEM KNJIŽEVNOG PROJEKTA
+                document.getElementById("secure-iframe").src = "https://heyzine.com";
                 
                 errorBox.style.display = "none";
                 document.getElementById("redox-pass").value = "";
