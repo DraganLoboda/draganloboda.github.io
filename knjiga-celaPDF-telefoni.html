@@ -6,12 +6,8 @@
  <title>REDOKS JURIŠ (Mobilna Knjiga) - Protokol Loboda</title>
  <style>
  body {
- font-family: monospace;
- background-color: #020617;
- color: #cbd5e1;
- margin: 0; padding: 0;
- display: flex; justify-content: center; align-items: center;
- min-height: 100vh; overflow: hidden;
+ font-family: monospace; background-color: #020617; color: #cbd5e1; margin: 0; padding: 0;
+ display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden;
  user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
  }
  .lock-container {
@@ -56,7 +52,7 @@
  var inputPass = document.getElementById("redox-pass").value.trim();
  var errorBox = document.getElementById("error-box");
  if (inputPass === "REDOX2026") {
-  // Heyzine link bez teških skripti koje GitHub blokira
+  // Stabilan Heyzine link koji radi savršeno i ne koči sistemske provere
   document.getElementById("secure-iframe").src = "https://heyzine.com";
   document.getElementById("lock-screen").style.display = "none";
   document.getElementById("book-viewer-zone").style.display = "block";
