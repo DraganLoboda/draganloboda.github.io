@@ -126,7 +126,6 @@
  var trenutnaSkala = 1;
  var isMobile = window.innerWidth <= 768;
 
- // Formiranje niza slika sa prečišćenim oznakama
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
      var formatiranBroj = i;
      if (i < 10) { formatiranBroj = "00" + i; } 
@@ -165,7 +164,7 @@
     document.getElementById('page-indicator').innerText = "Stranica: " + (indeks + 1) + " / " + UKUPAN_BROJ_STRANICA;
     mojSlider.value = indeks + 1;
   } else {
-    slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStswrap = sveStranice.length - 1, indeks))];
+    slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
     if (indeks + 1 < sveStranice.length) {
       slikaDesna.style.display = "block";
       slikaDesna.src = sveStranice[indeks + 1];
@@ -178,7 +177,6 @@
   }
  }
 
- // POPRAVKA: Nazivi funkcija su promenjeni u čista engleska slova (bez kvačica)
  function pokreniKontrole() {
   mojSlider.addEventListener('mousedown', klikNaKlizac);
   mojSlider.addEventListener('touchstart', klikNaKlizac);
@@ -243,9 +241,9 @@
      
      if (Math.abs(razlikaX) > 40 && razlikaY < 60) {
        if (razlikaX < 0) {
-         okreniDesno(); 
+         okreniDesno(); // Pokret udesno -> Sledeća strana (brojčano unapred)
        } else {
-         okreniLevo();  
+         okreniLevo();  // Pokret ulevo -> Prethodna strana (brojčano unazad)
        }
      }
    }
