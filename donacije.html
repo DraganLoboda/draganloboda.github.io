@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dobrovoljne Donacije za Naučna Testiranja — Protokol Loboda</title>
+    <style>
+        body { font-family: monospace; background-color: #020617; color: #cbd5e1; padding: 20px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 40px auto; background: linear-gradient(135deg, #0f172a 0%, #020617 100%); padding: 30px; border-radius: 12px; border: 2px solid #334155; border-top: 6px solid #d4af37; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7); }
+        h1 { color: #d4af37; text-transform: uppercase; font-size: 1.5em; margin-bottom: 25px; letter-spacing: 1px; line-height: 1.4; }
+        p { text-align: justify; font-size: 14.5px; margin-bottom: 18px; color: #cbd5e1; }
+        .qr-box { background: white; padding: 15px; display: inline-block; border-radius: 8px; margin: 20px 0; border: 3px solid #d4af37; }
+        .qr-placeholder { width: 220px; height: 220px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #0f172a; font-weight: bold; font-size: 12px; }
+        .btn-back { display: inline-block; background: rgba(0, 255, 204, 0.1); border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 25px; text-decoration: none; border-radius: 6px; text-transform: uppercase; font-weight: bold; font-size: 13px; margin-top: 20px; transition: 0.3s; }
+        .btn-back:hover { background: #00ffcc; color: #020617; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🔬 DOBROVOLJNE DONACIJE ZA NAUČNA TESTIRANJA</h1>
+    
+    <p><strong>Autor projekta i sajta je finansijski potpuno obezbeđen i sredstva prikupljena putem dobrovoljnih donacija nisu namenjena za lične potrebe niti komercijalnu zaradu.</strong></p>
+    
+    <p>Cilj donacija je isključivo finansiranje budućih laboratorijskih, hromatografskih i genetskih testiranja predloženih u okviru Poglavlja 8 (HPLC i LC-MS/MS tehnologije), sa svrhom unapređenja bezbednosti, kvaliteta i naučne proverljivosti Protokola Loboda.</p>
+    
+    <p>Iako su teoretske i praktične osnove protokola detaljno razrađene, njegov dalji razvoj i prelazak sa teorijskog modela na empirijsku proveru kod živih ljudi zahteva visok nivo naučne potvrde i bezbednosne evaluacije.</p>
+    
+    <p>Prema trenutnim procenama tehnoloških troškova, kompletna laboratorijska analiza relevantnih biomarkera (lipidni otpad, slobodni radikali, ćelijski napon i dužina telomera) za jednu osobu iznosi približno <strong>75.000 dinara</strong>.</p>
+    
+    <p>Za sprovođenje obimnijih istraživanja na uzorku od 100 do 1.000 učesnika, radi identifikacije potencijalnih neželjenih efekata, procene bezbednosti i prikupljanja podataka neophodnih za naučnu evaluaciju, potrebna su značajna finansijska sredstva.</p>
+    
+    <p>Ukoliko želite da podržite ovaj istraživački rad i doprinesete njegovoj daljoj naučnoj proveri i razvoju, to možete učiniti dobrovoljnom donacijom putem IPS QR koda prikazanog ispod.</p>
+    
+    <p>Skeniranjem QR koda otvara se nalog sa unapred postavljenim iznosom od 0,00 dinara, pri čemu svaki čitalac samostalno određuje visinu donacije u skladu sa svojim mogućnostima i željom da podrži projekat.</p>
+    
+    <p style="font-weight: bold; margin-bottom: 5px;">Hvala na podršci.</p>
+    <p style="color: #00ffcc; font-weight: bold; margin-top: 0; font-size: 16px;">Dragan Loboda</p>
+    
+    <!-- MESTO ZA VAŠ IPS QR KOD OD 0,00 DINARA -->
+    <div class="qr-box">
+        <!-- Sistem automatski povlači sliku uplatnica-donacija.png sa vašeg GitHub-a -->
+        <img src="uplatnica-donacija.png" alt="IPS QR Kod za donacije" class="qr-placeholder" onerror="this.style.display='none'; document.getElementById('qr-alt').style.display='flex';">
+        <div id="qr-alt" class="qr-placeholder" style="display:none; color:#020617;">[IPS QR KOD OD 0,00 DINARA]</div>
+    </div>
+    
+    <br>
+    <a href="index.html" class="btn-back">⬅ Nazad na početnu</a>
+</div>
+</body>
+</html>
