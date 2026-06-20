@@ -2,57 +2,228 @@
 <html lang="sr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>REDOKS JURIŠ (Mobilni Čitač) - Protokol Loboda</title>
+    <!-- Učitavanje zvanične PDF.js biblioteke -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: monospace;
             background-color: #020617;
             color: #cbd5e1;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
         }
-        #book-viewer-zone {
-            width: 100vw;
-            height: 100vh;
-            background-color: #020617;
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* Ekran za unos bezbednosne šifre */
+        #auth-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #0f172a; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999; padding: 20px;
         }
+        #auth-screen h2 { color: #d4af37; margin-bottom: 20px; font-size: 1.2rem; text-align: center; }
+        #auth-screen input {
+            padding: 12px; font-size: 16px; border: 2px solid #334155;
+            background: #020617; color: #00ffcc; border-radius: 8px; text-align: center;
+            margin-bottom: 15px; width: 100%; max-width: 250px; font-family: monospace;
+        }
+        #auth-screen button {
+            padding: 12px 30px; font-size: 16px; background: #d4af37; color: #020617;
+            border: none; border-radius: 8px; font-weight: bold; cursor: pointer;
+        }
+        #error-msg { color: #ef4444; margin-top: 10px; font-size: 14px; display: none; }
+
+        /* Glavni interfejs čitača */
+        #viewer-container { display: none; width: 100vw; height: 100vh; flex-direction: column; }
+        
         .viewer-header {
-            height: 50px;
-            background: #020617;
-            border-bottom: 1px solid #334155;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-sizing: border-box;
+            height: 55px; background: #020617; border-bottom: 1px solid #334155;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 15px;
         }
-        .book-frame {
-            width: 100%;
-            height: calc(100vh - 50px);
-            border: none;
-            background-color: #0f172a;
+        .book-title { color: #00ffcc; font-weight: bold; font-size: 11px; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .page-counter { color: #64748b; font-size: 12px; }
+
+        /* Zona za prikaz i listanje knjige */
+        #canvas-zone {
+            flex: 1; display: flex; justify-content: center; align-items: center;
+            background-color: #0f172a; position: relative; overflow: hidden;
         }
+        canvas { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+        /* Kontrole na dnu (Klizač i Strelicama) */
+        .viewer-footer {
+            height: 65px; background: #020617; border-top: 1px solid #334155;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px 15px;
+        }
+        .slider-container { width: 100%; display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        input[type="range"] {
+            flex: 1; -webkit-appearance: none; background: #334155; height: 6px; border-radius: 3px; outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #00ffcc; cursor: pointer;
+        }
+        .nav-buttons { display: flex; gap: 40px; }
+        .nav-btn { background: none; border: none; color: #d4af37; font-size: 20px; font-weight: bold; padding: 5px 20px; cursor: pointer; }
+        .nav-btn:disabled { color: #334155; }
     </style>
 </head>
 <body>
 
-    <!-- STABILAN AKADEMSKI ČITAČ KOJI SE VERIFIKUJE INSTANTNO -->
-    <div id="book-viewer-zone">
-        <div class="viewer-header">
-            <span style="color: #00ffcc; font-weight: bold; font-family: monospace; font-size: 13px;">[ZA TELEFONE] 📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
-            <span style="color: #64748b; font-size: 11px; font-family: monospace;">Kontinualni skrol</span>
-        </div>
-        <!-- DIREKTNO UČITAVANJE FAJLA BEZ JAVASCRIPT BLOKADA -->
-        <iframe class="book-frame" src="./KnjigaRedoksJuris.pdf" allowfullscreen></iframe>
+    <!-- 1. Bezbednosni ekran za verifikaciju -->
+    <div id="auth-screen">
+        <h2>UNESITE BEZBEDNOSNU ŠIFRU</h2>
+        <input type="password" id="promo-code" placeholder="Unesite šifru ovde...">
+        <button onclick="verifyCode()">PRISTUPI KNJIZI</button>
+        <div id="error-msg">Pogrešan promo kôd! Pokušajte ponovo.</div>
     </div>
 
-</body>
-</html>
+    <!-- 2. Čitač knjige (Skriven dok se ne unese tačna šifra) -->
+    <div id="viewer-container">
+        <div class="viewer-header">
+            <span class="book-title">📖 REDOKS JURIŠ (Original PDF)</span>
+            <span class="page-counter" id="page-num-display">Stranica: 0 / 0</span>
+        </div>
+
+        <div id="canvas-zone">
+            <canvas id="pdf-canvas"></canvas>
+        </div>
+
+        <div class="viewer-footer">
+            <div class="slider-container">
+                <input type="range" id="page-slider" min="1" max="1" value="1" oninput="onSliderMove(this.value)">
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn" onclick="prevPage()">◀</button>
+                <button class="nav-btn" id="next-btn" onclick="nextPage()">▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Postavljanje PDF.js radnika sa zvaničnog skladišta
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cloudflare.com';
+
+        const REQUIRED_CODE = "REDOX2026";
+        const pdfUrl = "./KnjigaRedoksJuris.pdf"; // Relativna putanja do vašeg PDF-a u fascikli
+
+        let pdfDoc = null,
+            pageNum = 1,
+            pageRendering = false,
+            pageNumPending = null,
+            canvas = document.getElementById('pdf-canvas'),
+            ctx = canvas.getContext('2d');
+
+        // Funkcija za proveru šifre
+        function verifyCode() {
+            const inputCode = document.getElementById('promo-code').value.trim();
+            if (inputCode === REQUIRED_CODE) {
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('viewer-container').style.display = 'flex';
+                initPdfViewer();
+            } else {
+                const errorDiv = document.getElementById('error-msg');
+                errorDiv.style.display = 'block';
+                errorDiv.style.animation = 'shake 0.2s ease-in-out 2';
+            }
+        }
+
+        // Pokretanje PDF čitača nakon uspešne autorizacije
+        function initPdfViewer() {
+            pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc_) {
+                pdfDoc = pdfDoc_;
+                document.getElementById('page-slider').max = pdfDoc.numPages;
+                renderPage(pageNum);
+                setupSwipeDetection();
+            }).catch(function(error) {
+                alert("Greška pri učitavanju PDF fajla. Proverite da li se datoteka zove tačno 'KnjigaRedoksJuris.pdf' i da li je u istoj fascikli.");
+            });
+        }
+
+        // Renderovanje tražene stranice na ekranu mobilnog telefona
+        function renderPage(num) {
+            pageRendering = true;
+            pdfDoc.getPage(num).then(function(page) {
+                // Automatsko prilagođavanje rezoluciji ekrana telefona
+                let viewport = page.getViewport({ scale: 1.0 });
+                let targetWidth = window.innerWidth;
+                let scale = targetWidth / viewport.width;
+                let convertedViewport = page.getViewport({ scale: scale * 2 }); // Skaliranje *2 radi oštrine slova
+
+                canvas.height = convertedViewport.height;
+                canvas.width = convertedViewport.width;
+
+                let renderContext = {
+                    canvasContext: ctx,
+                    viewport: convertedViewport
+                };
+                let renderTask = page.render(renderContext);
+
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+
+            // Ažuriranje elemenata interfejsa (tekst i klizač)
+            document.getElementById('page-num-display').textContent = `Stranica: ${num} / ${pdfDoc.numPages}`;
+            document.getElementById('page-slider').value = num;
+            
+            document.getElementById('prev-btn').disabled = (num <= 1);
+            document.getElementById('next-btn').disabled = (num >= pdfDoc.numPages);
+        }
+
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        // Navigacija: Prethodna stranica (Listanje udesno)
+        function prevPage() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+
+        // Navigacija: Sledeća stranica (Listanje ulevo)
+        function nextPage() {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+
+        // Navigacija preko klizača (Slider)
+        function onSliderMove(value) {
+            pageNum = parseInt(value);
+            queueRenderPage(pageNum);
+        }
+
+        // Prepoznavanje prevlačenja prstom po ekranu (Swipe Left / Swipe Right)
+        function setupSwipeDetection() {
+            let touchstartX = 0;
+            let touchendX = 0;
+            const zone = document.getElementById('canvas-zone');
+
+            zone.addEventListener('touchstart', e => {
+                touchstartX = e.changedTouches[0].screenX;
+            }, false);
+
+            zone.addEventListener('touchend', e => {
+                touchendX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+
+            function handleSwipe() {
+                const threshold = 50; // Minimalna dužina prevlačenja u pikselima
+                if (touchstartX - touchendX > threshold) {
+                    nextPage(); // Prevlačenje sleva nadesno -> Sledeća strana
+                }
+                if (touchendX - touchstartX > threshold) {
+                    prevPage(); // Prevlačenje zdesna nalevo -> Prethodna strana
+                }
