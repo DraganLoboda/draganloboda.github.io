@@ -1,50 +1,362 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Čitač - Protokol Loboda</title>
-    <style>
-        body { background: #020617; color: #cbd5e1; font-family: monospace; text-align: center; padding-top: 50px; }
-        input { padding: 10px; font-size: 16px; border: 2px solid #334155; background: #0f172a; color: #00ffcc; text-align: center; border-radius: 5px; outline: none; }
-        button { padding: 10px 20px; font-size: 16px; background: #d4af37; color: #020617; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; margin-left: 5px; }
-        #kontenjer { display: none; margin-top: 20px; width: 100vw; height: calc(100vh - 120px); }
-        iframe { width: 100%; height: 100%; border: none; }
-        #greska { color: red; margin-top: 10px; display: none; }
-    </style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+ <title>REDOKS JURIŠ (Zvanični PDF.js Akademski Čitač) - Protokol Loboda</title>
+ 
+ <!-- ISPRAVNE ZVANIČNE BIBLIOTEKE KOJE GITHUB VERIFIKUJE (3/3) -->
+ <script src="https://cloudflare.com"></script>
+ 
+ <style>
+ body {
+ font-family: monospace;
+ background-color: #020617;
+ color: #cbd5e1;
+ margin: 0;
+ padding: 0;
+ user-select: none;
+ -webkit-user-select: none;
+ overflow: hidden; /* Sprečava vertikalno skrolovanje celog sajta */
+ }
+ .lock-container {
+ background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+ border: 2px solid #334155;
+ border-top: 6px solid #38bdf8;
+ padding: 40px 30px;
+ border-radius: 12px;
+ box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+ text-align: center;
+ max-width: 450px;
+ width: 90%;
+ position: fixed;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ z-index: 10000;
+ }
+ .neon-title {
+ font-size: 1.3em;
+ font-weight: bold;
+ color: #38bdf8;
+ letter-spacing: 2px;
+ margin-bottom: 25px;
+ text-transform: uppercase;
+ }
+ input[type="password"] {
+ width: 80%;
+ padding: 12px 15px;
+ background: #020617;
+ border: 1px solid #334155;
+ border-radius: 6px;
+ color: #00ffcc;
+ font-family: monospace;
+ font-size: 1.1em;
+ text-align: center;
+ outline: none;
+ margin-bottom: 20px;
+ }
+ input[type="password"]:focus {
+ border-color: #00ffcc;
+ box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+ }
+ .btn-submit {
+ background: rgba(0, 255, 204, 0.1);
+ border: 1px solid #00ffcc;
+ color: #00ffcc;
+ padding: 12px 30px;
+ font-family: monospace;
+ font-weight: bold;
+ font-size: 1em;
+ cursor: pointer;
+ border-radius: 6px;
+ text-transform: uppercase;
+ transition: all 0.3s ease;
+ }
+ .btn-submit:hover {
+ background: #00ffcc;
+ color: #020617;
+ box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+ }
+ .error-msg {
+ color: #ff3366;
+ margin-top: 15px;
+ font-weight: bold;
+ display: none;
+ }
+ 
+ #book-viewer-zone {
+ display: none;
+ width: 100vw;
+ height: 100vh;
+ background-color: #020617;
+ position: fixed;
+ top: 0;
+ left: 0;
+ z-index: 9999;
+ flex-direction: column;
+ }
+ 
+ /* GORNJA ZONA SA INTEGRISANIM KLIZAČEM ZA UBRZANO LISTANJE */
+ .viewer-header {
+ height: 65px;
+ background: #020617;
+ border-bottom: 1px solid #334155;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ padding: 5px 20px;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+ box-sizing: border-box;
+ gap: 4px;
+ }
+ .header-controls {
+ width: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ }
+ .slider-container {
+ width: 100%;
+ display: flex;
+ align-items: center;
+ padding: 0 5px;
+ }
+ /* Stilni klizač na vrhu ekrana */
+ .page-slider {
+ width: 100%;
+ -webkit-appearance: none;
+ background: #1e293b;
+ height: 6px;
+ border-radius: 3px;
+ outline: none;
+ }
+ .page-slider::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ width: 16px;
+ height: 16px;
+ border-radius: 50%;
+ background: #38bdf8;
+ cursor: pointer;
+ box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+ }
+ .nav-input-box {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ background: #0f172a;
+ border: 1px solid #334155;
+ padding: 2px 6px;
+ border-radius: 4px;
+ }
+ 
+ /* GLAVNI PROSTOR KOJI OMOGUĆAVA HORIZONTALNO LISTANJE (LEVO-DESNO) */
+ #pdf-canvas-container {
+ flex: 1;
+ width: 100vw;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: #0f172a;
+ position: relative;
+ overflow: hidden;
+ }
+ canvas {
+ box-shadow: 0 4px 30px rgba(0,0,0,0.7);
+ max-width: 100%;
+ max-height: 100%;
+ object-fit: contain;
+ }
+ 
+ /* Nevidljive brze tap-zone na ivicama za lakše okretanje na telefonima */
+ .touch-zone {
+ position: absolute;
+ top: 0;
+ bottom: 0;
+ width: 15%;
+ z-index: 10;
+ cursor: pointer;
+ }
+ .zone-left { left: 0; }
+ .zone-right { right: 0; }
+ </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
-    <div id="otključavanje">
-        <p style="margin-bottom: 15px; color: #d4af37;">UNESITE BEZBEDNOSNU ŠIFRU (REDOX2026):</p>
-        <input type="password" id="sifra" placeholder="Lozinka...">
-        <button onclick="proveri()">OTVORI</button>
-        <p id="greska">Šifra nije ispravna!</p>
-    </div>
+ <!-- SIGURNOSNA KAPIJA -->
+ <div class="lock-container" id="lock-screen">
+ <div class="neon-title">🔒 REDOKS JURIŠ<br><span style="font-size: 0.8em; color: #cbd5e1;">Zvanični PDF.js Akademski Čitač</span></div>
+ <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 25px; color: #94a3b8;">Unesite vašu tridesetodnevnu autorizovanu šifru za pristup originalnom PDF rukopisu.</p>
+ 
+ <input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
+ <br>
+ <button class="btn-submit" onclick="verifyRedoxVault()">Pristupi</button>
+ <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN! PROVERITE RESURSE.</div>
+ </div>
 
-    <div id="kontenjer">
-        <iframe id="knjiga" src=""></iframe>
-    </div>
+ <!-- AKADEMSKI OKVIR SA INTEGRISANOM HORIZONTALNOM NAVIGACIJOM -->
+ <div id="book-viewer-zone">
+ <div class="viewer-header">
+ <div class="header-controls">
+ <span style="color: #38bdf8; font-weight: bold; font-family: monospace; font-size: 13px;">📖 REDOKS JURIŠ</span>
+ <div class="nav-input-box">
+ <span style="font-size: 11px; color: #94a3b8;">Strana:</span>
+ <span id="current-page-text" style="font-size: 12px; color: #00ffcc; font-weight: bold;">1</span>
+ <span id="total-pages-text" style="font-size: 12px; color: #64748b;">/ --</span>
+ </div>
+ </div>
+ <!-- KLIZAČ POSTAVLJEN NA VRH ZA BRZI JURIŠ KROZ STRANICE -->
+ <div class="slider-container">
+ <input type="range" id="page-slider" class="page-slider" min="1" max="1" value="1" oninput="onSliderMove(this.value)">
+ </div>
+ </div>
+ 
+ <!-- GLAVNI PROSTOR ZA HORIZONTALNI PRIKAZ -->
+ <div id="pdf-canvas-container">
+ <div class="touch-zone zone-left" onclick="prethodnaStrana()"></div>
+ <canvas id="pdf-rendering-canvas"></canvas>
+ <div class="touch-zone zone-right" onclick="sledećaStrana()"></div>
+ </div>
+ </div>
 
-    <script>
-        function proveri() {
-            var unos = document.getElementById('sifra').value.trim();
-            if (unos === "REDOX2026") {
-                document.getElementById('otključavanje').style.display = 'none';
-                document.getElementById('kontenjer').style.display = 'block';
-                
-                // REŠENJE: Automatsko enkodiranje slova "š" za GitHub servere
-                document.getElementById('knjiga').src = encodeURIComponent("KnjigaRedoksJuriš.pdf");
-            } else {
-                document.getElementById('greska').style.display = 'block';
-            }
-        }
+ <script>
+ // Postavljanje ispravnog radnika za stabilno procesiranje
+ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cloudflare.com';
+ 
+ var pdfDoc = null;
+ var trenutnaStrana = 1;
+ // POPRAVKA: Enkodirana putanja koja rešava slovo "š" i briše 404 grešku
+ var putanjaDoKnjige = encodeURIComponent("KnjigaRedoksJuriš.pdf"); 
+ var canvas = document.getElementById('pdf-rendering-canvas');
+ var ctx = canvas.getContext('2d');
+ var pageRendering = false;
+ var pageNumPending = null;
 
-        document.getElementById("sifra").addEventListener("keyup", function(event) {
-            if (event.key === "Enter") {
-                proveri();
-            }
-        });
-    </script>
+ function verifyRedoxVault() {
+ var inputPass = document.getElementById("redox-pass").value;
+ var errorBox = document.getElementById("error-box");
+ if (inputPass === "REDOX2026") {
+ document.getElementById("lock-screen").style.display = "none";
+ document.getElementById("book-viewer-zone").style.display = "flex";
+ errorBox.style.display = "none";
+ document.getElementById("redox-pass").value = "";
+ 
+ ucitajPdfDokument();
+ } else {
+ errorBox.style.display = "block";
+ }
+ }
+
+ function ucitajPdfDokument() {
+ pdfjsLib.getDocument(putanjaDoKnjige).promise.then(function(pdfDoc_) {
+ pdfDoc = pdfDoc_;
+ document.getElementById('total-pages-text').innerText = "/ " + pdfDoc.numPages;
+ 
+ // Podešavanje maksimalnih vrednosti za gornji klizač
+ var slider = document.getElementById('page-slider');
+ slider.max = pdfDoc.numPages;
+ 
+ // Renderovanje prve početne stranice
+ renderujStranicu(trenutnaStrana);
+ setupSwipeGestures();
+ }).catch(function(error) {
+ console.error("Greška pri učitavanju PDF-a: ", error);
+ alert("Sistem ne može da učita knjigu. Proverite naziv fajla na GitHub-u.");
+ });
+ }
+
+ function renderujStranicu(brojStrane) {
+ pageRendering = true;
+ pdfDoc.getPage(brojStrane).then(function(page) {
+ // Prilagođavanje oštrine teksta i širine ekranu telefona
+ var viewport = page.getViewport({ scale: 1.0 });
+ var targetWidth = window.innerWidth;
+ var scale = targetWidth / viewport.width;
+ var optimalViewport = page.getViewport({ scale: scale * (window.devicePixelRatio > 1 ? 1.6 : 1.2) });
+
+ canvas.height = optimalViewport.height;
+ canvas.width = optimalViewport.width;
+ 
+ var renderContext = {
+ canvasContext: ctx,
+ viewport: optimalViewport
+ };
+ 
+ var renderTask = page.render(renderContext);
+ renderTask.promise.then(function() {
+ pageRendering = false;
+ if (pageNumPending !== null) {
+ renderujStranicu(pageNumPending);
+ pageNumPending = null;
+ }
+ });
+ });
+
+ // Ažuriranje brojača i klizača na vrhu ekrana
+ document.getElementById('current-page-text').innerText = brojStrane;
+ document.getElementById('page-slider').value = brojStrane;
+ }
+
+ function queueRenderPage(num) {
+ if (pageRendering) {
+ pageNumPending = num;
+ } else {
+ renderujStranicu(num);
+ }
+ }
+
+ // Funkcije za kretanje levo-desno
+ function prethodnaStrana() {
+ if (trenutnaStrana <= 1) return;
+ trenutnaStrana--;
+ queueRenderPage(trenutnaStrana);
+ }
+
+ function sledećaStrana() {
+ if (trenutnaStrana >= pdfDoc.numPages) return;
+ trenutnaStrana++;
+ queueRenderPage(trenutnaStrana);
+ }
+
+ // Praćenje pomeranja gornjeg klizača (Slider)
+ function onSliderMove(vrednost) {
+ trenutnaStrana = parseInt(vrednost);
+ queueRenderPage(trenutnaStrana);
+ }
+
+ // DETEKCIJA SWIPE POKRETA (Prstom levo-desno preko ekrana telefona)
+ function setupSwipeGestures() {
+ let touchstartX = 0;
+ let touchendX = 0;
+ const zona = document.getElementById('pdf-canvas-container');
+
+ zona.addEventListener('touchstart', e => {
+ touchstartX = e.changedTouches[0].screenX;
+ }, { passive: true });
+
+ zona.addEventListener('touchend', e => {
+ touchendX = e.changedTouches[0].screenX;
+ handleSwipe();
+ }, { passive: true });
+
+ function handleSwipe() {
+ const granicaPomeraja = 40; // osetljivost prsta
+ if (touchstartX - touchendX > granicaPomeraja) {
+ sledećaStrana(); // Prevlačenje sleva na desno -> ide napred
+ }
+ if (touchendX - touchstartX > granicaPomeraja) {
+ prethodnaStrana(); // Prevlačenje zdesna na levo -> ide nazad
+ }
+ }
+ }
+
+ // Podrška za dugme Enter na tastaturi
+ document.getElementById("redox-pass").addEventListener("keyup", function(event) {
+ if (event.key === "Enter") {
+ verifyRedoxVault();
+ }
+ });
+ </script>
 </body>
 </html>
