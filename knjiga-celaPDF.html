@@ -130,24 +130,35 @@
             <span style="color: #64748b; font-size: 0.85em; font-style: italic; font-family: monospace;">Zaštićen prikaz za čitanje</span>
         </div>
         <!-- TAČAN FORMAT LINKA (flip-book umesto embed) KOJI SPREČAVA IZBACIVANJE SA SAJTA -->
-        <iframe class="book-frame" id="secure-iframe" src="https://heyzine.com" allowfullscreen></iframe>
+       <iframe
+    class="book-frame"
+    id="secure-iframe"
+    src=""
+    allowfullscreen
+    scrolling="no">
+</iframe> 
     </div>
 
     <script>
-        function verifyRedoxVault() {
-            var inputPass = document.getElementById("redox-pass").value;
-            var errorBox = document.getElementById("error-box");
+       function verifyRedoxVault() {
+    var inputPass = document.getElementById("redox-pass").value;
+    var errorBox = document.getElementById("error-box");
 
-            if (inputPass === "REDOX2026") {
-                // Podižemo zavesu i prikazujemo već učitanu flip-book knjigu bez ikakvog diranja src adrese
-                document.getElementById("lock-screen").style.display = "none";
-                document.getElementById("book-viewer-zone").style.display = "block";
-                errorBox.style.display = "none";
-                document.getElementById("redox-pass").value = "";
-            } else {
-                errorBox.style.display = "block";
-            }
-        }
+    if (inputPass === "REDOX2026") {
+
+        document.getElementById("secure-iframe").src =
+            "https://heyzine.com/flip-book/1411197a7d.html?embed";
+
+        document.getElementById("lock-screen").style.display = "none";
+        document.getElementById("book-viewer-zone").style.display = "block";
+
+        errorBox.style.display = "none";
+        document.getElementById("redox-pass").value = "";
+
+    } else {
+        errorBox.style.display = "block";
+    }
+}
 
         window.addEventListener('keydown', function (e) {
             if (
