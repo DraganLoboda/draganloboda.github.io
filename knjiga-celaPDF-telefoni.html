@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>REDOKS JURIŠ (Zvanični PDF.js Mobilni Čitač) - Protokol Loboda</title>
-    <script src="https://cloudflare.com"></script>
     <style>
         body {
             font-family: monospace;
@@ -12,6 +11,10 @@
             color: #cbd5e1;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -136,21 +139,11 @@
         }
         .btn-go:hover { background: #00ffcc; color: #020617; }
         
-        #pdf-canvas-container {
+        .book-frame {
             width: 100%;
             height: calc(100vh - 50px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            text-align: center;
+            border: none;
             background-color: #0f172a;
-            padding: 15px 0;
-            box-sizing: border-box;
-        }
-        canvas {
-            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
-            margin-bottom: 20px;
-            max-width: 98%;
-            height: auto !important;
         }
     </style>
 </head>
@@ -172,22 +165,16 @@
             
             <div class="nav-input-box">
                 <span style="font-size: 11px; color: #94a3b8;">Strana:</span>
-                <input type="number" id="target-page-input" class="page-num-input" min="1" value="1">
-                <span id="total-pages-text" style="font-size: 11px; color: #64748b;">/ --</span>
+                <input type="number" id="target-page-input" class="page-num-input" min="1" max="250" value="1">
                 <button class="btn-go" onclick="skociNaStranicu()">Idi</button>
             </div>
         </div>
         
-        <div id="pdf-canvas-container"></div>
+        <!-- INTEGRISAN REŽIM PREKO MOZILLA WEB VIEWERA KOJI UKLANJA ALATKE I REŠAVA PLAVI EKRAN -->
+        <iframe class="book-frame" id="secure-iframe" src="" allowfullscreen></iframe>
     </div>
 
     <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cloudflare.com';
-
-        var pdfDoc = null;
-        var putanjaDoKnjige = "./KnjigaRedoksJuriš.pdf"; 
-        var kontejner = document.getElementById('pdf-canvas-container');
-
         function verifyRedoxVault() {
             var inputPass = document.getElementById("redox-pass").value;
             var errorBox = document.getElementById("error-box");
@@ -198,52 +185,25 @@
                 errorBox.style.display = "none";
                 document.getElementById("redox-pass").value = "";
                 
-                ucitajPdfDokument();
+                // Formiranje apsolutne putanje do vašeg PDF fajla na GitHub Pages
+                var apsolutnaPutanja = window.location.origin + "/KnjigaRedoksJuriš.pdf";
+                
+                // Zvanični Mozilla PDF.js ugradni preglednik koji radi svuda bez blokade
+                document.getElementById("secure-iframe").src = "https://github.io" + encodeURIComponent(apsolutnaPutanja) + "#zoom=page-width\x26pagemode=none";
             } else {
                 errorBox.style.display = "block";
             }
         }
 
-        function ucitajPdfDokument() {
-            pdfjsLib.getDocument(putanjaDoKnjige).promise.then(function(pdfDoc_) {
-                pdfDoc = pdfDoc_;
-                document.getElementById('total-pages-text').innerText = "/ " + pdfDoc.numPages;
-                document.getElementById('target-page-input').max = pdfDoc.numPages;
-                
-                for (var i = 1; i <= pdfDoc.numPages; i++) {
-                    napraviPlatnoZaStranicu(i);
-                }
-            });
-        }
-
-        function napraviPlatnoZaStranicu(brojStrane) {
-            var canvas = document.createElement('canvas');
-            canvas.id = 'pdf-strana-' + brojStrane;
-            kontejner.appendChild(canvas);
-            
-            pdfDoc.getPage(brojStrane).then(function(page) {
-                var ctx = canvas.getContext('2d');
-                var viewport = page.getViewport({ scale: window.devicePixelRatio > 1 ? 1.6 : 1.2 });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                var renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
-                page.render(renderContext);
-            });
-        }
-
         function skociNaStranicu() {
             var brStrane = parseInt(document.getElementById("target-page-input").value);
             if (!brStrane || brStrane < 1) brStrane = 1;
-            if (brStrane > pdfDoc.numPages) brStrane = pdfDoc.numPages;
+            if (brStrane > 250) brStrane = 250;
             
-            var metaElement = document.getElementById('pdf-strana-' + brStrane);
-            if (metaElement) {
-                metaElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            var apsolutnaPutanja = window.location.origin + "/KnjigaRedoksJuriš.pdf";
+            
+            // Dinamičko prebacivanje na izabranu stranicu unutar pravog PDF.js okruženja
+            document.getElementById("secure-iframe").src = "https://github.io" + encodeURIComponent(apsolutnaPutanja) + "#page=" + brStrane + "\x26zoom=page-width\x26pagemode=none";
         }
 
         window.addEventListener('keydown', function (e) {
