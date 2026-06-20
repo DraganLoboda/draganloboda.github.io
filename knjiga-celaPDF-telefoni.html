@@ -192,11 +192,25 @@ alert("Sifra je prihvacena");
 }
 
 async function loadPDF() {
+    alert("loadPDF pokrenut");
 console.log("Pokusavam da ucitam PDF...");
     const loadingTask =
     pdfjsLib.getDocument('KnjigaRedoksJuriš.pdf');
 
+    try {
+
     pdfDoc = await loadingTask.promise;
+
+    alert("PDF UCITAN");
+
+} catch(err) {
+
+    alert("GRESKA: " + err.message);
+
+    console.log(err);
+
+    return;
+}
 
     document.getElementById('pageCount').textContent =
         '/ ' + pdfDoc.numPages;
