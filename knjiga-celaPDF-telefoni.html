@@ -67,13 +67,19 @@
  </div>
 
  <script>
- // Podešeno za tačan ukupan broj od 275 stranica
  var UKUPAN_BROJ_STRANICA = 275; 
-
- // Povezivanje sa vašim novim folderom: čitamo "slike/knjiga2-[broj].jpg"
  var sveStranice = [];
+
+ // TAČNA POPRAVKA PREMA VAŠEM SKRINŠOTU:
+ // Petlja automatski dodaje "00" ispred brojeva od 1 do 9, i jedno "0" ispred brojeva od 10 do 99
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
-     sveStranice.push("./slike/knjiga2-" + i + ".jpg");
+     var formatiranBroj = i;
+     if (i < 10) {
+         formatiranBroj = "00" + i;
+     } else if (i < 100) {
+         formatiranBroj = "0" + i;
+     }
+     sveStranice.push("./slike/knjiga2-" + formatiranBroj + ".jpg");
  }
 
  var trenutniIndeks = 0;
