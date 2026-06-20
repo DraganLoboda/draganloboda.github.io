@@ -140,13 +140,13 @@
     </div>
 
     <script>
-       function verifyRedoxVault() {
+      function verifyRedoxVault() {
     var inputPass = document.getElementById("redox-pass").value;
     var errorBox = document.getElementById("error-box");
 
     if (inputPass === "REDOX2026") {
 
-       document.getElementById("secure-iframe").src =
+        document.getElementById("secure-iframe").src =
             "https://heyzine.com/flip-book/1411197a7d.html?embed";
 
         document.getElementById("lock-screen").style.display = "none";
@@ -159,6 +159,7 @@
         errorBox.style.display = "block";
     }
 }
+
 
         window.addEventListener('keydown', function (e) {
             if (
