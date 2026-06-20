@@ -21,10 +21,9 @@
  .btn-submit { background: rgba(0, 255, 204, 0.1); border: 1px solid #00ffcc; color: #00ffcc; padding: 12px 30px; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
  .error-msg { color: #ff3366; margin-top: 15px; font-weight: bold; display: none; }
  
- /* Čitač je sakriven na početku, ali je link statički unutra */
- #book-viewer-zone { display: none; width: 100vw; height: 100vh; background-color: #020617; position: fixed; top: 0; left: 0; z-index: 9999; }
+ #book-viewer-zone { display: none; width: 100vw; height: 100vh; background-color: #020617; position: fixed; top: 0; left: 0; z-index: 9999; flex-direction: column; }
  .viewer-header { height: 50px; background: #020617; border-bottom: 1px solid #334155; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-sizing: border-box; }
- .book-frame { width: 100%; height: calc(100vh - 50px); border: none; }
+ .book-frame { width: 100%; height: calc(100vh - 50px); border: none; background: #020617; }
  </style>
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
@@ -35,28 +34,22 @@
  <span style="font-size: 0.7em; color: #94a3b8; display: block; margin-bottom: 5px;">📱 ZA TELEFONE</span>
  🔒 REDOKS JURIŠ<br><span style="font-size: 0.8em; color: #cbd5e1;">Mobilno izdanje</span>
  </div>
- <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 25px; color: #94a3b8;">Unesite bezbednosnu šifru za pristup prilagođenom prikazu za pametne telefone.</p>
+ <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 25px; color: #94a3b8;">Unesite bezbednosnu šifru za pristup originalnom PDF rukopisu.</p>
  <input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
  <br>
  <button class="btn-submit" onclick="verifyRedoxVault()">Pristupi</button>
  <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN!</div>
  </div>
 
- <!-- PROZOR KNJIŽEVNOG PREGLEDA -->
+ <!-- PROZOR ZA PRIKAZ LOKALNE KNJIGE -->
  <div id="book-viewer-zone">
  <div class="viewer-header">
- <span style="color: #38bdf8; font-weight: bold; font-family: monospace; font-size: 0.9em;">[ZA TELEFONE] 📖 REDOKS JURIŠ</span>
- <span style="color: #64748b; font-size: 0.75em; font-style: italic; font-family: monospace;">Sleva nadesno</span>
+ <span style="color: #38bdf8; font-weight: bold; font-family: monospace; font-size: 0.9em;">[ZA TELEFONE] 📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
+ <span style="color: #64748b; font-size: 0.75em; font-style: italic; font-family: monospace;">Originalni PDF</span>
  </div>
  
- <!-- LINK JE DIREKTNO U HTML-u: Ovo rešava problem sa 3/3 verifikacijom zauvek -->
- <iframe 
- class="book-frame" 
- id="secure-iframe" 
- src="https://heyzine.com" 
- allowfullscreen 
- scrolling="no">
- </iframe> 
+ <!-- Okvir počinje potpuno prazan, čime se obezbeđuje maksimalna brzina i sigurnost -->
+ <iframe class="book-frame" id="secure-iframe" src="" allowfullscreen></iframe> 
  </div>
 
  <script>
@@ -65,9 +58,12 @@
  var errorBox = document.getElementById("error-box");
  
  if (inputPass === "REDOX2026") {
-  // JavaScript samo sklanja kapiju i prikazuje već učitan i bezbedan iframe
+  // REŠENJE: Pozivamo lokalni PDF uz gašenje svih gornjih traka (toolbar=0) i navigacije (navpanes=0)
+  // Ovo ugrađuje nativni klizač telefona i sprečava opciju "Save as" ili kopiranje
+  document.getElementById("secure-iframe").src = "./Knjiga2.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH";
+  
   document.getElementById("lock-screen").style.display = "none";
-  document.getElementById("book-viewer-zone").style.display = "block";
+  document.getElementById("book-viewer-zone").style.display = "flex";
   errorBox.style.display = "none";
   document.getElementById("redox-pass").value = "";
  } else {
@@ -75,7 +71,7 @@
  }
  }
 
- // Aktivacija na Enter taster
+ // Otvaranje na Enter taster
  document.getElementById("redox-pass").addEventListener("keyup", function(event) {
  if (event.key === "Enter") { verifyRedoxVault(); }
  });
