@@ -74,7 +74,7 @@
  .t-left { left: 0; }
  .t-right { left: 50%; }
 
- /* REŽIM ZA KOMPJUTERE (Ekran je širok -> prikazuje DVE stranice paralelno) */
+ /* REŽIM ZA KOMPJUTERE (DVE stranice paralelno) */
  @media (min-width: 769px) {
    .book-page-img { max-width: 48%; max-height: calc(100vh - 80px); }
  }
@@ -84,7 +84,6 @@
    #book-viewer-zone { max-width: 100vw; left: 0; transform: none; border: none; }
    .book-wrapper { width: 100vw; height: calc(100vh - 60px); }
    .book-page-img { width: 100%; height: 100%; object-fit: contain; }
-   /* Sakrivanje druge stranice na telefonima */
    #book-page-right { display: none !important; }
    .text-click-zone { width: 50%; }
  }
@@ -115,7 +114,6 @@
  
  <div id="book-container">
   <div class="book-wrapper">
-    <!-- Klik-zone na tekstu -->
     <div class="text-click-zone t-left" onclick="okreniLevo()"></div>
     <img id="book-page-left" class="book-page-img" src="" alt="Leva strana">
     <img id="book-page-right" class="book-page-img" src="" alt="Desna strana">
@@ -130,7 +128,6 @@
  var trenutnaSkala = 1;
  var isMobile = window.innerWidth <= 768;
 
- // Formiranje niza prema vašem formatu sa nulama
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
      var formatiranBroj = i;
      if (i < 10) { formatiranBroj = "00" + i; } 
@@ -162,12 +159,10 @@
   isMobile = window.innerWidth <= 768;
 
   if (isMobile) {
-    // Mobilni režim: Učitava samo jednu stranicu
     slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
     document.getElementById('page-indicator').innerText = "Stranica: " + (indeks + 1) + " / " + UKUPAN_BROJ_STRANICA;
     mojSlider.value = indeks + 1;
   } else {
-    // Računar režim: Učitava paralelno dve stranice (levu i desnu)
     slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
     if (indeks + 1 < sveStranice.length) {
       slikaDesna.style.display = "block";
@@ -182,13 +177,12 @@
  }
 
  function inicijalizujKontrole() {
-  // Klik u prazan prostor klizača pomera nežno za po 1 stranu (+1 / -1)
   mojSlider.addEventListener('mousedown', klikNaKlizač);
   mojSlider.addEventListener('touchstart', klikNaKlizač, {passive: false});
 
   function klikNaKlizač(e) {
     var rect = mojSlider.getBoundingClientRect();
-    var clientX = e.clientX || e.touches[0].clientX;
+    var clientX = e.clientX || e.touches.clientX;
     var procenat = (clientX - rect.left) / rect.width;
     var cilj = Math.round(procenat * UKUPAN_BROJ_STRANICA);
     
@@ -196,12 +190,10 @@
     else if (cilj < trenutniIndeks + 1) { okreniLevo(); e.preventDefault(); }
   }
 
-  // MUNJEVITO LISTANJE: Kuglica reaguje trenutno bez softverskog usporavanja
   mojSlider.addEventListener('input', function() {
     prikaziStranicu(parseInt(mojSlider.value) - 1);
   });
 
-  // TOČKIĆ MIŠA (Zumiranje na računaru)
   document.getElementById('book-container').addEventListener('wheel', function(e) {
     e.preventDefault();
     if (e.deltaY < 0) { trenutnaSkala += 0.08; } else { trenutnaSkala -= 0.08; }
@@ -225,7 +217,6 @@
   if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } 
  }
 
- // DETEKCIJA SVIPE POKRETA (Ispravljen smer: Desno = Unapred, Levo = Unazad)
  function setupSwipeGestures() {
   let startX = 0;
   let startY = 0;
@@ -240,28 +231,35 @@
 
   kontejner.addEventListener('touchend', e => {
    if (e.changedTouches.length === 1) {
-     let endX = e.changedTouches.screenX;
-     let endY = e.changedTouches.screenY;
+     let endX = e.changedTouches[0].screenX;
+     let endY = e.changedTouches[0].screenY;
      
      let razlikaX = startX - endX;
      let razlikaY = Math.abs(startY - endY);
      
-     // Detekcija čistog horizontalnog pokreta
      if (Math.abs(razlikaX) > 40 && razlikaY < 60) {
        if (razlikaX > 0) {
-         okreniLevo();  // Pomeranje prsta ulevo -> Vraća brojčano unazad
+         okreniDesno(); // Pomeranje prsta ulevo -> Sledeća strana
        } else {
-         okreniDesno(); // Pomeranje prsta udesno -> Ide brojčano unapred
+         okreniLevo();  // Pomeranje prsta udesno -> Prethodna strana
        }
      }
    }
   }, {passive: true});
  }
 
- // Pratimo okretanje ekrana u realnom vremenu
  window.addEventListener('resize', function() {
    prikaziStranicu(trenutniIndeks);
  });
 
- // Tastatura
  document.addEventListener('keydown', e => {
+  if (e.key === "ArrowRight") okreniDesno();
+  if (e.key === "ArrowLeft") okreniLevo();
+ });
+
+ document.getElementById("redox-pass").addEventListener("keyup", function(event) {
+  if (event.key === "Enter") verifyRedoxVault();
+ });
+ </script>
+</body>
+</html>
