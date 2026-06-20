@@ -1,20 +1,308 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>REDOKS JURIŠ - ULTRA APP MODE</title>
 
-<application
-    android:allowBackup="false"
-    android:label="Secure Reader"
-    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
-    <activity android:name=".MainActivity"
-        android:exported="true">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:#020617;
+color:#cbd5e1;
+font-family:monospace;
+overflow:hidden;
+}
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-            <category android:name="android.intent.category.LAUNCHER"/>
-        </intent-filter>
+/* LOCK */
+#lock{
+position:fixed;top:50%;left:50%;
+transform:translate(-50%,-50%);
+background:#0f172a;
+padding:25px;
+border-radius:12px;
+border:2px solid #334155;
+text-align:center;
+width:90%;max-width:380px;
+}
 
-    </activity>
+input,button{font-family:monospace}
+input{
+width:80%;
+padding:12px;
+background:#020617;
+border:1px solid #334155;
+color:#00ffcc;
+text-align:center;
+}
 
-</application>
+button{
+margin-top:15px;
+padding:10px 20px;
+border:1px solid #00ffcc;
+background:transparent;
+color:#00ffcc;
+cursor:pointer;
+}
 
-</manifest>
+/* APP LAYOUT */
+#app{
+display:none;
+height:100vh;
+width:100vw;
+}
+
+/* TOP BAR */
+#topbar{
+height:34px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 10px;
+border-bottom:1px solid #334155;
+font-size:11px;
+background:#020617;
+}
+
+/* TOOLBAR */
+#toolbar{
+height:34px;
+display:flex;
+gap:10px;
+align-items:center;
+padding:0 8px;
+border-bottom:1px solid #334155;
+font-size:11px;
+}
+
+.btn{
+border:1px solid #334155;
+padding:4px 8px;
+cursor:pointer;
+background:#0f172a;
+color:#cbd5e1;
+}
+
+/* MAIN */
+#main{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+position:relative;
+touch-action:none;
+background:#0f172a;
+}
+
+/* CANVAS */
+canvas{
+transform-origin:center;
+display:block;
+}
+
+/* FLOAT UI */
+#float{
+position:absolute;
+bottom:10px;
+right:10px;
+display:flex;
+gap:6px;
+font-size:11px;
+opacity:0.8;
+}
+
+/* ZONES */
+.zone{
+position:absolute;top:0;bottom:0;width:12%;
+}
+.left{left:0}
+.right{right:0}
+</style>
+</head>
+
+<body>
+
+<div id="lock">
+<div style="color:#38bdf8;margin-bottom:12px">🔒 ULTRA APP MODE</div>
+<input id="pass" type="password" placeholder="ŠIFRA">
+<br>
+<button onclick="login()">ULAZ</button>
+</div>
+
+<div id="app">
+
+<div id="topbar">
+<span>📖 ULTRA ENGINE</span>
+<span id="info">1/1</span>
+</div>
+
+<div id="toolbar">
+<div class="btn" onclick="prev()">◀</div>
+<div class="btn" onclick="next()">▶</div>
+<div class="btn" onclick="zoom(0.1)">＋</div>
+<div class="btn" onclick="zoom(-0.1)">－</div>
+<div class="btn" onclick="toggleNight()">🌙</div>
+<div class="btn" onclick="toggleFS()">⛶</div>
+</div>
+
+<div id="main">
+
+<div class="zone left" onclick="prev()"></div>
+<canvas id="c"></canvas>
+<div class="zone right" onclick="next()"></div>
+
+<div id="float">
+<span id="page">1</span>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+const url="./Knjiga2.pdf";
+
+let pdf=null,page=1,rendering=false;
+let scale=1;
+let panX=0,panY=0;
+
+const canvas=document.getElementById("c");
+const ctx=canvas.getContext("2d");
+const app=document.getElementById("app");
+
+/* LOGIN */
+function login(){
+if(document.getElementById("pass").value==="REDOX2026"){
+document.getElementById("lock").style.display="none";
+app.style.display="block";
+load();
+}
+}
+
+/* LOAD */
+function load(){
+pdfjsLib.getDocument(url).promise.then(p=>{
+pdf=p;
+render(page);
+});
+}
+
+/* SCALE ENGINE */
+function fit(vp){
+const w=window.innerWidth;
+const h=window.innerHeight;
+return Math.min(w/vp.width,h/vp.height)*0.96;
+}
+
+/* RENDER */
+function render(n){
+if(rendering)return;
+rendering=true;
+
+pdf.getPage(n).then(p=>{
+
+const vp1=p.getViewport({scale:1});
+scale=fit(vp1);
+
+const vp=p.getViewport({scale});
+
+canvas.width=vp.width;
+canvas.height=vp.height;
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+p.render({canvasContext:ctx,viewport:vp}).promise.then(()=>{
+rendering=false;
+});
+
+document.getElementById("info").innerText=n+"/"+pdf.numPages;
+document.getElementById("page").innerText=n;
+});
+}
+
+/* NAV */
+function next(){if(pdf&&page<pdf.numPages){page++;render(page)}}
+function prev(){if(page>1){page--;render(page)}}
+
+/* ZOOM */
+function zoom(z){
+scale+=z;
+scale=Math.max(0.5,Math.min(3,scale));
+apply();
+}
+
+function apply(){
+canvas.style.transform=`translate(${panX}px,${panY}px) scale(${scale})`;
+}
+
+/* NIGHT */
+function toggleNight(){
+document.body.classList.toggle("night");
+}
+
+/* FULLSCREEN */
+function toggleFS(){
+if(!document.fullscreenElement){
+document.documentElement.requestFullscreen();
+}else{
+document.exitFullscreen();
+}
+}
+
+/* DRAG */
+let drag=false,lastX=0,lastY=0;
+
+document.getElementById("main").addEventListener("mousedown",e=>{
+drag=true;lastX=e.clientX;lastY=e.clientY;
+});
+
+document.addEventListener("mouseup",()=>drag=false);
+
+document.addEventListener("mousemove",e=>{
+if(!drag)return;
+panX+=e.clientX-lastX;
+panY+=e.clientY-lastY;
+lastX=e.clientX;
+lastY=e.clientY;
+apply();
+});
+
+/* TOUCH */
+document.getElementById("main").addEventListener("touchstart",e=>{
+if(e.touches.length===1){
+drag=true;
+lastX=e.touches[0].clientX;
+lastY=e.touches[0].clientY;
+}
+},{passive:true});
+
+document.getElementById("main").addEventListener("touchmove",e=>{
+if(!drag||e.touches.length!==1)return;
+panX+=e.touches[0].clientX-lastX;
+panY+=e.touches[0].clientY-lastY;
+lastX=e.touches[0].clientX;
+lastY=e.touches[0].clientY;
+apply();
+},{passive:true});
+
+document.addEventListener("touchend",()=>drag=false);
+
+/* KEYBOARD */
+document.addEventListener("keydown",e=>{
+if(e.key==="ArrowRight")next();
+if(e.key==="ArrowLeft")prev();
+if(e.key==="f")toggleFS();
+if(e.key==="n")toggleNight();
+});
+
+</script>
+
+</body>
+</html>
