@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>REDOKS JURIŠ - ULTRA APP MODE</title>
 
+<!-- ISPRAVAN LINK KOJI SE NE BLOKIRA NA SERVERU -->
 <script src="https://cloudflare.com"></script>
 
 <style>
@@ -283,11 +284,11 @@ applyTransform();
 function setupSwipeGestures() {
 let touchstartX = 0, touchendX = 0;
 const zona = document.getElementById('main');
-zona.addEventListener('touchstart', e => { touchstartX = e.changedTouches.screenX; drag=true; lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; }, { passive: true });
+zona.addEventListener('touchstart', e => { touchstartX = e.changedTouches.screenX; drag=true; lastX=e.touches.clientX; lastY=e.touches.clientY; }, { passive: true });
 zona.addEventListener('touchmove', e => {
  if(!drag || e.touches.length!==1) return;
- panX+=e.touches[0].clientX-lastX; panY+=e.touches[0].clientY-lastY;
- lastX=e.touches[0].clientX; lastY=e.touches[0].clientY;
+ panX+=e.touches.clientX-lastX; panY+=e.touches.clientY-lastY;
+ lastX=e.touches.clientX; lastY=e.touches.clientY;
  applyTransform();
 }, { passive: true });
 zona.addEventListener('touchend', e => { drag=false; touchendX = e.changedTouches.screenX; handleSwipe(); }, { passive: true });
