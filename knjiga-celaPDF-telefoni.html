@@ -156,6 +156,9 @@ value="1">
 
 <script>
 
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js';
+
 let pdfDoc = null;
 let pageNum = 1;
 let pageRendering = false;
@@ -179,7 +182,7 @@ function verifyRedoxVault() {
         document.getElementById('reader').style.display = 'block';
 
         errorBox.style.display = 'none';
-
+alert("Sifra je prihvacena");
         loadPDF();
 
     } else {
@@ -189,9 +192,9 @@ function verifyRedoxVault() {
 }
 
 async function loadPDF() {
-
+console.log("Pokusavam da ucitam PDF...");
     const loadingTask =
-        pdfjsLib.getDocument('./KnjigaRedoksJuriš.pdf');
+    pdfjsLib.getDocument('KnjigaRedoksJuriš.pdf');
 
     pdfDoc = await loadingTask.promise;
 
