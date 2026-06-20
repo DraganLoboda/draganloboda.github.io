@@ -164,7 +164,6 @@ function verifyRedoxVault() {
 }
 
 function loadPDF() {
- // HITNA INŽENJERSKA KOREKCIJA: Mapirana čista putanja bez kvačica na slovima
  const putanjaKnjige = "./KnjigaRedoksJuris.pdf";
  
  pdfjsLib.getDocument(putanjaKnjige).promise.then(function(pdfDoc_) {
@@ -174,7 +173,7 @@ function loadPDF() {
  document.getElementById('pageNumber').max = pdfDoc.numPages;
  
  const savedPage = parseInt(localStorage.getItem('redoks_last_page'));
- if (savedPage && savedPage >= 1 && savedPage <= pdfDoc.numPages) {
+ if (savedPage ? savedPage >= 1 ? savedPage <= pdfDoc.numPages : false : false) {
  pageNum = savedPage;
  }
  renderPage(pageNum);
