@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>REDOKS JURIŠ - ULTRA APP MODE</title>
 
-<!-- STABILAN POGON KOJI GITHUB POTPUNO ODOBRAVA (3/3) -->
 <script src="https://cloudflare.com"></script>
 
 <style>
@@ -19,7 +18,6 @@ user-select: none;
 -webkit-user-select: none;
 }
 
-/* LOCK */
 #lock{
 position:fixed;top:50%;left:50%;
 transform:translate(-50%,-50%);
@@ -53,7 +51,6 @@ cursor:pointer;
 font-weight: bold;
 }
 
-/* APP LAYOUT - ISPRAVLJEN U FLEX REŽIM */
 #app{
 display:none;
 height:100vh;
@@ -61,7 +58,6 @@ width:100vw;
 flex-direction: column;
 }
 
-/* TOP BAR SA INTEGRISANIM KLIZAČEM */
 #topbar{
 height:60px;
 display:flex;
@@ -88,7 +84,6 @@ width: 100%; -webkit-appearance: none; background: #1e293b; height: 6px; border-
 -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #38bdf8; cursor: pointer;
 }
 
-/* TOOLBAR */
 #toolbar{
 height:38px;
 display:flex;
@@ -109,7 +104,6 @@ color:#cbd5e1;
 border-radius: 4px;
 }
 
-/* MAIN SPACE FOR HORIZONTAL FLIP */
 #main{
 flex:1;
 display:flex;
@@ -121,24 +115,21 @@ touch-action:none;
 background:#0f172a;
 }
 
-/* CANVAS - ISPRAVLJENO RESETOVANJE MARGINA */
 canvas{
 display:block;
 box-shadow: 0 4px 20px rgba(0,0,0,0.6);
 max-width: 100%;
 max-height: 100%;
 object-fit: contain;
-pointer-events: none; /* Sprečava desni klik i opciju Save As */
+pointer-events: none;
 }
 
-/* ZONES FOR TAP SCREEN FLIP */
 .zone{
 position:absolute;top:0;bottom:0;width:20%;z-index: 10;cursor: pointer;
 }
 .left{left:0}
 .right{right:0}
 
-/* NOĆNI REŽIM */
 .night canvas {
 filter: invert(0.9) hue-rotate(180deg);
 }
@@ -156,7 +147,6 @@ filter: invert(0.9) hue-rotate(180deg);
 
 <div id="app">
 
-<!-- GORNJA ZONA SA KLIZAČEM -->
 <div id="topbar">
 <div class="top-meta">
  <span>📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
@@ -177,7 +167,6 @@ filter: invert(0.9) hue-rotate(180deg);
 </div>
 
 <div id="main">
-<!-- Brze zone za listanje na dodir ivice ekrana (Levo-Desno) -->
 <div class="zone left" onclick="prev()"></div>
 <canvas id="c"></canvas>
 <div class="zone right" onclick="next()"></div>
@@ -186,10 +175,9 @@ filter: invert(0.9) hue-rotate(180deg);
 </div>
 
 <script>
-// Uparivanje radnika na istu stabilnu verziju
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cloudflare.com";
 
-const url="./Knjiga2.pdf"; // Vaša verifikovana lokalna knjiga
+const url="./Knjiga2.pdf";
 
 let pdf=null,page=1,rendering=false;
 let baseScale=1;
@@ -201,16 +189,14 @@ const ctx=canvas.getContext("2d");
 const app=document.getElementById("app");
 const slider=document.getElementById("page-slider");
 
-/* LOGIN */
 function login(){
 if(document.getElementById("pass").value.trim()==="REDOX2026"){
 document.getElementById("lock").style.display="none";
-app.style.display="flex"; // Aktivacija ispravnog flex rasporeda ekrana
+app.style.display="flex";
 load();
 }
 }
 
-/* LOAD */
 function load() {
 pdfjsLib.getDocument(url).promise.then(p=>{
 pdf=p;
@@ -222,7 +208,6 @@ alert("Sistem je otključan, ali datoteka Knjiga2.pdf ne postoji u fascikli.");
 });
 }
 
-/* RENDER - ISPRAVLJENA SKALA I NESTALOST SLIKOVNOG PLATNA */
 function render(n){
 if(rendering) return;
 rendering=true;
@@ -230,7 +215,7 @@ rendering=true;
 pdf.getPage(n).then(p=>{
 const viewport1 = p.getViewport({scale:1.0});
 const w = window.innerWidth;
-const h = window.innerHeight - 98; // Oduzimanje visine gornjih traka
+const h = window.innerHeight - 98;
 baseScale = Math.min(w / viewport1.width, h / viewport1.height) * 0.95;
 
 const viewport = p.getViewport({scale: baseScale * currentZoom});
@@ -250,11 +235,9 @@ slider.value = n;
 });
 }
 
-/* NAVIGACIJA SLEVA NADESNO */
 function next(){ if(pdf && page < pdf.numPages && !rendering){ page++; render(page); } }
-function prev(){ if(page > 1 && !rendering){ page--; renderuj unutra; render(page); } }
+function prev(){ if(page > 1 && !rendering){ page--; render(page); } }
 
-/* UPRAVLJANJE KLIZAČEM (SLIDER) */
 function onSliderMove(vrednost) {
 var novaStrana = parseInt(vrednost);
 if(novaStrana !== page && !rendering) {
@@ -263,7 +246,6 @@ if(novaStrana !== page && !rendering) {
 }
 }
 
-/* ZOOM */
 function zoom(z){
 currentZoom += z;
 currentZoom = Math.max(0.8, Math.min(3, currentZoom));
@@ -274,12 +256,10 @@ function applyTransform(){
 canvas.style.transform = `translate(${panX}px, ${panY}px)`;
 }
 
-/* NOĆNI REŽIM */
 function toggleNight(){
 document.body.classList.toggle("night");
 }
 
-/* FULLSCREEN */
 function toggleFS(){
 if(!document.fullscreenElement){
 document.documentElement.requestFullscreen();
@@ -288,7 +268,6 @@ document.exitFullscreen();
 }
 }
 
-/* DRAG I POMERANJE STRANICA MIŠEM */
 let drag=false,lastX=0,lastY=0;
 document.getElementById("main").addEventListener("mousedown",e=>{
 drag=true;lastX=e.clientX;lastY=e.clientY;
@@ -301,7 +280,6 @@ lastX=e.clientX; lastY=e.clientY;
 applyTransform();
 });
 
-/* SWIPE DETEKCIJA ZA TELEFONE (LEVO-DESNO POKRET PRSTA) */
 function setupSwipeGestures() {
 let touchstartX = 0, touchendX = 0;
 const zona = document.getElementById('main');
@@ -316,18 +294,16 @@ zona.addEventListener('touchend', e => { drag=false; touchendX = e.changedTouche
 
 function handleSwipe() {
  const granica = 50;
- if (touchstartX - touchendX > granica) next(); // Prst ide sleva nadesno -> sledeća
- if (touchendX - touchstartX > granica) prev(); // Prst ide zdesna nalevo -> prethodna
+ if (touchstartX - touchendX > granica) next();
+ if (touchendX - touchstartX > granica) prev();
 }
 }
 
-/* TASTATURA */
 document.addEventListener("keydown",e=>{
 if(e.key==="ArrowRight")next();
 if(e.key==="ArrowLeft")prev();
 });
 
-// Podrška za dugme Enter na polju za lozinku
 document.getElementById("pass").addEventListener("keyup", function(event) {
 if (event.key === "Enter") login();
 });
