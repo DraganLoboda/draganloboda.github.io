@@ -2,13 +2,14 @@
 <html lang="sr">
 <head>
  <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ <!-- KLJUČ ZA ZUMIRANJE: Dozvoljavamo širenje prstima do 5 puta i slobodno rotiranje ekrana -->
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
  <title>REDOKS JURIŠ - Protokol Loboda</title>
  <style>
  * { margin: 0; padding: 0; box-sizing: border-box; }
  body { 
   font-family: monospace; background-color: #020617; color: #cbd5e1; 
-  text-align: center; overflow: hidden; user-select: none; -webkit-user-select: none;
+  text-align: center; min-height: 100vh;
  }
  
  /* Kapija za šifru */
@@ -21,17 +22,33 @@
  .btn-submit { padding: 12px 30px; background: rgba(0, 255, 204, 0.1); border: 1px solid #00ffcc; color: #00ffcc; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
  .error-msg { color: #ff3366; margin-top: 15px; font-weight: bold; display: none; }
  
- /* Mobilni čitač i klizač na vrhu */
- #book-viewer-zone { display: none; width: 100vw; height: 100vh; max-width: 480px; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 9999; flex-direction: column; border-left: 1px solid #334155; border-right: 1px solid #334155; }
- .viewer-header { height: 60px; background: #020617; border-bottom: 1px solid #334155; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px 15px; gap: 4px; }
- .slider-container { width: 100%; display: flex; align-items: center; }
+ /* Prilagodljiv čitač i klizač na vrhu */
+ #book-viewer-zone { 
+  display: none; width: 100vw; height: 100vh; 
+  position: fixed; top: 0; left: 0; z-index: 9999; 
+  flex-direction: column; background-color: #020617;
+ }
+ .viewer-header { 
+  height: 60px; background: #020617; border-bottom: 1px solid #334155; 
+  display: flex; flex-direction: column; justify-content: center; align-items: center; 
+  padding: 5px 15px; gap: 4px; width: 100%;
+ }
+ .slider-container { width: 100%; max-width: 500px; display: flex; align-items: center; }
  .page-slider { width: 100%; -webkit-appearance: none; background: #1e293b; height: 6px; border-radius: 3px; outline: none; }
  .page-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #38bdf8; cursor: pointer; }
  
- /* Zona za horizontalni prikaz stranica */
- #book-container { flex: 1; width: 100%; background-color: #0f172a; position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden; }
- .book-page-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 4px 20px rgba(0,0,0,0.6); pointer-events: none; }
- .touch-navigator { position: absolute; top: 0; bottom: 0; width: 25%; z-index: 999; cursor: pointer; }
+ /* Zona za horizontalni prikaz stranica sa podrškom za unutrašnje skrolovanje pri zumiranju */
+ #book-container { 
+  flex: 1; width: 100%; background-color: #0f172a; 
+  position: relative; display: flex; justify-content: center; 
+  align-items: center; overflow: auto; /* Omogućava prirodno pomeranje levo-desno kada se slika raširi prstima */
+ }
+ .book-page-img { 
+  max-width: 100%; max-height: 100%; 
+  object-fit: contain; box-shadow: 0 4px 20px rgba(0,0,0,0.6); 
+  transition: transform 0.1s ease; /* Glatko praćenje zuma */
+ }
+ .touch-navigator { position: fixed; top: 60px; bottom: 0; width: 20%; z-index: 999; cursor: pointer; }
  .nav-left { left: 0; }
  .nav-right { right: 0; }
  </style>
@@ -50,7 +67,7 @@
  <!-- PROZOR ČITAČA SA KLIZAČEM NA VRHU -->
  <div id="book-viewer-zone">
  <div class="viewer-header">
-  <div style="width: 100%; display: flex; justify-content: space-between; font-size: 11px; color: #38bdf8;">
+  <div style="width: 100%; max-width: 500px; display: flex; justify-content: space-between; font-size: 11px; color: #38bdf8;">
    <span>📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
    <span id="page-indicator">Stranica: 1 / 275</span>
   </div>
@@ -60,6 +77,7 @@
  </div>
  
  <div id="book-container">
+  <!-- Nevidljive zone za kretanje -->
   <div class="touch-navigator nav-left" onclick="okreniLevo()"></div>
   <img id="book-page" class="book-page-img" src="" alt="Knjiga">
   <div class="touch-navigator nav-right" onclick="okreniDesno()"></div>
@@ -70,8 +88,7 @@
  var UKUPAN_BROJ_STRANICA = 275; 
  var sveStranice = [];
 
- // TAČNA POPRAVKA PREMA VAŠEM SKRINŠOTU:
- // Petlja automatski dodaje "00" ispred brojeva od 1 do 9, i jedno "0" ispred brojeva od 10 do 99
+ // Pravilno učitavanje formata vaših slika iz foldera slike/
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
      var formatiranBroj = i;
      if (i < 10) {
@@ -112,15 +129,11 @@
  }
 
  function okreniLevo() {
-  if (trenutniIndeks > 0) {
-   prikaziStranicu(trenutniIndeks - 1);
-  }
+  if (trenutniIndeks > 0) { prikaziStranicu(trenutniIndeks - 1); }
  }
 
  function okreniDesno() {
-  if (trenutniIndeks < sveStranice.length - 1) {
-   prikaziStranicu(trenutniIndeks + 1);
-  }
+  if (trenutniIndeks < sveStranice.length - 1) { prikaziStranicu(trenutniIndeks + 1); }
  }
 
  function setupSwipeGestures() {
