@@ -79,7 +79,7 @@
    .book-page-img { max-width: 48%; max-height: calc(100vh - 80px); }
  }
 
- /* REŽIM ZA TELEFONE (Uspravno i vodoravno -> fiksira JEDNU stranicu) */
+ /* REŽIM ZA TELEFONE */
  @media (max-width: 768px) {
    #book-viewer-zone { max-width: 100vw; left: 0; transform: none; border: none; }
    .book-wrapper { width: 100vw; height: calc(100vh - 60px); }
@@ -128,6 +128,7 @@
  var trenutnaSkala = 1;
  var isMobile = window.innerWidth <= 768;
 
+ // Formiranje niza slika
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
      var formatiranBroj = i;
      if (i < 10) { formatiranBroj = "00" + i; } 
@@ -142,15 +143,18 @@
 
  function verifyRedoxVault() {
   var inputPass = document.getElementById("redox-pass").value.trim();
+  var errorBox = document.getElementById("error-box");
+  
   if (inputPass === "REDOX2026") {
    document.getElementById("lock-screen").style.display = "none";
    document.getElementById("book-viewer-zone").style.display = "flex";
+   errorBox.style.display = "none";
    
    mojSlider.max = UKUPAN_BROJ_STRANICA;
    prikaziStranicu(0);
    inicijalizujKontrole();
   } else {
-   document.getElementById("error-box").style.display = "block";
+   errorBox.style.display = "block";
   }
  }
 
@@ -177,12 +181,14 @@
  }
 
  function inicijalizujKontrole() {
+  // Popravljen klik na traku klizača (nežni skok)
   mojSlider.addEventListener('mousedown', klikNaKlizač);
-  mojSlider.addEventListener('touchstart', klikNaKlizač, {passive: false});
+  mojSlider.addEventListener('touchstart', klikNaKlizač);
 
   function klikNaKlizač(e) {
     var rect = mojSlider.getBoundingClientRect();
-    var clientX = e.clientX || e.touches.clientX;
+    var clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    if(!clientX) return;
     var procenat = (clientX - rect.left) / rect.width;
     var cilj = Math.round(procenat * UKUPAN_BROJ_STRANICA);
     
@@ -194,13 +200,14 @@
     prikaziStranicu(parseInt(mojSlider.value) - 1);
   });
 
+  // POPRAVKA: Točkić miša bez passive parametra koji je blokirao šifru
   document.getElementById('book-container').addEventListener('wheel', function(e) {
     e.preventDefault();
     if (e.deltaY < 0) { trenutnaSkala += 0.08; } else { trenutnaSkala -= 0.08; }
     trenutnaSkala = Math.max(0.8, Math.min(4, trenutnaSkala));
     slikaLeva.style.transform = `scale(${trenutnaSkala})`;
     slikaDesna.style.transform = `scale(${trenutnaSkala})`;
-  }, {passive: false});
+  });
 
   setupSwipeGestures();
  }
@@ -227,7 +234,7 @@
      startX = e.touches[0].screenX;
      startY = e.touches[0].screenY;
    }
-  }, {passive: true});
+  });
 
   kontejner.addEventListener('touchend', e => {
    if (e.changedTouches.length === 1) {
@@ -239,13 +246,13 @@
      
      if (Math.abs(razlikaX) > 40 && razlikaY < 60) {
        if (razlikaX > 0) {
-         okreniDesno(); // Pomeranje prsta ulevo -> Sledeća strana
+         okreniDesno(); // Pokret ulevo -> Sledeća strana
        } else {
-         okreniLevo();  // Pomeranje prsta udesno -> Prethodna strana
+         okreniLevo();  // Pokret udesno -> Prethodna strana
        }
      }
    }
-  }, {passive: true});
+  });
  }
 
  window.addEventListener('resize', function() {
