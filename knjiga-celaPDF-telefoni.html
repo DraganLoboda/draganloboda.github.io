@@ -6,7 +6,7 @@
     <title>Čitač - Protokol Loboda</title>
     <style>
         body { background: #020617; color: #cbd5e1; font-family: monospace; text-align: center; padding-top: 50px; }
-        input { padding: 10px; font-size: 16px; border: 2px solid #334155; background: #0f172a; color: #00ffcc; text-align: center; border-radius: 5px; }
+        input { padding: 10px; font-size: 16px; border: 2px solid #334155; background: #0f172a; color: #00ffcc; text-align: center; border-radius: 5px; outline: none; }
         button { padding: 10px 20px; font-size: 16px; background: #d4af37; color: #020617; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; margin-left: 5px; }
         #kontenjer { display: none; margin-top: 20px; width: 100vw; height: calc(100vh - 120px); }
         iframe { width: 100%; height: 100%; border: none; }
@@ -15,7 +15,6 @@
 </head>
 <body>
 
-    <!-- Blokada za verifikaciju korisnika -->
     <div id="otključavanje">
         <p style="margin-bottom: 15px; color: #d4af37;">UNESITE BEZBEDNOSNU ŠIFRU (REDOX2026):</p>
         <input type="password" id="sifra" placeholder="Lozinka...">
@@ -23,7 +22,6 @@
         <p id="greska">Šifra nije ispravna!</p>
     </div>
 
-    <!-- Čist prikaz za telefone bez skripti koje blokiraju GitHub -->
     <div id="kontenjer">
         <iframe id="knjiga" src=""></iframe>
     </div>
@@ -34,12 +32,19 @@
             if (unos === "REDOX2026") {
                 document.getElementById('otključavanje').style.display = 'none';
                 document.getElementById('kontenjer').style.display = 'block';
-                // Tek ovde se poziva knjiga, botovi na testu 3/3 ovo ne vide kao grešku
-                document.getElementById('knjiga').src = "./KnjigaRedoksJuris.pdf";
+                
+                // REŠENJE: Automatsko enkodiranje slova "š" za GitHub servere
+                document.getElementById('knjiga').src = encodeURIComponent("KnjigaRedoksJuriš.pdf");
             } else {
                 document.getElementById('greska').style.display = 'block';
             }
         }
+
+        document.getElementById("sifra").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                proveri();
+            }
+        });
     </script>
 </body>
 </html>
