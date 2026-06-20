@@ -11,7 +11,7 @@
   text-align: center; overflow: hidden; user-select: none; -webkit-user-select: none;
  }
  
- /* Sigurnosna kapija */
+ /* Kapija za šifru */
  .lock-container { 
   background: #0f172a; border: 2px solid #334155; border-top: 6px solid #38bdf8;
   padding: 40px 30px; border-radius: 12px; max-width: 400px; width: 90%; 
@@ -21,16 +21,16 @@
  .btn-submit { padding: 12px 30px; background: rgba(0, 255, 204, 0.1); border: 1px solid #00ffcc; color: #00ffcc; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
  .error-msg { color: #ff3366; margin-top: 15px; font-weight: bold; display: none; }
  
- /* Čitač i Klizač na vrhu */
+ /* Mobilni čitač i klizač na vrhu */
  #book-viewer-zone { display: none; width: 100vw; height: 100vh; max-width: 480px; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 9999; flex-direction: column; border-left: 1px solid #334155; border-right: 1px solid #334155; }
  .viewer-header { height: 60px; background: #020617; border-bottom: 1px solid #334155; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px 15px; gap: 4px; }
  .slider-container { width: 100%; display: flex; align-items: center; }
  .page-slider { width: 100%; -webkit-appearance: none; background: #1e293b; height: 6px; border-radius: 3px; outline: none; }
  .page-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #38bdf8; cursor: pointer; }
  
- /* Okvir za stabilni horizontalni prikaz knjige */
- #pdf-frame-container { flex: 1; width: 100%; background-color: #0f172a; position: relative; }
- iframe { width: 100%; height: 100%; border: none; background: #0f172a; }
+ /* Zona za horizontalni prikaz stranica */
+ #book-container { flex: 1; width: 100%; background-color: #0f172a; position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+ .book-page-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 4px 20px rgba(0,0,0,0.6); pointer-events: none; }
  .touch-navigator { position: absolute; top: 0; bottom: 0; width: 25%; z-index: 999; cursor: pointer; }
  .nav-left { left: 0; }
  .nav-right { right: 0; }
@@ -51,26 +51,31 @@
  <div id="book-viewer-zone">
  <div class="viewer-header">
   <div style="width: 100%; display: flex; justify-content: space-between; font-size: 11px; color: #38bdf8;">
-   <span>📖 Knjiga 2 (Original PDF)</span>
-   <span id="page-indicator">Skrolovanje: 1%</span>
+   <span>📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
+   <span id="page-indicator">Stranica: 1 / 3</span>
   </div>
   <div class="slider-container">
-   <input type="range" id="page-slider" class="page-slider" min="1" max="100" value="1" oninput="onSliderMove(this.value)">
+   <input type="range" id="page-slider" class="page-slider" min="1" max="3" value="1" oninput="onSliderMove(this.value)">
   </div>
  </div>
  
- <div id="pdf-frame-container">
-  <!-- Nevidljive zone koje omogućavaju brzi skok na dodir levo-desno -->
+ <div id="book-container">
   <div class="touch-navigator nav-left" onclick="okreniLevo()"></div>
-  <iframe id="secure-pdf-frame" src=""></iframe>
+  <img id="book-page" class="book-page-img" src="strana1.jpg" alt="Knjiga">
   <div class="touch-navigator nav-right" onclick="okreniDesno()"></div>
  </div>
  </div>
 
  <script>
- // Pozivamo vašu tačnu lokalnu knjigu koju ste uspešno pozelenili
- var putanjaDoKnjige = "./Knjiga2.pdf"; 
- var mojIframe = document.getElementById('secure-pdf-frame');
+ // ⚠️ PODEŠAVANJE: Poređajte nazive vaših slika u ovaj niz ispod
+ var sveStranice = [
+  "strana1.jpg",
+  "strana2.jpg",
+  "strana3.jpg"
+ ];
+
+ var trenutniIndeks = 0;
+ var slikaObjekat = document.getElementById('book-page');
  var mojSlider = document.getElementById('page-slider');
 
  function verifyRedoxVault() {
@@ -79,46 +84,49 @@
    document.getElementById("lock-screen").style.display = "none";
    document.getElementById("book-viewer-zone").style.display = "flex";
    
-   // Učitavamo čist PDF preko nativnog sistema sa ugrađenim restrikcijama za skrivanje toolbar-a
-   mojIframe.src = putanjaDoKnjige + "#toolbar=0&navpanes=0&scrollbar=0&view=FitH";
+   // Podešavanje klizača prema broju slika
+   mojSlider.max = sveStranice.length;
+   prikaziStranicu(0);
    setupSwipeGestures();
   } else {
    document.getElementById("error-box").style.display = "block";
   }
  }
 
- // Funkcija gornjeg funkcionalnog klizača
- function onSliderMove(vrednost) {
-  document.getElementById('page-indicator').innerText = "Skrolovanje: " + vrednost + "%";
-  // Preračunavanje procenta u tačnu horizontalnu stranicu
-  mojIframe.src = putanjaDoKnjige + "#page=" + Math.ceil(vrednost) + "&toolbar=0&navpanes=0&view=FitH";
+ function prikaziStranicu(indeks) {
+  trenutniIndeks = indeks;
+  slikaObjekat.src = sveStranice[trenutnaStranicaIndeks(indeks)];
+  document.getElementById('page-indicator').innerText = "Stranica: " + (indeks + 1) + " / " + sveStranice.length;
+  mojSlider.value = indeks + 1;
+ }
+ 
+ function trenutnaStranicaIndeks(i) {
+  return Math.max(0, Math.min(sveStranice.length - 1, i));
  }
 
- // Kretanje sleva nadesno na tap ivica ekrana
+ function onSliderMove(vrednost) {
+  prikaziStranicu(parseInt(vrednost) - 1);
+ }
+
  function okreniLevo() {
-  var trenutnaVrednost = parseInt(mojSlider.value);
-  if (trenutnaVrednost > 1) {
-   mojSlider.value = trenutnaVrednost - 5;
-   onSliderMove(mojSlider.value);
+  if (trenutniIndeks > 0) {
+   prikaziStranicu(trenutniIndeks - 1);
   }
  }
 
  function okreniDesno() {
-  var trenutnaVrednost = parseInt(mojSlider.value);
-  if (trenutnaVrednost < 100) {
-   mojSlider.value = trenutnaVrednost + 5;
-   onSliderMove(mojSlider.value);
+  if (trenutniIndeks < sveStranice.length - 1) {
+   prikaziStranicu(trenutniIndeks + 1);
   }
  }
 
- // Podrška za horizontalni swipe prstom preko ekrana
  function setupSwipeGestures() {
   let startX = 0;
-  document.getElementById('pdf-frame-container').addEventListener('touchstart', e => { startX = e.changedTouches.screenX; }, {passive: true});
-  document.getElementById('pdf-frame-container').addEventListener('touchend', e => {
+  document.getElementById('book-container').addEventListener('touchstart', e => { startX = e.changedTouches.screenX; }, {passive: true});
+  document.getElementById('book-container').addEventListener('touchend', e => {
    let endX = e.changedTouches.screenX;
-   if (startX - endX > 40) okreniDesno(); // prst ide ulevo -> strana ide napred
-   if (endX - startX > 40) okreniLevo();  // prst ide udesno -> strana ide nazad
+   if (startX - endX > 40) okreniDesno(); // prst ide ulevo -> sledeća slika
+   if (endX - startX > 40) okreniLevo();  // prst ide udesno -> prethodna slika
   }, {passive: true});
  }
 
