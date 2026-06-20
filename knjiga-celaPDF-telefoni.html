@@ -138,7 +138,6 @@ canvas{
 </div>
 </div>
 
-<!-- POPRAVLJENI ZVANIČNI I PROVERENI MOZILLA REPOZITORIJUMI SADA RADE 100% -->
 <script src="https://cloudflare.com"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cloudflare.com';
@@ -147,7 +146,7 @@ let pdfDoc = null;
 let pageNum = 1;
 let pageRendering = false;
 let pageNumPending = null;
-let scale = window.devicePixelRatio > 1 ? 1.6 : 1.3; // Automatska oštrina za telefone
+let scale = window.devicePixelRatio > 1 ? 1.6 : 1.3;
 const canvas = document.getElementById('pdf-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -165,7 +164,6 @@ function verifyRedoxVault() {
 }
 
 async function loadPDF() {
- // POPRAVKA: Sigurno enkodiranje naziva sa srpskim slovima za stabilnu mrežu
  const putanjaKnjige = "./" + encodeURIComponent("KnjigaRedoksJuriš.pdf");
  const loadingTask = pdfjsLib.getDocument(putanjaKnjige);
  try {
@@ -225,7 +223,6 @@ function previousPage() {
 
 function nextPage() {
  if (pageNum >= pdfDoc.numPages) return;
- pdfDoc.getPage(pageNum + 1); // Pred-učitavanje sledeće strane u memoriju telefona
  pageNum++;
  queueRenderPage(pageNum);
 }
