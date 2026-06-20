@@ -15,85 +15,14 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-        .lock-container {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            border: 2px solid #334155;
-            border-top: 6px solid #00ffcc;
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10000;
-        }
-        .neon-title {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #00ffcc;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-        input[type="password"] {
-            width: 80%;
-            padding: 12px 15px;
-            background: #020617;
-            border: 1px solid #334155;
-            border-radius: 6px;
-            color: #00ffcc;
-            font-family: monospace;
-            font-size: 1.1em;
-            text-align: center;
-            outline: none;
-            margin-bottom: 20px;
-        }
-        input[type="password"]:focus {
-            border-color: #00ffcc;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
-        }
-        .btn-submit {
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid #00ffcc;
-            color: #00ffcc;
-            padding: 12px 30px;
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 6px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-        .btn-submit:hover {
-            background: #00ffcc;
-            color: #020617;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
-        }
-        .error-msg {
-            color: #ff3366;
-            margin-top: 15px;
-            font-weight: bold;
-            display: none;
         }
         #book-viewer-zone {
-            display: none;
             width: 100vw;
             height: 100vh;
             background-color: #020617;
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 9999;
         }
         .viewer-header {
             height: 50px;
@@ -103,7 +32,6 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             box-sizing: border-box;
         }
         .book-frame {
@@ -114,55 +42,17 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+<body>
 
-    <div class="lock-container" id="lock-screen">
-        <div class="neon-title"><span style="font-size: 0.7em; color: #94a3b8; display: block; margin-bottom: 5px;">📱 ZA TELEFONE</span>🔒 REDOKS JURIŠ<br><span style="font-size: 0.8em; color: #cbd5e1;">Cela knjiga PDF</span></div>
-        <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 25px; color: #94a3b8;">Unesite vašu tridesetodnevnu autorizovanu šifru za pristup originalnom PDF rukopisu.</p>
-        
-        <input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
-        <br>
-        <button class="btn-submit" onclick="verifyRedoxVault()">Pristupi</button>
-        <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN! PROVERITE RESURSE.</div>
-    </div>
-
+    <!-- STABILAN AKADEMSKI ČITAČ KOJI SE VERIFIKUJE INSTANTNO -->
     <div id="book-viewer-zone">
         <div class="viewer-header">
             <span style="color: #00ffcc; font-weight: bold; font-family: monospace; font-size: 13px;">[ZA TELEFONE] 📖 Dragan Loboda - REDOKS JURIŠ (Original PDF)</span>
             <span style="color: #64748b; font-size: 11px; font-family: monospace;">Kontinualni skrol</span>
         </div>
-        <iframe class="book-frame" id="secure-iframe" src="" allowfullscreen></iframe>
+        <!-- DIREKTNO UČITAVANJE FAJLA BEZ JAVASCRIPT BLOKADA -->
+        <iframe class="book-frame" src="./KnjigaRedoksJuris.pdf" allowfullscreen></iframe>
     </div>
 
-    <script>
-        function verifyRedoxVault() {
-            var inputPass = document.getElementById("redox-pass").value;
-            var errorBox = document.getElementById("error-box");
-
-            if (inputPass === "REDOX2026") {
-                document.getElementById("lock-screen").style.display = "none";
-                document.getElementById("book-viewer-zone").style.display = "block";
-                errorBox.style.display = "none";
-                document.getElementById("redox-pass").value = "";
-
-                // ČISTO UČITAVANJE NOVE KNJIGE BEZ KVAČICA I SPOLJNIH LINKOVA
-                var lokalniFajl = "./KnjigaRedoksJuris.pdf";
-                document.getElementById("secure-iframe").src = lokalniFajl + "#toolbar=0\x26navpanes=0\x26scrollbar=1\x26view=FitH";
-            } else {
-                errorBox.style.display = "block";
-            }
-        }
-
-        window.addEventListener('keydown', function (e) {
-            if (
-                (e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's' || e.key === 'c' || e.key === 'u') || 
-                e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I')
-            ) {
-                e.preventDefault();
-                alert("🛑 KÔD JE ZAŠTIĆEN: Strukturirani oklop ne dozvoljava preuzimanje elemenata.");
-            }
-        });
-    </script>
 </body>
 </html>
