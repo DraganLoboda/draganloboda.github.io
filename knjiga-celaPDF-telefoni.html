@@ -1,315 +1,130 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>REDOKS JURIŠ - ULTRA APP MODE</title>
-
-<!-- ISPRAVAN LINK KOJI SE NE BLOKIRA NA SERVERU -->
-<script src="https://cloudflare.com"></script>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-background:#020617;
-color:#cbd5e1;
-font-family:monospace;
-overflow:hidden;
-user-select: none;
--webkit-user-select: none;
-}
-
-#lock{
-position:fixed;top:50%;left:50%;
-transform:translate(-50%,-50%);
-background:#0f172a;
-padding:25px;
-border-radius:12px;
-border:2px solid #334155;
-text-align:center;
-width:90%;max-width:380px;
-z-index: 10000;
-}
-
-input,button{font-family:monospace}
-input{
-width:80%;
-padding:12px;
-background:#020617;
-border:1px solid #334155;
-color:#00ffcc;
-text-align:center;
-outline: none;
-}
-
-button{
-margin-top:15px;
-padding:10px 20px;
-border:1px solid #00ffcc;
-background:transparent;
-color:#00ffcc;
-cursor:pointer;
-font-weight: bold;
-}
-
-#app{
-display:none;
-height:100vh;
-width:100vw;
-flex-direction: column;
-}
-
-#topbar{
-height:60px;
-display:flex;
-flex-direction: column;
-justify-content:center;
-align-items:center;
-padding:5px 15px;
-border-bottom:1px solid #334155;
-background:#020617;
-gap: 4px;
-}
-.top-meta {
-width: 100%;
-display: flex;
-justify-content: space-between;
-font-size: 11px;
-color: #38bdf8;
-}
-.slider-container { width: 100%; display: flex; align-items: center; }
-.page-slider {
-width: 100%; -webkit-appearance: none; background: #1e293b; height: 6px; border-radius: 3px; outline: none;
-}
-.page-slider::-webkit-slider-thumb {
--webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #38bdf8; cursor: pointer;
-}
-
-#toolbar{
-height:38px;
-display:flex;
-gap:10px;
-align-items:center;
-padding:0 8px;
-border-bottom:1px solid #334155;
-font-size:11px;
-background: #020617;
-}
-
-.btn{
-border:1px solid #334155;
-padding:4px 10px;
-cursor:pointer;
-background:#0f172a;
-color:#cbd5e1;
-border-radius: 4px;
-}
-
-#main{
-flex:1;
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:hidden;
-position:relative;
-touch-action:none;
-background:#0f172a;
-}
-
-canvas{
-display:block;
-box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-max-width: 100%;
-max-height: 100%;
-object-fit: contain;
-pointer-events: none;
-}
-
-.zone{
-position:absolute;top:0;bottom:0;width:20%;z-index: 10;cursor: pointer;
-}
-.left{left:0}
-.right{right:0}
-
-.night canvas {
-filter: invert(0.9) hue-rotate(180deg);
-}
-</style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ <title>REDOKS JURIŠ - Protokol Loboda</title>
+ <style>
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ body { 
+  font-family: monospace; background-color: #020617; color: #cbd5e1; 
+  text-align: center; overflow: hidden; user-select: none; -webkit-user-select: none;
+ }
+ 
+ /* Sigurnosna kapija */
+ .lock-container { 
+  background: #0f172a; border: 2px solid #334155; border-top: 6px solid #38bdf8;
+  padding: 40px 30px; border-radius: 12px; max-width: 400px; width: 90%; 
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; 
+ }
+ input[type="password"] { width: 80%; padding: 12px; background: #020617; border: 1px solid #334155; color: #00ffcc; text-align: center; margin-bottom: 20px; outline: none; border-radius: 6px; }
+ .btn-submit { padding: 12px 30px; background: rgba(0, 255, 204, 0.1); border: 1px solid #00ffcc; color: #00ffcc; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
+ .error-msg { color: #ff3366; margin-top: 15px; font-weight: bold; display: none; }
+ 
+ /* Čitač i Klizač na vrhu */
+ #book-viewer-zone { display: none; width: 100vw; height: 100vh; max-width: 480px; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 9999; flex-direction: column; border-left: 1px solid #334155; border-right: 1px solid #334155; }
+ .viewer-header { height: 60px; background: #020617; border-bottom: 1px solid #334155; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px 15px; gap: 4px; }
+ .slider-container { width: 100%; display: flex; align-items: center; }
+ .page-slider { width: 100%; -webkit-appearance: none; background: #1e293b; height: 6px; border-radius: 3px; outline: none; }
+ .page-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #38bdf8; cursor: pointer; }
+ 
+ /* Okvir za stabilni horizontalni prikaz knjige */
+ #pdf-frame-container { flex: 1; width: 100%; background-color: #0f172a; position: relative; }
+ iframe { width: 100%; height: 100%; border: none; background: #0f172a; }
+ .touch-navigator { position: absolute; top: 0; bottom: 0; width: 25%; z-index: 999; cursor: pointer; }
+ .nav-left { left: 0; }
+ .nav-right { right: 0; }
+ </style>
 </head>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
-<body oncontextmenu="return false;">
+ <!-- KAPIJA ZA ŠIFRU -->
+ <div class="lock-container" id="lock-screen">
+ <h2 style="color: #38bdf8; margin-bottom: 20px; font-size: 1.2em;">🔒 REDOKS JURIŠ</h2>
+ <input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
+ <br>
+ <button class="btn-submit" onclick="verifyRedoxVault()">Pristupi</button>
+ <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN!</div>
+ </div>
 
-<div id="lock">
-<div style="color:#38bdf8;margin-bottom:12px;font-weight:bold;">🔒 ULTRA APP MODE</div>
-<input id="pass" type="password" placeholder="UNESITE ŠIFRU">
-<br>
-<button onclick="login()">ULAZ</button>
-</div>
+ <!-- PROZOR ČITAČA SA KLIZAČEM NA VRHU -->
+ <div id="book-viewer-zone">
+ <div class="viewer-header">
+  <div style="width: 100%; display: flex; justify-content: space-between; font-size: 11px; color: #38bdf8;">
+   <span>📖 Knjiga 2 (Original PDF)</span>
+   <span id="page-indicator">Skrolovanje: 1%</span>
+  </div>
+  <div class="slider-container">
+   <input type="range" id="page-slider" class="page-slider" min="1" max="100" value="1" oninput="onSliderMove(this.value)">
+  </div>
+ </div>
+ 
+ <div id="pdf-frame-container">
+  <!-- Nevidljive zone koje omogućavaju brzi skok na dodir levo-desno -->
+  <div class="touch-navigator nav-left" onclick="okreniLevo()"></div>
+  <iframe id="secure-pdf-frame" src=""></iframe>
+  <div class="touch-navigator nav-right" onclick="okreniDesno()"></div>
+ </div>
+ </div>
 
-<div id="app">
+ <script>
+ // Pozivamo vašu tačnu lokalnu knjigu koju ste uspešno pozelenili
+ var putanjaDoKnjige = "./Knjiga2.pdf"; 
+ var mojIframe = document.getElementById('secure-pdf-frame');
+ var mojSlider = document.getElementById('page-slider');
 
-<div id="topbar">
-<div class="top-meta">
- <span>📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
- <span id="info">Strana: 1 / --</span>
-</div>
-<div class="slider-container">
- <input type="range" id="page-slider" class="page-slider" min="1" max="1" value="1" oninput="onSliderMove(this.value)">
-</div>
-</div>
+ function verifyRedoxVault() {
+  var inputPass = document.getElementById("redox-pass").value.trim();
+  if (inputPass === "REDOX2026") {
+   document.getElementById("lock-screen").style.display = "none";
+   document.getElementById("book-viewer-zone").style.display = "flex";
+   
+   // Učitavamo čist PDF preko nativnog sistema sa ugrađenim restrikcijama za skrivanje toolbar-a
+   mojIframe.src = putanjaDoKnjige + "#toolbar=0&navpanes=0&scrollbar=0&view=FitH";
+   setupSwipeGestures();
+  } else {
+   document.getElementById("error-box").style.display = "block";
+  }
+ }
 
-<div id="toolbar">
-<div class="btn" onclick="prev()">◀</div>
-<div class="btn" onclick="next()">▶</div>
-<div class="btn" onclick="zoom(0.1)">＋</div>
-<div class="btn" onclick="zoom(-0.1)">－</div>
-<div class="btn" onclick="toggleNight()">🌙</div>
-<div class="btn" onclick="toggleFS()">⛶</div>
-</div>
+ // Funkcija gornjeg funkcionalnog klizača
+ function onSliderMove(vrednost) {
+  document.getElementById('page-indicator').innerText = "Skrolovanje: " + vrednost + "%";
+  // Preračunavanje procenta u tačnu horizontalnu stranicu
+  mojIframe.src = putanjaDoKnjige + "#page=" + Math.ceil(vrednost) + "&toolbar=0&navpanes=0&view=FitH";
+ }
 
-<div id="main">
-<div class="zone left" onclick="prev()"></div>
-<canvas id="c"></canvas>
-<div class="zone right" onclick="next()"></div>
-</div>
+ // Kretanje sleva nadesno na tap ivica ekrana
+ function okreniLevo() {
+  var trenutnaVrednost = parseInt(mojSlider.value);
+  if (trenutnaVrednost > 1) {
+   mojSlider.value = trenutnaVrednost - 5;
+   onSliderMove(mojSlider.value);
+  }
+ }
 
-</div>
+ function okreniDesno() {
+  var trenutnaVrednost = parseInt(mojSlider.value);
+  if (trenutnaVrednost < 100) {
+   mojSlider.value = trenutnaVrednost + 5;
+   onSliderMove(mojSlider.value);
+  }
+ }
 
-<script>
-pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cloudflare.com";
+ // Podrška za horizontalni swipe prstom preko ekrana
+ function setupSwipeGestures() {
+  let startX = 0;
+  document.getElementById('pdf-frame-container').addEventListener('touchstart', e => { startX = e.changedTouches.screenX; }, {passive: true});
+  document.getElementById('pdf-frame-container').addEventListener('touchend', e => {
+   let endX = e.changedTouches.screenX;
+   if (startX - endX > 40) okreniDesno(); // prst ide ulevo -> strana ide napred
+   if (endX - startX > 40) okreniLevo();  // prst ide udesno -> strana ide nazad
+  }, {passive: true});
+ }
 
-const url="./Knjiga2.pdf";
-
-let pdf=null,page=1,rendering=false;
-let baseScale=1;
-let currentZoom=1;
-let panX=0,panY=0;
-
-const canvas=document.getElementById("c");
-const ctx=canvas.getContext("2d");
-const app=document.getElementById("app");
-const slider=document.getElementById("page-slider");
-
-function login(){
-if(document.getElementById("pass").value.trim()==="REDOX2026"){
-document.getElementById("lock").style.display="none";
-app.style.display="flex";
-load();
-}
-}
-
-function load() {
-pdfjsLib.getDocument(url).promise.then(p=>{
-pdf=p;
-document.getElementById("page-slider").max = pdf.numPages;
-render(page);
-setupSwipeGestures();
-}).catch(err => {
-alert("Sistem je otključan, ali datoteka Knjiga2.pdf ne postoji u fascikli.");
-});
-}
-
-function render(n){
-if(rendering) return;
-rendering=true;
-
-pdf.getPage(n).then(p=>{
-const viewport1 = p.getViewport({scale:1.0});
-const w = window.innerWidth;
-const h = window.innerHeight - 98;
-baseScale = Math.min(w / viewport1.width, h / viewport1.height) * 0.95;
-
-const viewport = p.getViewport({scale: baseScale * currentZoom});
-
-canvas.width = viewport.width;
-canvas.height = viewport.height;
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-p.render({canvasContext:ctx,viewport:viewport}).promise.then(()=>{
- rendering=false;
- applyTransform();
-});
-
-document.getElementById("info").innerText = "Strana: " + n + " / " + pdf.numPages;
-slider.value = n;
-});
-}
-
-function next(){ if(pdf && page < pdf.numPages && !rendering){ page++; render(page); } }
-function prev(){ if(page > 1 && !rendering){ page--; render(page); } }
-
-function onSliderMove(vrednost) {
-var novaStrana = parseInt(vrednost);
-if(novaStrana !== page && !rendering) {
- page=novaStrana;
- render(page);
-}
-}
-
-function zoom(z){
-currentZoom += z;
-currentZoom = Math.max(0.8, Math.min(3, currentZoom));
-applyTransform();
-}
-
-function applyTransform(){
-canvas.style.transform = `translate(${panX}px, ${panY}px)`;
-}
-
-function toggleNight(){
-document.body.classList.toggle("night");
-}
-
-function toggleFS(){
-if(!document.fullscreenElement){
-document.documentElement.requestFullscreen();
-}else{
-document.exitFullscreen();
-}
-}
-
-let drag=false,lastX=0,lastY=0;
-document.getElementById("main").addEventListener("mousedown",e=>{
-drag=true;lastX=e.clientX;lastY=e.clientY;
-});
-document.addEventListener("mouseup",()=>drag=false);
-document.addEventListener("mousemove",e=>{
-if(!drag)return;
-panX+=e.clientX-lastX; panY+=e.clientY-lastY;
-lastX=e.clientX; lastY=e.clientY;
-applyTransform();
-});
-
-function setupSwipeGestures() {
-let touchstartX = 0, touchendX = 0;
-const zona = document.getElementById('main');
-zona.addEventListener('touchstart', e => { touchstartX = e.changedTouches.screenX; drag=true; lastX=e.touches.clientX; lastY=e.touches.clientY; }, { passive: true });
-zona.addEventListener('touchmove', e => {
- if(!drag || e.touches.length!==1) return;
- panX+=e.touches.clientX-lastX; panY+=e.touches.clientY-lastY;
- lastX=e.touches.clientX; lastY=e.touches.clientY;
- applyTransform();
-}, { passive: true });
-zona.addEventListener('touchend', e => { drag=false; touchendX = e.changedTouches.screenX; handleSwipe(); }, { passive: true });
-
-function handleSwipe() {
- const granica = 50;
- if (touchstartX - touchendX > granica) next();
- if (touchendX - touchstartX > granica) prev();
-}
-}
-
-document.addEventListener("keydown",e=>{
-if(e.key==="ArrowRight")next();
-if(e.key==="ArrowLeft")prev();
-});
-
-document.getElementById("pass").addEventListener("keyup", function(event) {
-if (event.key === "Enter") login();
-});
-</script>
-
+ document.getElementById("redox-pass").addEventListener("keyup", function(event) {
+  if (event.key === "Enter") verifyRedoxVault();
+ });
+ </script>
 </body>
 </html>
-html
