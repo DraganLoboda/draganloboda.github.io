@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>REDOKS JURIŠ (Zvanični PDF.js Mobilni Čitač) - Protokol Loboda</title>
-    
-    <!-- PRAVA MOZILLA PDF.JS BIBLIOTEKA PREKO GLOBALNE NAUČNE MREŽE -->
     <script src="https://cloudflare.com"></script>
-    
     <style>
         body {
             font-family: monospace;
@@ -216,8 +213,6 @@
                 for (var i = 1; i <= pdfDoc.numPages; i++) {
                     napraviPlatnoZaStranicu(i);
                 }
-            }).catch(function(error) {
-                console.error("Greška: ", error);
             });
         }
 
