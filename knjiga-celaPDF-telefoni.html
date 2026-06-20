@@ -115,7 +115,7 @@ canvas{
 <div id="lock-screen">
 <div class="lock-box">
  <h2>🔒 REDOKS JURIŠ</h2>
- <p style="font-size: 13px; color: #94a3b8; margin-bottom: 20px;">Unesite šifru za pristup originalnom PDF.js čitaču.</p>
+ <p style="font-size: 13px; color: #94a3b8; margin-bottom: 20px;">Unesite šifru za pristup originalnom PDF.js čitaču za telefone.</p>
  <input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
  <br><br>
  <button onclick="verifyRedoxVault()">Pristupi</button>
@@ -138,6 +138,7 @@ canvas{
 </div>
 </div>
 
+<!-- STABILNI STARIJI RENDER KOJI RADI DIREKTNO UNUTAR JEDNOG FAJLA BEZ REUSMERAVANJA -->
 <script src="https://cloudflare.com"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cloudflare.com';
@@ -146,7 +147,7 @@ let pdfDoc = null;
 let pageNum = 1;
 let pageRendering = false;
 let pageNumPending = null;
-let scale = window.devicePixelRatio > 1 ? 1.6 : 1.3;
+let scale = window.devicePixelRatio > 1 ? 1.5 : 1.2;
 const canvas = document.getElementById('pdf-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -163,15 +164,12 @@ function verifyRedoxVault() {
  }
 }
 
-async function loadPDF() {
- const putanjaKnjige = "./" + encodeURIComponent("KnjigaRedoksJuriš.pdf");
- const loadingTask = pdfjsLib.getDocument(putanjaKnjige);
- try {
- pdfDoc = await loadingTask.promise;
- } catch(err) {
- alert("GRESKA PRI UCITAVANJU REZURSA: " + err.message);
- return;
- }
+function loadPDF() {
+ // Čista, bezbedna lokalna putanja do vašeg preimenovanog fajla
+ const putanjaKnjige = "./KnjigaRedoksJuriš.pdf";
+ 
+ pdfjsLib.getDocument(putanjaKnjige).promise.then(function(pdfDoc_) {
+ pdfDoc = pdfDoc_;
  document.getElementById('pageCount').textContent = '/ ' + pdfDoc.numPages;
  document.getElementById('pageSlider').max = pdfDoc.numPages;
  document.getElementById('pageNumber').max = pdfDoc.numPages;
@@ -181,6 +179,9 @@ async function loadPDF() {
  pageNum = savedPage;
  }
  renderPage(pageNum);
+ }).catch(function(err) {
+ alert("Greška pri učitavanju: " + err.message);
+ });
 }
 
 function renderPage(num) {
