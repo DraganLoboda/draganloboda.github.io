@@ -58,21 +58,15 @@
  if (inputPass === "REDOX2026") {
   
   // 1. VAŠ TEST: Proveravamo da li funkcija uopšte radi
-  alert("Lozinka prihvaćena");
   
   // 2. MASKIRANI LINK: Sprečava pad verifikacije 3/3 na GitHub-u
-  var part1 = "ht";
-  var part2 = "tps://hey";
-  var part3 = "://zine.com";
-  var part4 = "book/1411197a7d.html";
-  
-  iframe.src = part1 + part2 + part3 + part4;
+  iframe.src = "https://heyzine.com/flip-book/1411197a7d.html";
 
   document.getElementById("lock-screen").style.display = "none";
   document.getElementById("book-viewer-zone").style.display = "flex";
   errorBox.style.display = "none";
   document.getElementById("redox-pass").value = "";
- } else {
+} else {
   errorBox.style.display = "block";
  }
  }
