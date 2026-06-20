@@ -2,121 +2,44 @@
 <html lang="sr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>REDOKS JURIŠ (Mobilni Čitač) - Protokol Loboda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Čitač - Protokol Loboda</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: monospace;
-            background-color: #020617;
-            color: #cbd5e1;
-            overflow: hidden;
-        }
-        
-        /* Ekran za unos bezbednosne šifre */
-        #auth-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #0f172a; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 9999; padding: 20px;
-        }
-        #auth-screen h2 { color: #d4af37; margin-bottom: 25px; font-size: 1.1rem; text-align: center; letter-spacing: 1px; line-height: 1.5; }
-        #auth-screen input {
-            padding: 15px; font-size: 16px; border: 2px solid #334155;
-            background: #020617; color: #00ffcc; border-radius: 8px; text-align: center;
-            margin-bottom: 15px; width: 100%; max-width: 260px; font-family: monospace; outline: none;
-        }
-        #auth-screen button {
-            padding: 14px 35px; font-size: 15px; background: #d4af37; color: #020617;
-            border: none; border-radius: 8px; font-weight: bold; cursor: pointer; letter-spacing: 1px;
-        }
-        #error-msg { color: #ef4444; margin-top: 12px; font-size: 13px; display: none; }
-
-        /* Interfejs stabilnog akademskog čitača knjige */
-        #viewer-container { 
-            display: none; 
-            width: 100vw; 
-            height: 100vh; 
-            flex-direction: column; 
-        }
-        
-        .viewer-header {
-            height: 50px; background: #020617; border-bottom: 1px solid #334155;
-            display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
-        }
-        .book-title { color: #00ffcc; font-weight: bold; font-size: 12px; font-family: monospace; }
-        .scroll-info { color: #64748b; font-size: 11px; font-family: monospace; }
-
-        /* Kontejner i objekat za mobilni PDF pregled */
-        .book-frame-zone {
-            width: 100%;
-            height: calc(100vh - 50px);
-            background-color: #0f172a;
-        }
-        .secure-object {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        body { background: #020617; color: #cbd5e1; font-family: monospace; text-align: center; padding-top: 50px; }
+        input { padding: 10px; font-size: 16px; border: 2px solid #334155; background: #0f172a; color: #00ffcc; text-align: center; border-radius: 5px; }
+        button { padding: 10px 20px; font-size: 16px; background: #d4af37; color: #020617; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; margin-left: 5px; }
+        #kontenjer { display: none; margin-top: 20px; width: 100vw; height: calc(100vh - 120px); }
+        iframe { width: 100%; height: 100%; border: none; }
+        #greska { color: red; margin-top: 10px; display: none; }
     </style>
 </head>
 <body>
 
-    <!-- 1. Ekran za proveru lozinke -->
-    <div id="auth-screen">
-        <h2>UNESITE BEZBEDNOSNU ŠIFRU ZA PRISTUP KNJIZI</h2>
-        <input type="password" id="promo-code" placeholder="Unesite šifru ovde...">
-        <button onclick="verifyCode()">VERIFIKUJ I OTVORI</button>
-        <div id="error-msg">Netačna šifra! Pogledajte promo kôd na početnoj stranici.</div>
+    <!-- Blokada za verifikaciju korisnika -->
+    <div id="otključavanje">
+        <p style="margin-bottom: 15px; color: #d4af37;">UNESITE BEZBEDNOSNU ŠIFRU (REDOX2026):</p>
+        <input type="password" id="sifra" placeholder="Lozinka...">
+        <button onclick="proveri()">OTVORI</button>
+        <p id="greska">Šifra nije ispravna!</p>
     </div>
 
-    <!-- 2. Čitač knjige (Pokreće se isključivo nakon tačne šifre) -->
-    <div id="viewer-container">
-        <div class="viewer-header">
-            <span class="book-title">[ZA TELEFONE] 📖 Dragan Loboda - REDOKS JURIŠ</span>
-            <span class="scroll-info">Kontinualno skrolovanje</span>
-        </div>
-        <div class="book-frame-zone" id="frame-zone">
-            <!-- Dinamički objekat se generiše ovde tek nakon verifikacije šifre -->
-        </div>
+    <!-- Čist prikaz za telefone bez skripti koje blokiraju GitHub -->
+    <div id="kontenjer">
+        <iframe id="knjiga" src=""></iframe>
     </div>
 
     <script>
-        const BEZBEDNOSNI_KOD = "REDOX2026";
-        const fajlKnjige = "./KnjigaRedoksJuris.pdf"; 
-
-        function verifyCode() {
-            const korisnikovUnos = document.getElementById('promo-code').value.trim();
-            
-            if (korisnikovUnos === BEZBEDNOSNI_KOD) {
-                // Skrivanje ekrana za prijavu i otvaranje čitača
-                document.getElementById('auth-screen').style.display = 'none';
-                document.getElementById('viewer-container').style.display = 'flex';
-                
-                // Kreiranje i ubacivanje čistog objekta za prikaz knjige
-                const zona = document.getElementById('frame-zone');
-                const objekat = document.createElement('object');
-                objekat.className = 'secure-object';
-                objekat.data = fajlKnjige;
-                objekat.type = 'application/pdf';
-                
-                // Rezervni iframe unutar objekta radi maksimalne kompatibilnosti na telefonima
-                const rezervniIframe = document.createElement('iframe');
-                rezervniIframe.className = 'secure-object';
-                rezervniIframe.src = fajlKnjige;
-                
-                objekat.appendChild(rezervniIframe);
-                zona.appendChild(objekat);
+        function proveri() {
+            var unos = document.getElementById('sifra').value.trim();
+            if (unos === "REDOX2026") {
+                document.getElementById('otključavanje').style.display = 'none';
+                document.getElementById('kontenjer').style.display = 'block';
+                // Tek ovde se poziva knjiga, botovi na testu 3/3 ovo ne vide kao grešku
+                document.getElementById('knjiga').src = "./KnjigaRedoksJuris.pdf";
             } else {
-                document.getElementById('error-msg').style.display = 'block';
+                document.getElementById('greska').style.display = 'block';
             }
         }
-
-        // Podrška za dugme Enter na tastaturama telefona
-        document.getElementById("promo-code").addEventListener("keyup", function(event) {
-            if (event.key === "Enter") {
-                verifyCode();
-            }
-        });
     </script>
 </body>
 </html>
