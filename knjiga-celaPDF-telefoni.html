@@ -72,7 +72,7 @@
  .t-left { left: 0; }
  .t-right { left: 50%; }
 
- /* REŽIM ZA KOMPJUTERE (DVE stranice stoje idealno jedna pored druge bez preklapanja) */
+ /* REŽIM ZA KOMPJUTERE */
  @media (min-width: 769px) {
    .book-page-img { width: auto; height: calc(100vh - 80px); max-width: 48%; object-fit: contain; }
  }
@@ -126,7 +126,7 @@
  var trenutnaSkala = 1;
  var isMobile = window.innerWidth <= 768;
 
- // Formiranje niza slika
+ // Formiranje niza slika sa prečišćenim oznakama
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
      var formatiranBroj = i;
      if (i < 10) { formatiranBroj = "00" + i; } 
@@ -150,7 +150,7 @@
    
    mojSlider.max = UKUPAN_BROJ_STRANICA;
    prikaziStranicu(0);
-   inicijalizujKontrole();
+   pokreniKontrole();
   } else {
    errorBox.style.display = "block";
   }
@@ -165,7 +165,7 @@
     document.getElementById('page-indicator').innerText = "Stranica: " + (indeks + 1) + " / " + UKUPAN_BROJ_STRANICA;
     mojSlider.value = indeks + 1;
   } else {
-    slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
+    slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStswrap = sveStranice.length - 1, indeks))];
     if (indeks + 1 < sveStranice.length) {
       slikaDesna.style.display = "block";
       slikaDesna.src = sveStranice[indeks + 1];
@@ -178,12 +178,12 @@
   }
  }
 
- function inicijalizujKontrole() {
-  // Precizni klik u prazan prostor klizača (+1 / -1 strana)
-  mojSlider.addEventListener('mousedown', klikNaKlizač);
-  mojSlider.addEventListener('touchstart', klikNaKlizač);
+ // POPRAVKA: Nazivi funkcija su promenjeni u čista engleska slova (bez kvačica)
+ function pokreniKontrole() {
+  mojSlider.addEventListener('mousedown', klikNaKlizac);
+  mojSlider.addEventListener('touchstart', klikNaKlizac);
 
-  function klikNaKlizač(e) {
+  function klikNaKlizac(e) {
     var rect = mojSlider.getBoundingClientRect();
     var clientX = e.clientX || (e.touches && e.touches.clientX);
     if(!clientX) return;
@@ -194,12 +194,10 @@
     else if (cilj < trenutniIndeks + 1) { okreniLevo(); e.preventDefault(); }
   }
 
-  // ULTRA BRZO REAGOVANJE: Direktno i trenutno listanje pomeranjem kuglice
   mojSlider.addEventListener('input', function() {
     prikaziStranicu(parseInt(mojSlider.value) - 1);
   });
 
-  // Točkić miša (Zumiranje)
   document.getElementById('book-container').addEventListener('wheel', function(e) {
     e.preventDefault();
     if (e.deltaY < 0) { trenutnaSkala += 0.08; } else { trenutnaSkala -= 0.08; }
@@ -223,7 +221,6 @@
   if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } 
  }
 
- // USKLAĐENA SWIPE DETEKCIJA: Desno = Unapred (+1), Levo = Unazad (-1)
  function setupSwipeGestures() {
   let startX = 0;
   let startY = 0;
@@ -231,24 +228,24 @@
 
   kontejner.addEventListener('touchstart', e => {
    if (e.touches.length === 1) {
-     startX = e.touches[0].screenX;
-     startY = e.touches[0].screenY;
+     startX = e.touches.screenX;
+     startY = e.touches.screenY;
    }
   });
 
   kontejner.addEventListener('touchend', e => {
    if (e.changedTouches.length === 1) {
-     let endX = e.changedTouches[0].screenX;
-     let endY = e.changedTouches[0].screenY;
+     let endX = e.changedTouches.screenX;
+     let endY = e.changedTouches.screenY;
      
      let razlikaX = startX - endX;
      let razlikaY = Math.abs(startY - endY);
      
      if (Math.abs(razlikaX) > 40 && razlikaY < 60) {
        if (razlikaX < 0) {
-         okreniDesno(); // Pomeranje prsta udesno -> Sledeća strana (brojčano unapred)
+         okreniDesno(); 
        } else {
-         okreniLevo();  // Pomeranje prsta ulevo -> Prethodna strana (brojčano unazad)
+         okreniLevo();  
        }
      }
    }
@@ -270,4 +267,3 @@
  </script>
 </body>
 </html>
-html
