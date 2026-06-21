@@ -1,315 +1,283 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
- <title>REDOKS JURIŠ - Protokol Loboda</title>
- <style>
- * { margin: 0; padding: 0; box-sizing: border-box; }
- body { 
-  font-family: monospace; background-color: #020617; color: #cbd5e1; 
-  text-align: center; min-height: 100vh; overflow: hidden;
- }
- 
- /* Sigurnosna kapija */
- .lock-container { 
-  background: #0f172a; border: 2px solid #334155; border-top: 6px solid #38bdf8;
-  padding: 40px 30px; border-radius: 12px; max-width: 400px; width: 90%; 
-  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; 
- }
- input[type="password"] { width: 80%; padding: 12px; background: #020617; border: 1px solid #334155; color: #00ffcc; text-align: center; margin-bottom: 20px; outline: none; border-radius: 6px; }
- .btn-submit { padding: 12px 30px; background: rgba(0, 255, 204, 0.1); border: 1px solid #00ffcc; color: #00ffcc; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
- .error-msg { color: #ff3366; margin-top: 15px; font-weight: bold; display: none; }
- 
- /* Glavni prozor čitača */
- #book-viewer-zone { 
-  display: none; width: 100vw; height: 100vh; 
-  position: fixed; top: 0; left: 0; z-index: 9999; 
-  flex-direction: column; background-color: #020617;
- }
- .viewer-header { 
-  height: 60px; background: #020617; border-bottom: 1px solid #334155; 
-  display: flex; flex-direction: column; justify-content: center; align-items: center; 
-  padding: 5px 15px; gap: 4px; width: 100%; z-index: 10001;
- }
- .slider-container { width: 100%; max-width: 500px; display: flex; align-items: center; position: relative; }
- 
- /* ULTRA BRZI I ODZIVNI KLIZAČ */
- .page-slider { 
-  width: 100%; -webkit-appearance: none; background: #1e293b; height: 8px; border-radius: 4px; outline: none; 
- }
- .page-slider::-webkit-slider-thumb { 
-  -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #38bdf8; cursor: pointer; 
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
- }
- 
- /* Zona za prikaz teksta */
- #book-container { 
-  flex: 1; width: 100%; background-color: #0f172a; 
-  position: relative; display: flex; justify-content: center; 
-  align-items: center; overflow: auto;
- }
- 
- .book-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
- }
- 
- .book-page-img { 
-  box-shadow: 0 4px 25px rgba(0,0,0,0.8); 
-  background-color: #ffffff;
-  display: block;
-  transform-origin: center center;
- }
- 
- .text-click-zone {
-  position: absolute; top: 0; bottom: 0; width: 50%; z-index: 999; cursor: pointer;
- }
- .t-left { left: 0; }
- .t-right { left: 50%; }
-
- /* REŽIM ZA KOMPJUTERE (Dve odvojene strane bez preklapanja) */
- @media (min-width: 769px) {
-   .book-page-img { width: auto; height: calc(100vh - 80px); max-width: 48%; object-fit: contain; }
- }
-
- /* REŽIM ZA TELEFONE (Jedna fiksirana strana) */
- @media (max-width: 768px) {
-   #book-viewer-zone { max-width: 100vw; left: 0; transform: none; border: none; }
-   .book-wrapper { width: 100vw; height: calc(100vh - 60px); }
-   .book-page-img { width: 100%; height: 100%; object-fit: contain; max-width: 100%; }
-   #book-page-right { display: none !important; }
-   .text-click-zone { width: 50%; }
- }
- </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>REDOKS JURIŠ - Protokol Loboda</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+ font-family: monospace; background-color: #020617; color: #cbd5e1; 
+ text-align: center; min-height: 100vh; overflow: hidden;
+}
+/* Sigurnosna kapija */
+.lock-container { 
+ background: #0f172a; border: 2px solid #334155; border-top: 6px solid #38bdf8;
+ padding: 40px 30px; border-radius: 12px; max-width: 400px; width: 90%; 
+ position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; 
+}
+input[type="password"] { width: 80%; padding: 12px; background: #020617; border: 1px solid #334155; 
+color: #00ffcc; text-align: center; margin-bottom: 20px; outline: none; border-radius: 6px; }
+.btn-submit { padding: 12px 30px; background: rgba(0, 255, 204, 0.1); border: 1px solid #00ffcc; color: 
+#00ffcc; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
+.error-msg { color: #ff3366; margin-top: 15px; font-weight: bold; display: none; }
+/* Glavni prozor čitača */
+#book-viewer-zone { 
+ display: none; width: 100vw; height: 100vh; 
+ position: fixed; top: 0; left: 0; z-index: 9999; 
+ flex-direction: column; background-color: #020617;
+}
+.viewer-header { 
+ height: 60px; background: #020617; border-bottom: 1px solid #334155; 
+ display: flex; flex-direction: column; justify-content: center; align-items: center; 
+ padding: 5px 15px; gap: 4px; width: 100%; z-index: 10001;
+}
+.slider-container { width: 100%; max-width: 500px; display: flex; align-items: center; position: relative; }
+/* ULTRA BRZI I ODZIVNI KLIZAČ */
+.page-slider { 
+ width: 100%; -webkit-appearance: none; background: #1e293b; height: 8px; border-radius: 4px; outline: none; 
+}
+.page-slider::-webkit-slider-thumb { 
+ -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #38bdf8; cursor: pointer; 
+ box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+/* Zona za prikaz teksta */
+#book-container { 
+ flex: 1; width: 100%; background-color: #0f172a; 
+ position: relative; display: flex; justify-content: center; 
+ align-items: center; overflow: auto;
+}
+.book-wrapper {
+ position: relative;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ width: 100%;
+ height: 100%;
+}
+.book-page-img { 
+ box-shadow: 0 4px 25px rgba(0,0,0,0.8); 
+ background-color: #ffffff;
+ display: block;
+ transform-origin: center center;
+}
+.text-click-zone {
+ position: absolute; top: 0; bottom: 0; width: 50%; z-index: 999; cursor: pointer;
+}
+.t-left { left: 0; }
+.t-right { left: 50%; }
+/* REŽIM ZA KOMPJUTERE (Dve odvojene strane bez preklapanja) */
+@media (min-width: 769px) {
+ .book-page-img { width: auto; height: calc(100vh - 80px); max-width: 48%; object-fit: contain; }
+}
+/* REŽIM ZA TELEFONE (Jedna fiksirana strana) */
+@media (max-width: 768px) {
+ #book-viewer-zone { max-width: 100vw; left: 0; transform: none; border: none; }
+ .book-wrapper { width: 100vw; height: calc(100vh - 60px); }
+ .book-page-img { width: 100%; height: 100%; object-fit: contain; max-width: 100%; }
+ #book-page-right { display: none !important; }
+ .text-click-zone { width: 50%; }
+}
+</style>
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
- <!-- KAPIJA ZA ŠIFRU -->
- <div class="lock-container" id="lock-screen">
- <h2 style="color: #38bdf8; margin-bottom: 20px; font-size: 1.2em;">🔒 REDOKS JURIŠ</h2>
- <input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
- <br>
- <button class="btn-submit" onclick="verifyRedoxVault()">Pristupi</button>
- <div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN!</div>
- </div>
+<!-- KAPIJA ZA ŠIFRU -->
+<div class="lock-container" id="lock-screen">
+<h2 style="color: #38bdf8; margin-bottom: 20px; font-size: 1.2em;">🔒 REDOKS JURIŠ</h2>
+<input type="password" id="redox-pass" placeholder="UNESITE ŠIFRU">
+<br>
+<button class="btn-submit" onclick="verifyRedoxVault()">Pristupi</button>
+<div class="error-msg" id="error-box">🛑 KOD NIJE ISPRAVAN!</div>
+</div>
 
- <!-- GLAVNI INTERFEJS -->
- <div id="book-viewer-zone">
- <div class="viewer-header">
-  <div style="width: 100%; max-width: 500px; display: flex; justify-content: space-between; font-size: 11px; color: #38bdf8; font-weight: bold;">
-   <span>📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
-   <span id="page-indicator">Stranica: 1 / 275</span>
-  </div>
-  <div class="slider-container">
-   <input type="range" id="page-slider" class="page-slider" min="1" max="275" value="1">
-  </div>
- </div>
+<!-- GLAVNI INTERFEJS -->
+<div id="book-viewer-zone">
+<div class="viewer-header">
+ <div style="width:100%;max-width:700px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#38bdf8;font-weight:bold;">
+ <span>📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
  
- <div id="book-container">
-  <div class="book-wrapper">
-    <div class="text-click-zone t-left" onclick="okreniLevo()"></div>
-    <img id="book-page-left" class="book-page-img" src="" alt="Leva strana">
-    <img id="book-page-right" class="book-page-img" src="" alt="Desna strana">
-    <div class="text-click-zone t-right" onclick="okreniDesno()"></div>
-  </div>
+ <!-- NAMENSKO DUGME ZA DELJENJE VAŠEG GLAVNOG REKLAMNOG LINKA -->
+ <button onclick="podeliPortal()" style="background:#0f172a; border:1px solid #38bdf8; color:#38bdf8; padding:4px 10px; border-radius:5px; cursor:pointer; font-size:11px; font-family:monospace; font-weight:bold;">
+ 📤 DELI PORTAL
+ </button>
+
+ <span id="page-indicator">Stranica: 1 / 275</span>
  </div>
+ <div class="slider-container">
+ <input type="range" id="page-slider" class="page-slider" min="1" max="275" value="1">
  </div>
+</div>
+<div id="book-container">
+ <div class="book-wrapper">
+ <div class="text-click-zone t-left" onclick="okreniLevo()"></div>
+ <img id="book-page-left" class="book-page-img" src="" alt="Leva strana">
+ <img id="book-page-right" class="book-page-img" src="" alt="Desna strana">
+ <div class="text-click-zone t-right" onclick="okreniDesno()"></div>
+ </div>
+</div>
+</div>
 
- <script>
- var UKUPAN_BROJ_STRANICA = 275; 
- var sveStranice = [];
- var trenutnaSkala = 1;
- var isMobile = window.innerWidth <= 768;
+<script>
+var UKUPAN_BROJ_STRANICA = 275; 
+var sveStranice = [];
+var trenutnaSkala = 1;
+var isMobile = window.innerWidth <= 768;
 
- // Formiranje niza slika
- for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
-     var formatiranBroj = i;
-     if (i < 10) { formatiranBroj = "00" + i; } 
-     else if (i < 100) { formatiranBroj = "0" + i; }
-     sveStranice.push("./slike/knjiga2-" + formatiranBroj + ".jpg");
- }
+// Formiranje niza slika
+for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
+ var formatiranBroj = i;
+ if (i < 10) { formatiranBroj = "00" + i; } 
+ else if (i < 100) { formatiranBroj = "0" + i; }
+ sveStranice.push("./slike/knjiga2-" + formatiranBroj + ".jpg");
+}
 
- var trenutniIndeks = 0;
- var slikaLeva = document.getElementById('book-page-left');
- var slikaDesna = document.getElementById('book-page-right');
- var mojSlider = document.getElementById('page-slider');
+var trenutniIndeks = 0;
+var slikaLeva = document.getElementById('book-page-left');
+var slikaDesna = document.getElementById('book-page-right');
+var mojSlider = document.getElementById('page-slider');
 
- function verifyRedoxVault() {
-  var inputPass = document.getElementById("redox-pass").value.trim();
-  var errorBox = document.getElementById("error-box");
-  
-  if (inputPass === "REDOX2026") {
-   document.getElementById("lock-screen").style.display = "none";
-   document.getElementById("book-viewer-zone").style.display = "flex";
-   errorBox.style.display = "none";
-   
-   mojSlider.max = UKUPAN_BROJ_STRANICA;
-   prikaziStranicu(0);
-   pokreniKontrole();
-  } else {
-   errorBox.style.display = "block";
-  }
- }
-
- function prikaziStranicu(indeks) {
-  trenutniIndeks = indeks;
-  isMobile = window.innerWidth <= 768;
-
-  if (isMobile) {
-    slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
-    document.getElementById('page-indicator').innerText = "Stranica: " + (indeks + 1) + " / " + UKUPAN_BROJ_STRANICA;
-    mojSlider.value = indeks + 1;
-  } else {
-    slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
-    if (indeks + 1 < sveStranice.length) {
-      slikaDesna.style.display = "block";
-      slikaDesna.src = sveStranice[indeks + 1];
-      document.getElementById('page-indicator').innerText = "Stranice: " + (indeks + 1) + " - " + (indeks + 2) + " / " + UKUPAN_BROJ_STRANICA;
-    } else {
-      slikaDesna.style.display = "none";
-      document.getElementById('page-indicator').innerText = "Stranica: " + (indeks + 1) + " / " + UKUPAN_BROJ_STRANICA;
-    }
-    mojSlider.value = indeks + 1;
-  }
- }
-
- function pokreniKontrole() {
-  // POBOLJŠANJE: Klik sa strane i dalje nežno pomera za +1/-1
-  mojSlider.addEventListener('mousedown', klikNaKlizac);
-  mojSlider.addEventListener('touchstart', klikNaKlizac);
-
-  function klikNaKlizac(e) {
-    // Ako korisnik klikne tačno na kuglicu, dozvoljavamo prirodno brzo povlačenje bez blokade
-    if (e.target === mojSlider && e.offsetX !== undefined) {
-      var rect = mojSlider.getBoundingClientRect();
-      var procenat = (e.clientX - rect.left) / rect.width;
-      var cilj = Math.round(procenat * UKUPAN_BROJ_STRANICA);
-      
-      // Pokreće nežno pomeranje za po jedno mesto samo pri daljem kliku u prazan prostor
-      if (Math.abs(cilj - (trenutniIndeks + 1)) > 5) {
-        if (cilj > trenutniIndeks + 1) { okreniDesno(); } 
-        else if (cilj < trenutniIndeks + 1) { okreniLevo(); }
-        e.preventDefault();
-      }
-    }
-  }
-
-  // ULTRA BRZO KRETANJE KUGLICE (Isto kao na telefonu!)
-  mojSlider.addEventListener('input', function() {
-    prikaziStranicu(parseInt(mojSlider.value) - 1);
-  });
-
-  // Točkić miša (Uveličavanje i umanjivanje)
-  document.getElementById('book-container').addEventListener('wheel', function(e) {
-    e.preventDefault();
-    if (e.deltaY < 0) { trenutnaSkala += 0.08; } else { trenutnaSkala -= 0.08; }
-    trenutnaSkala = Math.max(0.8, Math.min(4, trenutnaSkala));
-    slikaLeva.style.transform = `scale(${trenutnaSkala})`;
-    slikaDesna.style.transform = `scale(${trenutnaSkala})`;
-  });
-
-  setupSwipeGestures();
- }
-
- function okreniLevo() { 
-  isMobile = window.innerWidth <= 768;
-  var korak = isMobile ? 1 : 2;
-  if (trenutniIndeks > 0) { prikaziStranicu(Math.max(0, trenutniIndeks - korak)); } 
- }
+function verifyRedoxVault() {
+ var inputPass = document.getElementById("redox-pass").value.trim();
+ var errorBox = document.getElementById("error-box");
  
- function okreniDesno() { 
-  isMobile = window.innerWidth <= 768;
-  var korak = isMobile ? 1 : 2;
-  if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } 
- }
-
- function setupSwipeGestures() {
-  let startX = 0;
-  let startY = 0;
-  const kontejner = document.getElementById('book-container');
-
-  kontejner.addEventListener('touchstart', e => {
-   if (e.touches.length === 1) {
-     startX = e.touches.screenX;
-     startY = e.touches.screenY;
-   }
-  });
-
-  kontejner.addEventListener('touchend', e => {
-   if (e.changedTouches.length === 1) {
-     let endX = e.changedTouches.screenX;
-     let endY = e.changedTouches.screenY;
-     let razlikaX = startX - endX;
-     let razlikaY = Math.abs(startY - endY);
-     
-     if (Math.abs(razlikaX) > 40 && razlikaY < 60) {
-       if (razlikaX < 0) {
-         okreniDesno(); // Pokret prsta udesno -> Sledeća strana
-       } else {
-         okreniLevo();  // Pokret prsta ulevo -> Prethodna strana
-       }
-     }
-   }
-  });
- }
-
- window.addEventListener('resize', function() {
-   prikaziStranicu(trenutniIndeks);
- });
-
- document.addEventListener('keydown', e => {
-  if (e.key === "ArrowRight") okreniDesno();
-  if (e.key === "ArrowLeft") okreniLevo();
- });
-
- document.getElementById("redox-pass").addEventListener("keyup", function(event) {
-  if (event.key === "Enter") verifyRedoxVault();
- });
+ if (inputPass === "REDOX2026") {
+ document.getElementById("lock-screen").style.display = "none";
+ document.getElementById("book-viewer-zone").style.display = "flex";
+ errorBox.style.display = "none";
  
- // DODATAK ZA ISTINSKO HORIZONTALNO LISTANJE PRSTOM NA TELEFONIMA
+ mojSlider.max = UKUPAN_BROJ_STRANICA;
+ prikaziStranicu(0);
+ pokreniKontrole();
+ } else {
+ errorBox.style.display = "block";
+ }
+}
+
+function prikaziStranicu(indeks) {
+ trenutniIndeks = indeks;
+ isMobile = window.innerWidth <= 768;
+ if (isMobile) {
+ slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
+ document.getElementById('page-indicator').innerText = "Stranica: " + (indeks + 1) + " / " + UKUPAN_BROJ_STRANICA;
+ mojSlider.value = indeks + 1;
+ } else {
+ slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
+ if (indeks + 1 < sveStranice.length) {
+ slikaDesna.style.display = "block";
+ slikaDesna.src = sveStranice[indeks + 1];
+ document.getElementById('page-indicator').innerText = "Stranice: " + (indeks + 1) + " - " + (indeks + 2) + " / " + UKUPAN_BROJ_STRANICA;
+ } else {
+ slikaDesna.style.display = "none";
+ document.getElementById('page-indicator').innerText = "Stranica: " + (indeks + 1) + " / " + UKUPAN_BROJ_STRANICA;
+ }
+ mojSlider.value = indeks + 1;
+ }
+}
+
+function pokreniKontrole() {
+ mojSlider.addEventListener('mousedown', klikNaKlizac);
+ mojSlider.addEventListener('touchstart', klikNaKlizac);
+ function klikNaKlizac(e) {
+ if (e.target === mojSlider && e.offsetX !== undefined) {
+ var rect = mojSlider.getBoundingClientRect();
+ var procenat = (e.clientX - rect.left) / rect.width;
+ var cilj = Math.round(procenat * UKUPAN_BROJ_STRANICA);
+ 
+ if (Math.abs(cilj - (trenutniIndeks + 1)) > 5) {
+ if (cilj > trenutniIndeks + 1) { okreniDesno(); } 
+ else if (cilj < trenutniIndeks + 1) { okreniLevo(); }
+ e.preventDefault();
+ }
+ }
+ }
+ mojSlider.addEventListener('input', function() {
+ prikaziStranicu(parseInt(mojSlider.value) - 1);
+ });
+ document.getElementById('book-container').addEventListener('wheel', function(e) {
+ e.preventDefault();
+ if (e.deltaY < 0) { trenutnaSkala += 0.08; } else { trenutnaSkala -= 0.08; }
+ trenutnaSkala = Math.max(0.8, Math.min(4, trenutnaSkala));
+ slikaLeva.style.transform = `scale(${trenutnaSkala})`;
+ slikaDesna.style.transform = `scale(${trenutnaSkala})`;
+ });
+ setupSwipeGestures();
+}
+
+function okreniLevo() { 
+ isMobile = window.innerWidth <= 768;
+ var korak = isMobile ? 1 : 2;
+ if (trenutniIndeks > 0) { prikaziStranicu(Math.max(0, trenutniIndeks - korak)); } 
+}
+
+function okreniDesno() { 
+ isMobile = window.innerWidth <= 768;
+ var korak = isMobile ? 1 : 2;
+ if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } 
+}
+
+function setupSwipeGestures() {
+ let startX = 0;
+ let startY = 0;
+ const kontejner = document.getElementById('book-container');
+ kontejner.addEventListener('touchstart', e => {
+ if (e.touches.length === 1) {
+ startX = e.touches.screenX;
+ startY = e.touches.screenY;
+ }
+ });
+ kontejner.addEventListener('touchend', e => {
+ if (e.changedTouches.length === 1) {
+ let endX = e.changedTouches.screenX;
+ let endY = e.changedTouches.screenY;
+ let razlikaX = startX - endX;
+ let razlikaY = Math.abs(startY - endY);
+ 
+ if (Math.abs(razlikaX) > 40 && razlikaY < 60) {
+ if (razlikaX < 0) {
+ okreniDesno(); 
+ } else {
+ okreniLevo(); 
+ }
+ }
+ }
+ });
+}
+
+window.addEventListener('resize', function() {
+ prikaziStranicu(trenutniIndeks);
+});
+
+document.addEventListener('keydown', e => {
+ if (e.key === "ArrowRight") okreniDesno();
+ if (e.key === "ArrowLeft") okreniLevo();
+});
+
+document.getElementById("redox-pass").addEventListener("keyup", function(event) {
+ if (event.key === "Enter") verifyRedoxVault();
+});
+
 let prstStart = 0;
 const tekstZona = document.getElementById('book-container');
-
 tekstZona.addEventListener('touchstart', function(e) {
   if (e.touches.length === 1) {
-    prstStart = e.touches[0].clientX;
-  }
+ prstStart = e.touches[0].clientX;
+ }
 }, {passive: true});
 
 tekstZona.addEventListener('touchend', function(e) {
-  if (e.changedTouches.length === 1) {
-    let prstKraj = e.changedTouches[0].clientX;
-    let razlikaX = prstStart - prstKraj;
-    
-    if (Math.abs(razlikaX) > 40) {
-      if (razlikaX < 0) {
-        okreniDesno(); 
-      } else {
-        okreniLevo();  
-      }
-    }
-  }
+ if (e.changedTouches.length === 1) {
+ let prstKraj = e.changedTouches[0].clientX;
+ let razlikaX = prstStart - prstKraj;
+ 
+ if (Math.abs(razlikaX) > 40) {
+ if (razlikaX < 0) {
+ okreniDesno(); 
+ } else {
+ okreniLevo(); 
+ }
+ }
+ }
 }, {passive: true});
 
-// ★ ZAVRŠNI PROGRAM ZA PAMETNO PREUSMERAVANJE FUNKCIJE „DELI“ DIREKTNO NA VAŠ SAJT ★
-if (navigator.share) {
-  const originalniShare = navigator.share;
-  navigator.share = function(podaci) {
-    return originalniShare.call(navigator, {
-      title: "★ PROTOKOL LOBODA ★",
-      text: "Digitalna biblioteka i naučni rad - dipl. inž. Dragan Loboda",
-      url: "https://draganloboda.github.io"
-    });
-  };
-}
-
- </script>
-</body>
-</html>
-<!-- Oštro i brzo -->
-
+// ★ FUNKCIJA KOJA PRIMORAVA TELEFONE DA POŠALJU ISKLJUČIVO VAŠ GLAVNI SAJT SA PROZORIMA ★
