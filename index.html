@@ -110,10 +110,10 @@
 <!-- ZONA INTEGRISANE PROMOCIJE I FASCIKLE (ŠIRINA 380px) -->
 <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px; width: 100%;">
     
-  <!-- JEDINSTVENA ZONA: MARKETING + PROMO BANER + ŽUTA FASCIKLA (ŠIRINA 380px) -->
+  <!-- JEDINSTVENA ZONA: PROMO BANER IZNAD + ŽUTA FASCIKLA ISPOD (ŠIRINA 380px) -->
 <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 25px auto; width: 100%; max-width: 380px;">
     
-    <!-- REKLAMA ZA PROMO KOD (ŠIRINA 380px) -->
+    <!-- REKLAMA ZA PROMO KOD - NA VRHU (ŠIRINA 380px) -->
     <div style="width: 100%; padding: 12px; border: 1px solid #334155; border-radius: 8px; background: #020617; text-align: center; font-family: monospace; box-sizing: border-box;">
         <p style="color: #94a3b8; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">🔥 AKTIVNA BESPLATNA PROMOCIJA DO KRAJA MESECA</p>
         <p style="color: #00ffcc; font-size: 12px; font-weight: bold;">PROMO KÔD: <span style="color: #ffffff; background: #1e293b; padding: 1px 6px; border-radius: 4px; letter-spacing: 1px;">REDOX2026</span></p>
@@ -125,65 +125,79 @@
             <div style="font-size: 28px; margin-bottom: 12px; color: #d4af37;">📖</div>
             <h2 style="color: #d4af37; font-family: monospace; font-size: 16px; letter-spacing: 1px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;">REDOKS JURIŠ (Cela knjiga PDF)</h2>
             <p style="color: #cbd5e1; font-family: monospace; font-size: 12px; line-height: 1.6; padding: 0 5px;">
-                Knjiga otkriva naučno dokazane mehanizme starenja i daje teoreijske modele produženja dugovečnosti.
+                Knjiga otkriva naučno dokazane mehanizme starenja i daje teorijske modele produženja dugovečnosti.
             </p>
         </div>
     </a>
 
 </div>
 
-</div> <!-- Bezbedno zatvaranje spoljne strukture sajta -->
-</main>
-
-<!-- SKRIPTA ZA PREUSMERAVANJE OPTIČKOG DELJENJA -->
 <script>
-function podeliPortal() {
-  const portalURL = "https://github.io";
-  if (navigator.share) {
-    navigator.share({
-      title: "★ PROTOKOL LOBODA ★",
-      text: "Digitalna biblioteka i naučni rad - dipl. inž. Dragan Loboda",
-      url: portalURL
-    }).catch(function() {});
-  } else {
-    navigator.clipboard.writeText(portalURL)
-      .then(function() {
-        alert("✓ Glavni link kopiran! Pošaljite ga prijateljima.");
-      })
-      .catch(function() {
-        alert(portalURL);
-      });
-  }
+function proveriGlobalnuSifru() {
+    var unos = document.getElementById("global-redox-pass").value.trim();
+    var greska = document.getElementById("global-redox-error");
+    if (unos === "REDOX2026") {
+        greska.style.display = "none";
+        // Preusmeravanje na naš jedinstveni univerzalni pregledač slika
+        window.location.href = "./knjiga-celaPDF-telefoni.html";
+    } else {
+        greska.style.display = "block";
+    }
 }
 
-// AUTOMATSKO UBACIVANJE ZELENOG DUGMETA DESNO OD KUTIJE REDOKS JURIŠ (SRPSKO IZDANJE)
-window.addEventListener('DOMContentLoaded', function() {
-  var sveKutije = document.querySelectorAll('div, a');
-  var ciljnaKutija = null;
-  
-  for (var i = 0; i < sveKutije.length; i++) {
-    if (sveKutije[i].textContent.includes('Besplatno čitanje dela knjige sa opcijama')) {
-      ciljnaKutija = sveKutije[i].closest('div') || sveKutije[i];
-      break;
-    }
-  }
-  
-  if (ciljnaKutija && ciljnaKutija.parentNode) {
-    var novoDugme = document.createElement('button');
-    novoDugme.innerHTML = '📤 DELI PORTAL';
-    novoDugme.setAttribute('onclick', 'podeliPortal()');
-    // POPRAVLJENO: Boja promenjena u neon-zelenu #00ffcc za ivice i tekst
-    novoDugme.style.cssText = 'background: #0f172a; border: 1px solid #00ffcc; color: #00ffcc; padding: 15px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-family: monospace; font-weight: bold; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,255,204,0.15); margin-left: 15px; display: inline-block; vertical-align: middle; min-height: 80px; width: 140px;';
-    
-    var roditelj = ciljnaKutija.parentNode;
-    roditelj.style.display = 'flex';
-    roditelj.style.alignItems = 'center';
-    roditelj.style.justifyContent = 'center';
-    
-    roditelj.insertBefore(novoDugme, ciljnaKutija.nextSibling);
-  }
+document.getElementById("global-redox-pass").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") proveriGlobalnuSifru();
 });
 </script>
+
+
+ <!-- DUGME 4: POKLON KNJIGA BESPLATAN PDF -->
+ <a href="medicina-teorija-jpg.html" class="btn" style="border-color: #ffcc00;">
+ <div class="btn-title" style="color: #ffcc00; font-weight: bold;">🎁 MEDICINSKA TEORIJA "LEČENJE OKSIDO-REDUKCIJOM" (Cela knjiga PDF)</div>
+ Poklon knjiga za čitanje - Potpuno besplatno i otvoreno svima
+ </a>
+
+ <!-- DUGME ZA NAUČNA TESTIRANJA -->
+ <a href="donacije.html" class="btn" style="border-color: #38bdf8; background: #0f172a;">
+ <div class="btn-title" style="color: #38bdf8;">🔬 DOBROVOLJNE DONACIJE ZA NAUČNA TESTIRANJA</div>
+ Finansiranje laboratorijske studije (75.000 din. za 1 osobu × 1.000 osoba)
+ </a>
+ 
+ <!-- DUGME 5: KONTAKT -->
+ <a href="kontakt.html" class="btn">
+ <div class="btn-title">📞 KONTAKT AUTORA</div>
+ Informacije i zahtevi za pristup ključevima
+ </a>
+ </div>
+ </section>
+
+ <section class="section container">
+ <h2 class="section-title">O projektu</h2>
+ <div class="about">
+ <p>Ova platforma predstavlja rad Dragana Lobode, autora Medicinske teorije oksido-redukcije i kreatora Protokola Loboda.</p>
+ <br>
+ <p>Na sajtu su dostupni kalkulator dugovečnosti, knjige autora, istraživački materijali i buduća međunarodna izdanja na engleskom, nemačkom, ruskom i kineskom jeziku.</p>
+ <br>
+ <p>Cilj projekta je proučavanje biofizičkih, elektrohemijskih i oksido-redukcionih procesa povezanih sa zdravljem, vitalnošću i dugovečnošću čovekovog klona.</p>
+ </div>
+ </section>
+
+ <section class="section container">
+ <h2 class="section-title">Knjige autora</h2>
+ <div class="books">
+ <div class="book">📘 Medicinska teorija - Lečenje oksido-redukcijom (ISBN 978-86-903366-0-9)</div>
+ <div class="book">📕 Redoks juriš - Dostizanje maksimalnog genetskog koda dugovečnosti (ISBN 978-86-903366-2-3)</div>
+ </div>
+ </section>
+
+ <footer>
+ © 2026 Dragan Loboda | Naučna alternativna medicina
+ </footer>
+
+ <div style="max-width: 800px; margin: 40px auto 20px auto; padding: 15px; border-top: 1px solid #334155; text-align: center;">
+ <p style="font-size: 12px; color: #94a3b8; line-height: 1.5; font-style: italic;">
+ *Sadržaj na ovom sajtu predstavlja lični naučno-istraživački rad autora i inženjerski model, i ne predstavlja zvanični medicinski savet niti zamenu za terapiju propisanu od strane lekara.
+ </p>
+ </div>
 </body>
 </html>
-
