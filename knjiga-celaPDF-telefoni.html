@@ -102,8 +102,15 @@
  <div id="book-viewer-zone">
  <div class="viewer-header">
   <div style="width: 100%; max-width: 500px; display: flex; justify-content: space-between; font-size: 11px; color: #38bdf8; font-weight: bold;">
-   <span>📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
-   <span id="page-indicator">Stranica: 1 / 275</span>
+  <div style="display:flex;align-items:center;">
+  <span>📖 DRAGAN LOBODA - REDOKS JURIŠ</span>
+
+  <button onclick="podeliPortal()" style="background:#0f172a; border:1px solid #38bdf8; color:#38bdf8; padding:4px 10px; border-radius:5px; cursor:pointer; font-size:11px; font-family:monospace; font-weight:bold; margin-left:10px;">
+    📤 DELI PORTAL
+  </button>
+</div>
+
+<span id="page-indicator">Stranica: 1 / 275</span> 
   </div>
   <div class="slider-container">
    <input type="range" id="page-slider" class="page-slider" min="1" max="275" value="1">
@@ -297,15 +304,29 @@ tekstZona.addEventListener('touchend', function(e) {
 }, {passive: true});
 
 // ★ ZAVRŠNI PROGRAM ZA PAMETNO PREUSMERAVANJE FUNKCIJE „DELI“ DIREKTNO NA VAŠ SAJT ★
-if (navigator.share) {
-  const originalniShare = navigator.share;
-  navigator.share = function(podaci) {
-    return originalniShare.call(navigator, {
+function podeliPortal() {
+
+  const portalURL = "https://draganloboda.github.io";
+
+  if (navigator.share) {
+
+    navigator.share({
       title: "★ PROTOKOL LOBODA ★",
       text: "Digitalna biblioteka i naučni rad - dipl. inž. Dragan Loboda",
-      url: "https://draganloboda.github.io"
+      url: portalURL
     });
-  };
+
+  } else {
+
+    navigator.clipboard.writeText(portalURL)
+      .then(function() {
+        alert("Link je kopiran u clipboard.");
+      })
+      .catch(function() {
+        alert(portalURL);
+      });
+
+  }
 }
 
  </script>
