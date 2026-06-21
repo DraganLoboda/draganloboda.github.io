@@ -86,18 +86,6 @@
    #book-page-right { display: none !important; }
    .text-click-zone { width: 50%; }
  }
-
- /* POBOLJŠANJE ZA VODORAVNI POLOŽAJ */
- @media (max-width: 900px) and (orientation: landscape) {
-   .viewer-header { height: 38px; gap: 2px; padding: 2px 15px; }
-   .header-controls span { font-size: 11px !important; }
-   .nav-input-box { padding: 1px 4px; }
-   .nav-input-box span { font-size: 10px !important; }
-   .page-slider { height: 4px; }
-   .page-slider::-webkit-slider-thumb { width: 14px; height: 14px; }
-   .book-wrapper { height: calc(100vh - 38px); }
-   .book-page-img { height: calc(100vh - 38px); object-fit: contain; }
- }
  </style>
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
@@ -245,4 +233,25 @@
  }
 
  function setupSwipeGestures() {
+  let touchstartX = 0;
+  let touchendX = 0;
+  const kontejner = document.getElementById('book-container');
+
+  kontejner.addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX;
+  }, {passive:true});
+
+  kontejner.addEventListener('touchend', e => {
+    touchendX = e.changedTouches[0].screenX;
+    var diff = touchstartX - touchendX;
+    
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) {
+        okreniDesno(); 
+      } else {
+        okreniLevo();  
+      }
+    }
+  }, {passive:true});
+ }
 
