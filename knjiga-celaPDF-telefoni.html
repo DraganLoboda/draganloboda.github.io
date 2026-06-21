@@ -239,5 +239,69 @@
 
   setupSwipeGestures();
  }
+  isMobile = window.innerWidth <= 768;
+  var korak = isMobile ? 1 : 2;
+  if (trenutniIndeks > 0) { prikaziStranicu(Math.max(0, trenutniIndeks - korak)); } 
+ }
+ 
+ function okreniDesno() { 
+  isMobile = window.innerWidth <= 768;
+  var korak = isMobile ? 1 : 2;
+  if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } 
+ }
+
+ function setupSwipeGestures() {
+  let touchstartX = 0;
+  let touchendX = 0;
+  const kontejner = document.getElementById('book-container');
+
+  kontejner.addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX;
+  }, {passive:true});
+
+  kontejner.addEventListener('touchend', e => {
+    touchendX = e.changedTouches[0].screenX;
+    var diff = touchstartX - touchendX;
+    
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) {
+        okreniDesno(); // prst ide udesno -> nova strana unapred
+      } else {
+        okreniLevo();  // prst ide ulevo -> strana unazad
+      }
+    }
+  }, {passive:true});
+ }
+
+ window.addEventListener('resize', function() {
+   prikaziStranicu(trenutniIndeks);
+ });
+
+ document.addEventListener('keydown', e => {
+  if (e.key === "ArrowRight") okreniDesno();
+  if (e.key === "ArrowLeft") okreniLevo();
+ });
+
+ document.getElementById("redox-pass").addEventListener("keyup", function(event) {
+  if (event.key === "Enter") verifyRedoxVault();
+ });
+
+ // ★ PROGRAM ZA PAMETNO PREUSMERAVANJE FUNKCIJE „DELI“ NA VAŠ GLAVNI SAJT ★
+ function podeliPortal() {
+  if (navigator.share) {
+    navigator.share({
+      title: "★ PROTOKOL LOBODA ★",
+      text: "Digitalna biblioteka i naučni rad - dipl. inž. Dragan Loboda",
+      url: "https://github.io"
+    }).catch(function() {});
+  } else {
+    window.open("https://github.io", "_blank");
+  }
+ }
+ </script>
+</body>
+</html>
+
+  
 
  function okreniLevo() { 
