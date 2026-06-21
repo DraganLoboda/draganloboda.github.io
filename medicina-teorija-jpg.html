@@ -29,7 +29,7 @@
  }
  .slider-container { width: 100%; max-width: 500px; display: flex; align-items: center; position: relative; }
  .page-slider { 
-  width: 100%; -webkit-appearance: none; background: #1e293b; height: 6px; border-radius: 4px; outline: none; 
+  width: 100%; -webkit-appearance: none; background: #1e293b; height: 6px; border-radius: 3px; outline: none; 
  }
  .page-slider::-webkit-slider-thumb { 
   -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #38bdf8; cursor: pointer; 
@@ -53,9 +53,9 @@
  .t-left { left: 0; }
  .t-right { left: 50%; }
 
- /* KORIGOVAN CSS ZA PROPORCIJU: Sprečava sužavanje stranica na računaru */
+ /* ORIGINALNI CSS: Visina je glavni parametar, slike zadržavaju prirodnu širinu bez sužavanja */
  @media (min-width: 769px) {
-   .book-page-img { width: 48%; height: auto; max-height: calc(100vh - 85px); object-fit: contain; }
+   .book-page-img { width: auto; height: calc(100vh - 85px); max-width: 48%; object-fit: contain; }
  }
 
  /* REŽIM ZA TELEFONE */
@@ -112,7 +112,7 @@
  var trenutnaSkala = 1;
  var isMobile = window.innerWidth <= 768;
 
- // TAČNA AUTOMATSKA GENERACIJA ZA VAŠ FORMAT SA NULAMA ISPRED
+ // Generisanje tačnih mrežnih putanja za vašu prvu knjigu (knjiga1-001.jpg...)
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
      var formatiranBroj = i;
      if (i < 10) { formatiranBroj = "00" + i; } 
@@ -194,13 +194,25 @@
  function okreniDesno() { isMobile = window.innerWidth <= 768; var korak = isMobile ? 1 : 2; if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } }
 
  function setupSwipeGestures() {
-  let touchstartX = 0; let touchendX = 0;
+  let touchstartX = 0;
+  let touchendX = 0;
   const kontejner = document.getElementById('book-container');
-  kontejner.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; }, {passive:true});
+
+  kontejner.addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX;
+  }, {passive:true});
+
   kontejner.addEventListener('touchend', e => {
     touchendX = e.changedTouches[0].screenX;
     var diff = touchstartX - touchendX;
-    if (Math.abs(diff) > 40) { if (diff < 0) { okreniDesno(); } else { okreniLevo(); } }
+    
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) {
+        okreniDesno(); 
+      } else {
+        okreniLevo();  
+      }
+    }
   }, {passive:true});
  }
 
