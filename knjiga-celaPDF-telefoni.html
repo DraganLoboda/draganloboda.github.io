@@ -199,14 +199,12 @@
  }
 
  function pokreniKontrole() {
-  // Stabilan i prečišćen klik na traku klizača (nežni skok osetljivosti)
   mojSlider.addEventListener('mousedown', klikNaKlizac);
   mojSlider.addEventListener('touchstart', klikNaKlizac);
 
   function klikNaKlizac(e) {
     var rect = mojSlider.getBoundingClientRect();
     var clientX = e.clientX;
-    // Potpuno ispravna i sigurna Touch sintaksa sa fiksiranim indeksom nula
     if (!clientX && e.touches && e.touches[0]) {
       clientX = e.touches[0].clientX;
     }
@@ -215,14 +213,13 @@
     var procenat = (clientX - rect.left) / rect.width;
     var cilj = Math.round(procenat * UKUPAN_BROJ_STRANICA);
     
-    if (Math.abs(cilj - (trenutniIndeks + 1)) > 5) {
+    if (Math.abs(getDifference(cilj, trenutniIndeks + 1)) > 5) {
       if (cilj > trenutniIndeks + 1) { okreniDesno(); } 
       else if (cilj < trenutniIndeks + 1) { okreniLevo(); }
       e.preventDefault();
     }
   }
 
-  // Odzivni klizač bez kočenja
   mojSlider.addEventListener('input', function() {
     prikaziStranicu(parseInt(mojSlider.value) - 1);
   });
@@ -238,6 +235,10 @@
   setupSwipeGestures();
  }
 
+ function getDifference(a, b) {
+  return a - b;
+ }
+
  function okreniLevo() { 
   isMobile = window.innerWidth <= 768;
   var korak = isMobile ? 1 : 2;
@@ -251,4 +252,7 @@
  }
 
  function setupSwipeGestures() {
-html
+  let touchstartX = 0;
+  let touchendX = 0;
+
+  document.getElementById('book-container').addEventListener('touchstart', e => {
