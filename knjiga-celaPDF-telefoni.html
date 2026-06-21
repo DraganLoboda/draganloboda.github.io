@@ -270,6 +270,32 @@
  document.getElementById("redox-pass").addEventListener("keyup", function(event) {
   if (event.key === "Enter") verifyRedoxVault();
  });
+  // DODATAK ZA ISTINSKO HORIZONTALNO LISTANJE PRSTOM NA TELEFONIMA
+let prstStart = 0;
+const tekstZona = document.getElementById('book-container');
+
+tekstZona.addEventListener('touchstart', function(e) {
+  if (e.touches.length === 1) {
+    prstStart = e.touches[0].clientX;
+  }
+}, {passive: true});
+
+tekstZona.addEventListener('touchend', function(e) {
+  if (e.changedTouches.length === 1) {
+    let prstKraj = e.changedTouches[0].clientX;
+    let razlikaX = prstStart - prstKraj;
+    
+    // Ako je pokret prstom u stranu duži od 40 piksela, okreće se strana
+    if (Math.abs(razlikaX) > 40) {
+      if (razlikaX < 0) {
+        okreniDesno(); // prst ide udesno -> nova strana unapred
+      } else {
+        okreniLevo();  // prst ide ulevo -> strana unazad
+      }
+    }
+  }
+}, {passive: true});
+
  </script>
 </body>
 </html>
