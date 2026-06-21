@@ -39,7 +39,6 @@
   flex: 1; width: 100%; background-color: #0f172a; 
   position: relative; display: flex; justify-content: center; 
   align-items: center; overflow: auto;
-  touch-action: pan-y;
  }
  .book-wrapper {
   position: relative; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;
@@ -53,7 +52,7 @@
  .t-left { left: 0; }
  .t-right { left: 50%; }
 
- /* ORIGINALNI CSS: Visina je glavni parametar, slike zadržavaju prirodnu širinu bez sužavanja */
+ /* REŽIM ZA KOMPJUTERE */
  @media (min-width: 769px) {
    .book-page-img { width: auto; height: calc(100vh - 85px); max-width: 48%; object-fit: contain; }
  }
@@ -67,6 +66,7 @@
    .text-click-zone { width: 50%; }
  }
 
+ /* VODORAVAN POLOŽAJ TELEFONA */
  @media (max-width: 900px) and (orientation: landscape) {
    .viewer-header { height: 38px; gap: 2px; padding: 2px 15px; }
    .header-controls span { font-size: 11px !important; }
@@ -81,7 +81,8 @@
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
- <div id="book-viewer-zone" style="display: flex;">
+ <!-- GLAVNI INTERFEJS BEZ ŠIFRE -->
+ <div id="book-viewer-zone">
  <div class="viewer-header">
   <div class="header-controls">
    <span style="color: #38bdf8; font-weight: bold; font-family: monospace; font-size: 13px;">★ DRAGAN LOBODA - MEDICINSKA TEORIJA</span>
@@ -112,7 +113,6 @@
  var trenutnaSkala = 1;
  var isMobile = window.innerWidth <= 768;
 
- // Generisanje tačnih mrežnih putanja za vašu prvu knjigu (knjiga1-001.jpg...)
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
      var formatiranBroj = i;
      if (i < 10) { formatiranBroj = "00" + i; } 
@@ -190,8 +190,17 @@
   setupSwipeGestures();
  }
 
- function okreniLevo() { isMobile = window.innerWidth <= 768; var korak = isMobile ? 1 : 2; if (trenutniIndeks > 0) { prikaziStranicu(Math.max(0, trenutniIndeks - korak)); } }
- function okreniDesno() { isMobile = window.innerWidth <= 768; var korak = isMobile ? 1 : 2; if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } }
+ function okreniLevo() { 
+  isMobile = window.innerWidth <= 768;
+  var korak = isMobile ? 1 : 2;
+  if (trenutniIndeks > 0) { prikaziStranicu(Math.max(0, trenutniIndeks - korak)); } 
+ }
+ 
+ function okreniDesno() { 
+  isMobile = window.innerWidth <= 768;
+  var korak = isMobile ? 1 : 2;
+  if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } 
+ }
 
  function setupSwipeGestures() {
   let touchstartX = 0;
@@ -216,8 +225,14 @@
   }, {passive:true});
  }
 
- window.addEventListener('resize', function() { prikaziStranicu(trenutniIndeks); });
- document.addEventListener('keydown', e => { if (e.key === "ArrowRight") okreniDesno(); if (e.key === "ArrowLeft") okreniLevo(); });
+ window.addEventListener('resize', function() {
+   prikaziStranicu(trenutniIndeks);
+ });
+
+ document.addEventListener('keydown', e => {
+  if (e.key === "ArrowRight") okreniDesno();
+  if (e.key === "ArrowLeft") okreniLevo();
+ });
  </script>
 </body>
 </html>
