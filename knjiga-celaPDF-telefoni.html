@@ -183,6 +183,7 @@
     document.getElementById('total-pages-text').innerText = "/ " + UKUPAN_BROJ_STRANICA;
     mojSlider.value = indeks + 1;
   } else {
+    // ISPRAVLJENO: Uklonjena loša reč sveStswrap, vraćena ispravna sintaksa
     slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
     if (indeks + 1 < sveStranice.length) {
       slikaDesna.style.display = "block";
@@ -199,13 +200,13 @@
  }
 
  function pokreniKontrole() {
-  // ISPRAVLJENO: Siguran klik na traku bez grešaka u prepoznavanju uređaja
   mojSlider.addEventListener('mousedown', klikNaKlizac);
   mojSlider.addEventListener('touchstart', klikNaKlizac);
 
   function klikNaKlizac(e) {
     var rect = mojSlider.getBoundingClientRect();
     var clientX = e.clientX;
+    // ISPRAVLJENO: Dodat ispravan indeks [0] za mobilne Touch događaje
     if (!clientX && e.touches && e.touches[0]) {
       clientX = e.touches[0].clientX;
     }
@@ -251,5 +252,3 @@
  function setupSwipeGestures() {
   let startX = 0;
   let startY = 0;
-  const kontejner = document.getElementById('book-container');
-
