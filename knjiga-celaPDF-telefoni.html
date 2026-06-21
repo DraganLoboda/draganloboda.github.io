@@ -88,7 +88,7 @@
    .text-click-zone { width: 50%; }
  }
 
- /* VODORAVAN POLOŽAJ */
+ /* VODORAVAN POLOŽAJ TELEFONA */
  @media (max-width: 900px) and (orientation: landscape) {
    .viewer-header { height: 38px; gap: 2px; padding: 2px 15px; }
    .header-controls span { font-size: 11px !important; }
@@ -183,7 +183,6 @@
     document.getElementById('total-pages-text').innerText = "/ " + UKUPAN_BROJ_STRANICA;
     mojSlider.value = indeks + 1;
   } else {
-    // ISPRAVLJENO: Uklonjena loša reč sveStswrap, vraćena ispravna sintaksa
     slikaLeva.src = sveStranice[Math.max(0, Math.min(sveStranice.length - 1, indeks))];
     if (indeks + 1 < sveStranice.length) {
       slikaDesna.style.display = "block";
@@ -200,13 +199,14 @@
  }
 
  function pokreniKontrole() {
+  // Stabilan i prečišćen klik na traku klizača (nežni skok osetljivosti)
   mojSlider.addEventListener('mousedown', klikNaKlizac);
   mojSlider.addEventListener('touchstart', klikNaKlizac);
 
   function klikNaKlizac(e) {
     var rect = mojSlider.getBoundingClientRect();
     var clientX = e.clientX;
-    // ISPRAVLJENO: Dodat ispravan indeks [0] za mobilne Touch događaje
+    // Potpuno ispravna i sigurna Touch sintaksa sa fiksiranim indeksom nula
     if (!clientX && e.touches && e.touches[0]) {
       clientX = e.touches[0].clientX;
     }
@@ -222,6 +222,7 @@
     }
   }
 
+  // Odzivni klizač bez kočenja
   mojSlider.addEventListener('input', function() {
     prikaziStranicu(parseInt(mojSlider.value) - 1);
   });
@@ -250,5 +251,3 @@
  }
 
  function setupSwipeGestures() {
-  let startX = 0;
-  let startY = 0;
