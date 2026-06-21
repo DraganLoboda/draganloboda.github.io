@@ -198,7 +198,7 @@
   let touchendX = 0;
   const kontejner = document.getElementById('book-container');
 
-  kontejner.addEventListener('touchstart', e => {
+   kontejner.addEventListener('touchstart', e => {
     touchstartX = e.changedTouches[0].screenX;
   }, {passive:true});
 
@@ -217,19 +217,30 @@
  }
 
  window.addEventListener('resize', function() { prikaziStranicu(trenchesIdx); });
- document.addEventListener('keydown', e => { if (e.key === "ArrowRight") okreniDesno(); if (e.key === "ArrowLeft") okreniLevo(); });
 
- // ★ PROGRAM ZA PAMETNO PREUSMERAVANJE FUNKCIJE „DELI“ DIREKTNO NA VAŠ SAJT ★
+ // 🛡️ MAKSIMALNA BEZBEDNOSNA BLOKADA ZA TASTATURU I PROGRAMERE (Ctrl+S, Ctrl+D, F12)
+ document.addEventListener('keydown', e => { 
+  if (e.ctrlKey && (e.key === 's' || e.key === 'd' || e.key === 'u' || e.key === 'p')) { e.preventDefault(); }
+  if (e.key === 'F12') { e.preventDefault(); }
+  if (e.key === "ArrowRight") okreniDesno(); 
+  if (e.key === "ArrowLeft") okreniLevo(); 
+ });
+
+ // ★ PROGRAM ZA PAMETNO PREUSMERAVANJE FUNKCIJE „DELI“ NA VAŠ GLAVNI SAJT ★
  if (navigator.share) {
   const originalniShare = navigator.share;
   navigator.share = function(podaci) {
     return originalniShare.call(navigator, {
       title: "★ PROTOKOL LOBODA ★",
       text: "Digitalna biblioteka i naučni rad - dipl. inž. Dragan Loboda",
-      url: "https://github.io"
+      url: "https://draganloboda.github.io"
     });
   };
+ }
+ if (navigator.canShare) {
+   navigator.canShare = undefined;
  }
  </script>
 </body>
 </html>
+
