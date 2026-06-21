@@ -59,7 +59,7 @@
   flex: 1; width: 100%; background-color: #0f172a; 
   position: relative; display: flex; justify-content: center; 
   align-items: center; overflow: auto;
-  touch-action: pan-y; /* Dozvoljava vertikalni skrol prstom unutar lista, ali oslobađa horizontalni swipe */
+  touch-action: pan-y;
  }
  .book-wrapper {
   position: relative; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;
@@ -68,19 +68,18 @@
   box-shadow: 0 4px 25px rgba(0,0,0,0.8); background-color: #ffffff; display: block; transform-origin: center center;
  }
  
- /* Klik-zone na samom tekstu (Ne dirati, funkcionišu odlično) */
  .text-click-zone {
   position: absolute; top: 0; bottom: 0; width: 50%; z-index: 998; cursor: pointer;
  }
  .t-left { left: 0; }
  .t-right { left: 50%; }
 
- /* REŽIM ZA KOMPJUTERE (Dve stranice paralelno) */
+ /* REŽIM ZA KOMPJUTERE */
  @media (min-width: 769px) {
    .book-page-img { width: auto; height: calc(100vh - 80px); max-width: 48%; object-fit: contain; }
  }
 
- /* REŽIM ZA TELEFONE (Jedna fiksirana strana) */
+ /* REŽIM ZA TELEFONE */
  @media (max-width: 768px) {
    #book-viewer-zone { max-width: 100vw; left: 0; transform: none; border: none; }
    .book-wrapper { width: 100vw; height: calc(100vh - 60px); }
@@ -89,7 +88,7 @@
    .text-click-zone { width: 50%; }
  }
 
- /* OSLOBAĐANJE PROSTORA KADA JE TELEFON VODORAVNO (Landscape) */
+ /* VODORAVAN POLOŽAJ */
  @media (max-width: 900px) and (orientation: landscape) {
    .viewer-header { height: 38px; gap: 2px; padding: 2px 15px; }
    .header-controls span { font-size: 11px !important; }
@@ -243,3 +242,12 @@
  function okreniDesno() { 
   isMobile = window.innerWidth <= 768;
   var korak = isMobile ? 1 : 2;
+  if (trenutniIndeks < sveStranice.length - korak) { prikaziStranicu(trenutniIndeks + korak); } 
+ }
+
+ function setupSwipeGestures() {
+  let startX = 0;
+  let startY = 0;
+  const kontejner = document.getElementById('book-container');
+
+  kontejner.addEventListener('touchstart', e => {
