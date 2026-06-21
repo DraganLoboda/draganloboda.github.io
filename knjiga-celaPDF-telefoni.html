@@ -199,22 +199,25 @@
  }
 
  function pokreniKontrole() {
+  // ISPRAVLJENO: Siguran klik na traku bez grešaka u prepoznavanju uređaja
   mojSlider.addEventListener('mousedown', klikNaKlizac);
   mojSlider.addEventListener('touchstart', klikNaKlizac);
 
   function klikNaKlizac(e) {
-    if (e.target === mojSlider && e.offsetX !== undefined) {
-      var rect = mojSlider.getBoundingClientRect();
-      var clientX = e.clientX || (e.touches && e.touches.clientX);
-      if(!clientX) return;
-      var procenat = (clientX - rect.left) / rect.width;
-      var cilj = Math.round(procenat * UKUPAN_BROJ_STRANICA);
-      
-      if (Math.abs(cilj - (trenutniIndeks + 1)) > 5) {
-        if (cilj > trenutniIndeks + 1) { okreniDesno(); } 
-        else if (cilj < trenutniIndeks + 1) { okreniLevo(); }
-        e.preventDefault();
-      }
+    var rect = mojSlider.getBoundingClientRect();
+    var clientX = e.clientX;
+    if (!clientX && e.touches && e.touches[0]) {
+      clientX = e.touches[0].clientX;
+    }
+    if(!clientX) return;
+    
+    var procenat = (clientX - rect.left) / rect.width;
+    var cilj = Math.round(procenat * UKUPAN_BROJ_STRANICA);
+    
+    if (Math.abs(cilj - (trenutniIndeks + 1)) > 5) {
+      if (cilj > trenutniIndeks + 1) { okreniDesno(); } 
+      else if (cilj < trenutniIndeks + 1) { okreniLevo(); }
+      e.preventDefault();
     }
   }
 
@@ -250,4 +253,3 @@
   let startY = 0;
   const kontejner = document.getElementById('book-container');
 
-  kontejner.addEventListener('touchstart', e => {
