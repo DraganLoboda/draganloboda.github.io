@@ -132,13 +132,6 @@
 
 </div>
 
-        <input type="password" id="global-redox-pass" placeholder="UNESITE ŠIFRU" style="padding: 12px; width: 75%; background: #020617; border: 1px solid #334155; color: #00ffcc; text-align: center; font-family: monospace; outline: none; border-radius: 6px; font-size: 1.1em;">
-        <br>
-        <button onclick="proveriGlobalnuSifru()" style="margin-top: 15px; padding: 11px 30px; background: rgba(0, 255, 204, 0.1); border: 1px solid #00ffcc; color: #00ffcc; font-weight: bold; cursor: pointer; border-radius: 6px; font-family: monospace; text-transform: uppercase; transition: all 0.3s ease;">Pristupi</button>
-        <p id="global-redox-error" style="color: #ff3366; font-size: 12px; font-family: monospace; margin-top: 10px; font-weight: bold; display: none;">🛑 ŠIFRA NIJE ISPRAVNA!</p>
-    </div>
-</div>
-
 <script>
 function proveriGlobalnuSifru() {
     var unos = document.getElementById("global-redox-pass").value.trim();
