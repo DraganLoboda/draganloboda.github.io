@@ -270,7 +270,8 @@
  document.getElementById("redox-pass").addEventListener("keyup", function(event) {
   if (event.key === "Enter") verifyRedoxVault();
  });
-  // DODATAK ZA ISTINSKO HORIZONTALNO LISTANJE PRSTOM NA TELEFONIMA
+ 
+ // DODATAK ZA ISTINSKO HORIZONTALNO LISTANJE PRSTOM NA TELEFONIMA
 let prstStart = 0;
 const tekstZona = document.getElementById('book-container');
 
@@ -285,18 +286,30 @@ tekstZona.addEventListener('touchend', function(e) {
     let prstKraj = e.changedTouches[0].clientX;
     let razlikaX = prstStart - prstKraj;
     
-    // Ako je pokret prstom u stranu duži od 40 piksela, okreće se strana
     if (Math.abs(razlikaX) > 40) {
       if (razlikaX < 0) {
-        okreniDesno(); // prst ide udesno -> nova strana unapred
+        okreniDesno(); 
       } else {
-        okreniLevo();  // prst ide ulevo -> strana unazad
+        okreniLevo();  
       }
     }
   }
 }, {passive: true});
 
+// ★ ZAVRŠNI PROGRAM ZA PAMETNO PREUSMERAVANJE FUNKCIJE „DELI“ DIREKTNO NA VAŠ SAJT ★
+if (navigator.share) {
+  const originalniShare = navigator.share;
+  navigator.share = function(podaci) {
+    return originalniShare.call(navigator, {
+      title: "★ PROTOKOL LOBODA ★",
+      text: "Digitalna biblioteka i naučni rad - dipl. inž. Dragan Loboda",
+      url: "https://github.io"
+    });
+  };
+}
+
  </script>
 </body>
 </html>
 <!-- Oštro i brzo -->
+
