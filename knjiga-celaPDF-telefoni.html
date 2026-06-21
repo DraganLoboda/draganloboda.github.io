@@ -46,7 +46,7 @@
  }
  .slider-container { width: 100%; max-width: 500px; display: flex; align-items: center; position: relative; }
  
- /* ORIGINALNI ULTRA BRZI KLIZAČ */
+ /* ORIGINALNI ULTRA BRZI KLIZAČ (ISPRAVLJENO!) */
  .page-slider { 
   width: 100%; -webkit-appearance: none; background: #1e293b; height: 6px; border-radius: 3px; outline: none; 
  }
@@ -87,7 +87,7 @@
    .text-click-zone { width: 50%; }
  }
 
- /* JEDINA NOVOST: SMANJUJEMO ZAGLAVLJE U VODORAVNOM POLOŽAJU DA SE VIDI KNJIGA DO SAMOG DNA */
+ /* SMANJUJEMO ZAGLAVLJE U VODORAVNOM POLOŽAJU DA SE VIDI KNJIGA DO SAMOG DNA */
  @media (max-width: 900px) and (orientation: landscape) {
    .viewer-header { height: 38px; gap: 2px; padding: 2px 15px; }
    .header-controls span { font-size: 11px !important; }
@@ -143,7 +143,6 @@
  var trenutnaSkala = 1;
  var isMobile = window.innerWidth <= 768;
 
- // Formiranje niza slika sa tačnim trocifrenim formatom iz vaše fascikle slike
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
      var formatiranBroj = i;
      if (i < 10) { formatiranBroj = "00" + i; } 
@@ -199,14 +198,15 @@
  }
 
  function pokreniKontrole() {
-  // Originalna kontrola: nežni klik na traku klizača (+1/-1 strana)
   mojSlider.addEventListener('mousedown', klikNaKlizac);
   mojSlider.addEventListener('touchstart', klikNaKlizac);
 
   function klikNaKlizac(e) {
     if (e.target === mojSlider && e.offsetX !== undefined) {
       var rect = mojSlider.getBoundingClientRect();
-      var procenat = (e.clientX - rect.left) / rect.width;
+      var clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      if(!clientX) return;
+      var procenat = (clientX - rect.left) / rect.width;
       var cilj = Math.round(procenat * UKUPAN_BROJ_STRANICA);
       
       if (Math.abs(cilj - (trenutniIndeks + 1)) > 5) {
@@ -217,12 +217,10 @@
     }
   }
 
-  // Originalna ultra-brza kuglica koja leti prirodnom brzinom miša/prsta
   mojSlider.addEventListener('input', function() {
     prikaziStranicu(parseInt(mojSlider.value) - 1);
   });
 
-  // Originalni točkić miša za uveličavanje i umanjivanje tekstualnog sadržaja
   document.getElementById('book-container').addEventListener('wheel', function(e) {
     e.preventDefault();
     if (e.deltaY < 0) { trenutnaSkala += 0.08; } else { trenutnaSkala -= 0.08; }
@@ -235,5 +233,11 @@
  }
 
  function okreniLevo() { 
+  isMobile = window.innerWidth <= 768;
+  var korak = isMobile ? 1 : 2;
+  if (trenutniIndeks > 0) { prikaziStranicu(Math.max(0, trenutniIndeks - korak)); } 
+ }
+ 
+ function okreniDesno() { 
   isMobile = window.innerWidth <= 768;
   var korak = isMobile ? 1 : 2;
