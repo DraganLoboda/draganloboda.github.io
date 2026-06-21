@@ -52,9 +52,31 @@
  }
  .t-left { left: 0; }
  .t-right { left: 50%; }
- @media (min-width: 769px) { .book-page-img { width: auto; height: calc(100vh - 85px); max-width: 48%; object-fit: contain; } }
- @media (max-width: 768px) { #book-viewer-zone { max-width: 100vw; left: 0; transform: none; border: none; } .book-wrapper { width: 100vw; height: calc(100vh - 65px); } .book-page-img { width: 100%; height: 100%; object-fit: contain; max-width: 100%; } #book-page-right { display: none !important; } .text-click-zone { width: 50%; } }
- @media (max-width: 900px) and (orientation: landscape) { .viewer-header { height: 38px; gap: 2px; padding: 2px 15px; } .header-controls span { font-size: 11px !important; } .nav-input-box { padding: 1px 4px; } .nav-input-box span { font-size: 10px !important; } .page-slider { height: 4px; } .page-slider::-webkit-slider-thumb { width: 14px; height: 14px; } .book-wrapper { height: calc(100vh - 38px); } .book-page-img { height: calc(100vh - 38px); object-fit: contain; } }
+
+ /* KORIGOVAN CSS ZA PROPORCIJU: Sprečava sužavanje stranica na računaru */
+ @media (min-width: 769px) {
+   .book-page-img { width: 48%; height: auto; max-height: calc(100vh - 85px); object-fit: contain; }
+ }
+
+ /* REŽIM ZA TELEFONE */
+ @media (max-width: 768px) {
+   #book-viewer-zone { max-width: 100vw; left: 0; transform: none; border: none; }
+   .book-wrapper { width: 100vw; height: calc(100vh - 65px); }
+   .book-page-img { width: 100%; height: 100%; object-fit: contain; max-width: 100%; }
+   #book-page-right { display: none !important; }
+   .text-click-zone { width: 50%; }
+ }
+
+ @media (max-width: 900px) and (orientation: landscape) {
+   .viewer-header { height: 38px; gap: 2px; padding: 2px 15px; }
+   .header-controls span { font-size: 11px !important; }
+   .nav-input-box { padding: 1px 4px; }
+   .nav-input-box span { font-size: 10px !important; }
+   .page-slider { height: 4px; }
+   .page-slider::-webkit-slider-thumb { width: 14px; height: 14px; }
+   .book-wrapper { height: calc(100vh - 38px); }
+   .book-page-img { height: calc(100vh - 38px); object-fit: contain; }
+ }
  </style>
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
@@ -90,9 +112,12 @@
  var trenutnaSkala = 1;
  var isMobile = window.innerWidth <= 768;
 
- // POPRAVKA: Ubačen obavezni mrežni razmak ispred zagrade i usklađene promenljive
+ // TAČNA AUTOMATSKA GENERACIJA ZA VAŠ FORMAT SA NULAMA ISPRED
  for (var i = 1; i <= UKUPAN_BROJ_STRANICA; i++) {
-     sveStranice.push("./slike-medicina/knjiga1 (" + i + ").jpg");
+     var formatiranBroj = i;
+     if (i < 10) { formatiranBroj = "00" + i; } 
+     else if (i < 100) { formatiranBroj = "0" + i; }
+     sveStranice.push("./slike-medicina/knjiga1-" + formatiranBroj + ".jpg");
  }
 
  var trenutniIndeks = 0;
