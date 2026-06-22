@@ -72,79 +72,119 @@ background: #141d34;
 footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #1e293b; margin-top: 40px; }
 /* NAPREDNA MOBILNA GEOMETRIJA - KREIRA OKVIR I SMUĆUJE FASCICLE NA EKRANU TELEFONA */
   
-/* MOBILE: 3 PROZORA - 3 FASCIKLE PO PROZORU
-(SVAKA FASCIKLA = ŠIRINA 100%, VISINA = 1/3 PROZORA) */
+/* STRUKTURIRANI MOBILNI ARANŽMAN - KONAČNA POPRAVKA SREDNJEG PROZORA 2 */
+@media (max-width: 992px) {
+  header h1 { font-size: 1.8rem !important; }
+  header h2 { font-size: 1.1rem !important; }
+  .quote { font-size: 0.95rem !important; padding: 0 10px !important; }
+  
+  /* SVA TRI PROZORA SU IDENTIČNIH DIMENZIJA I STRUKTURE */
+  .buttons, 
+  div[style*="flex-direction: row"] {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 2px solid #334155 !important;
+    border-radius: 16px !important;
+    padding: 15px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    margin: 0 0 25px 0 !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+  }
 
-/* SVI PROZORI (gornji, srednji, donji) */
-.buttons, 
-div[style*="flex-direction: row"] {
-  display: grid !important;
-  grid-template-columns: 1fr !important;
-  grid-template-rows: repeat(3, 1fr) !important;
-  gap: 10px !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  background: rgba(15, 23, 42, 0.6) !important;
-  border: 2px solid #334155 !important;
-  border-radius: 16px !important;
-  padding: 12px !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-  margin: 0 0 20px 0 !important;
-  box-sizing: border-box !important;
-  height: auto !important;
-  min-height: 0 !important;
-}
+  /* 🔥 UNIFICIRANA MATEMATIKA: SVE MALE FASCIKLE (1, 2, 4, 5, 7, 8) SU APSOLUTNO IDENTIČNE */
+  .buttons .btn, 
+  div[style*="flex-direction: row"] a,
+  div[style*="flex-direction: row"] div:not([style*="border-color"]) {
+    min-height: 100px !important;
+    height: auto !important;
+    width: 100% !important; 
+    padding: 10px 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    grid-column: auto !important;
+    overflow: hidden !important;
+  }
 
-/* SVE TRI FASCIKLE U OKVIRU PROZORA */
-.buttons > *, 
-div[style*="flex-direction: row"] > * {
-  grid-column: 1 / 2 !important;
-  width: 100% !important;
-  height: calc((100% - 20px) / 3) !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  padding: 10px 12px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-  text-align: center !important;
-}
+  /* UNIFICIRANI UNUTRAŠNJI RAM SREDNJIH FASCIKLI (NISTE ZNALI I KNJIGA CENTAR) */
+  div[style*="flex-direction: row"] div {
+    border-width: 2px !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
 
-/* TEKST U FASCIKLAMA */
-.btn-title, 
-h2[style*="color: #d4af37"], 
-h2[style*="color: #ff007f"], 
-h2[style*="color: #38bdf8"] {
-  font-size: 0.98rem !important;
-  line-height: 1.15 !important;
-  margin: 0 !important;
-  font-weight: bold !important;
-  text-align: center !important;
-}
+  /* 🔥 SVA TRI DONJA IZDUŽENA DUGMETA (3, 6, 9) SU APSOLUTNO IDENTIČNA I ŠIRE SE CELOM ŠIRINOM */
+  .buttons div[onclick="aktivirajDeliPortal()"], 
+  div[style*="flex-direction: row"] a[href="caskanje.html"], 
+  .buttons a[href="kontakt.html"] { 
+    grid-column: span 2 !important;
+    width: 100% !important;
+    min-height: 55px !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 8px 15px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
 
-.btn span, 
-.book-folder-box p, 
-p[style*="color: #cbd5e1"] {
-  font-size: 0.76rem !important;
-  line-height: 1.15 !important;
-  margin: 4px 0 0 0 !important;
-  text-align: center !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-}
+  /* IZJEDNAČAVANJE RAMOVA ZA IZDUŽENA DUGMADI */
+  div[style*="flex-direction: row"] a[href="caskanje.html"] div {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    border: none !important;
+    background: transparent !important;
+  }
 
-/* IKONICE UMERENE */
-div[style*="font-size: 26px"], 
-div[style*="font-size: 28px"], 
-div[style*="font-size: 24px"] {
-  font-size: 18px !important;
-  margin: 0 0 6px 0 !important;
-  line-height: 1 !important;
+  /* PRILAGOĐAVANJE VELIČINE TEKSTA NASLOVA ZA SVIH 9 FASCIKLI */
+  .btn-title, h2[style*="color: #d4af37"], h2[style*="color: #ff007f"], h2[style*="color: #38bdf8"] { 
+    font-size: 0.85rem !important; 
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    font-weight: bold !important;
+    text-align: center !important;
+  }
+  
+  /* OPIS UNUTAR FASCIKLI */
+  .btn span, .book-folder-box p, p[style*="color: #00ffcc"], p[style*="color: #cbd5e1"] { 
+    font-size: 0.74rem !important; 
+    line-height: 1.2 !important; 
+    margin: 4px 0 0 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important; 
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+  
+  /* SKRIVANJE PODTEKSTA ZBOG GEOMETRIJE */
+  .buttons div[onclick="aktivirajDeliPortal()"] span,
+  div[style*="flex-direction: row"] a[href="caskanje.html"] p {
+    display: none !important;
+  }
+
+  /* IKONICE */
+  div[style*="font-size: 26px"], div[style*="font-size: 28px"], div[style*="font-size: 24px"] {
+    font-size: 16px !important;
+    margin: 0 !important;
+  }
 }
 
 </style>
@@ -160,7 +200,6 @@ div[style*="font-size: 24px"] {
    📊 UKUPAN DOSADAŠNJI BROJ POSETA SAJTA: 
    <span id="zivi-brojac-cifre" style="color: #00ffcc; font-weight: bold; font-size: 20px; background: #0f172a; padding: 2px 10px; border-radius: 5px; border: 1px solid #334155; margin-left: 5px; letter-spacing: 2px;">00542</span>
 </div>
-
 
 <div class="quote">
 "Ne postoje hiljade bolesti, postoji samo jedna jedina hronična bolest - starenje (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara!"
