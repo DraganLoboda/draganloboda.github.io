@@ -71,56 +71,18 @@ background: #141d34;
 .book { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border-left: 4px solid #d4af37; font-size: 1.1rem; }
 footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #1e293b; margin-top: 40px; }
 /* NAPREDNA MOBILNA GEOMETRIJA - KREIRA OKVIR I SMUĆUJE FASCICLE NA EKRANU TELEFONA */
-@media (max-width: 992px) {
-  header h1 { font-size: 1.9rem; }
-  header h2 { font-size: 1.1rem; }
-  .quote { font-size: 0.95rem; }
   
-  /* PRAVOUGAONIK OKO SVIH FASCICLE NA TELEFONU */
-  .buttons {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
-    background: rgba(15, 23, 42, 0.6);
-    border: 2px solid #334155;
-    border-radius: 16px;
-    padding: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-  
-  /* ŠIRENJE SREDNJEG REDA U MOBILNU REŠETKU */
-  div[style*="flex-direction: row"] {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-  }
-  
-  /* ŠIRENJE ŠIROKIH DUGMIĆA DA NE CURE VAN EKRANA */
-  a[href="medicina-teorija-jpg.html"],
-  a[href="donacije.html"] {
-    grid-column: span 2 !important;
-  }
-  
-  .btn {
-    min-height: 110px !important;
-    padding: 12px 8px !important;
-  }
-  .btn-title { font-size: 0.95rem !important; }
-}
-
-/* STRUKTURIRANI MOBILNI ARANŽMAN - 2 VELIKE FASCIKLE + IZDUŽENI KONTAKT */
+/* STRUKTURIRANI MOBILNI ARANŽMAN - 3 IDENTIČNA PROZORA SA ŠIROKIM DONJIM DUGMADI */
 @media (max-width: 992px) {
   header h1 { font-size: 1.8rem !important; }
   header h2 { font-size: 1.1rem !important; }
   .quote { font-size: 0.95rem !important; padding: 0 10px !important; }
   
-  /* UKLANJAMO FIKSNU VISINU: Prozori sada dišu i automatski se šire prema tekstu */
+  /* SVA TRI PROZORA SU APSOLUTNO IDENTIČNIH DIMENZIJA */
   .buttons, 
   div[style*="flex-direction: row"] {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* Tačno 2 kolone sa po 2 elementa */
+    grid-template-columns: repeat(2, 1fr) !important; /* Dve kolone za gornja dva dugmeta */
     gap: 12px !important;
     width: 100% !important;
     background: rgba(15, 23, 42, 0.6) !important;
@@ -128,23 +90,15 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     border-radius: 16px !important;
     padding: 15px !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-    margin: 0 0 20px 0 !important;
+    margin: 0 0 25px 0 !important;
     box-sizing: border-box !important;
-    height: auto !important; /* Ključna izmena za stabilnost */
+    height: auto !important; /* Prozori dišu prirodno prema tekstu */
   }
 
-  /* UKIDAMO BILO KAKVO ŠIRENJE UNUTRAŠNJIH DUGMIĆA */
-  div[style*="border: 2px solid #d4af37"], 
-  div[style*="border-color: #00ffcc"],     
-  a[href="medicina-teorija-jpg.html"],     
-  a[href="donacije.html"] {                
-    grid-column: auto !important;
-    width: 100% !important;
-  }
-
-  /* UNUTRAŠNJA DUGMAD - Fleksibilna visina i bolji prostor za tekst */
-  .btn, .book-folder-box, div[style*="border: 2px solid #ff007f"], div[style*="border: 2px solid #38bdf8"] {
-    min-height: 100px !important; /* Dovoljno prostora da se ništa ne sakrije */
+  /* MANJA DUGMAD - MANJE I IDENTIČNE DIMENZIJE (1, 2, 4, 5, 7, 8) */
+  .btn, 
+  .book-folder-box {
+    min-height: 100px !important;
     height: auto !important;
     width: 100% !important;   
     padding: 10px 6px !important;
@@ -154,28 +108,39 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     align-items: center !important;
     box-sizing: border-box !important;
     margin: 0 !important;
+    grid-column: auto !important; /* Resetuje se na običnu kolonu */
   }
 
-  /* DEVETO DUGME: KONTAKT AUTORA - Ostaje elegantno izduženo na dnu */
-  a[href="kontakt.html"] {
-    grid-column: span 2 !important;
+  /* KANTA FORSIRA DA SE SVA TRI DONJA DUGMETA (3, 6, 9) RAŠIRE CELOM ŠIRINOM */
+  div[style*="border-color: #00ffcc"],     /* Dugme 3: Deli portal */
+  a[href="caskanje.html"],                 /* Dugme 6: Javno ćaskanje */
+  a[href="kontakt.html"] {                 /* Dugme 9: Kontakt autora */
+    grid-column: span 2 !important; /* Širenje preko cele širine u donjoj polovini prozora */
     width: 100% !important;
-    height: 55px !important;
+    min-height: 60px !important; /* Suženo po visini */
+    height: auto !important;
     display: flex !important;
-    flex-direction: row !important;
+    flex-direction: row !important; /* Horizontalno poravnanje teksta unutar širokih dugmadi */
     justify-content: center !important;
     align-items: center !important;
     gap: 10px !important;
-    border: 2px solid #d4af37 !important;
-    background: #1e293b !important;
-    border-radius: 12px !important;
-    padding: 0 15px !important;
-    margin-top: -5px !important;
+    padding: 10px 15px !important;
   }
 
-  /* POPRAVKA PREGLEDNOSTI I VELIČINE TEKSTA */
+  /* KOREKCIJA SPECIFIČNIH DONJIH ELEMENATA DA NE GURAJU PROZOR */
+  div[style*="border-color: #00ffcc"] .btn-title,
+  a[href="caskanje.html"] .btn-title,
+  a[href="kontakt.html"] .btn-title {
+    margin-bottom: 0 !important;
+    font-size: 0.88rem !important;
+  }
+  div[style*="border-color: #00ffcc"] span {
+    display: none !important; /* Skrivamo dugi tekst deljenja na telefonu radi sužene visine */
+  }
+
+  /* POPRAVKA PREGLEDNOSTI I VELIČINE TEKSTA ZA SVA DUGMADA */
   .btn-title, h2[style*="color: #d4af37"], h2[style*="color: #ff007f"], h2[style*="color: #38bdf8"] { 
-    font-size: 0.88rem !important; /* Povećano sa 0.78 radi lakšeg čitanja */
+    font-size: 0.88rem !important; 
     line-height: 1.2 !important;
     margin: 0 0 4px 0 !important;
     font-weight: bold !important;
@@ -183,12 +148,12 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
   }
   
   .btn span, .book-folder-box p, p[style*="color: #00ffcc"], p[style*="color: #cbd5e1"] { 
-    font-size: 0.78rem !important; /* Povećano sa 0.68 da se oči ne zamaraju */
+    font-size: 0.78rem !important; 
     line-height: 1.3 !important; 
     margin: 0 !important;
     padding: 0 !important;
     text-align: center !important;
-    display: block !important; /* Dozvoljavamo tekstu da se normalno prelomi u red ispod */
+    display: block !important;
     overflow: visible !important;
   }
   
@@ -198,6 +163,7 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     margin-bottom: 4px !important;
   }
 }
+
 
 </style>
 </head>
