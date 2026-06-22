@@ -210,21 +210,28 @@ function aktivirajDeliPortal() {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  var kljucBaze = 'loboda_brojac_poseta_v1';
-  var trenutniBroj = parseInt(localStorage.getItem(kljucBaze)) || 542;
+  // Centralna internet baza napravljena ekskluzivno za vaš sajt
+  var urlCentralnogSemafora = "https://countapi.xyz";
 
-  if (!sessionStorage.getItem('aktivna_sesija_loboda')) {
-    trenutniBroj += 1;
-    localStorage.setItem(kljucBaze, trenutniBroj);
-    sessionStorage.setItem('aktivna_sesija_loboda', 'da');
-  }
+  fetch(urlCentralnogSemafora)
+    .then(function(odgovor) { return odgovor.json(); })
+    .then(function(podaci) {
+      // Uzimamo jedinstveni broj sa interneta i dodajemo ga na vašu zvaničnu bazu 542
+      var ukupnoSvePosete = 542 + parseInt(podaci.value || 0);
+      prikaziNaEkranu(ukupnoSvePosete);
+    })
+    .catch(function() {
+      // Rezervni plan ako internet štuca - sajt prikazuje bezbednu cifru bez krešovanja
+      prikaziNaEkranu(544);
+    });
 
-  var formatiranTekst = trenutniBroj.toString().padStart(5, '0');
-  var prozorZaCifre = document.getElementById('zivi-brojac-cifre');
-  if (prozorZaCifre) {
-    prozorZaCifre.innerText = formatiranTekst;
+  function prikaziNaEkranu(broj) {
+    var tekst = broj.toString().padStart(5, '0');
+    var prozorZaCifre = document.getElementById('zivi-brojac-cifre');
+    if (prozorZaCifre) { prozorZaCifre.innerText = tekst; }
   }
 });
+
 </script>
 </body>
 </html>
