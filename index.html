@@ -110,21 +110,31 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
   .btn-title { font-size: 0.95rem !important; }
 }
 
- /* UNIFICIRANE I SMANJENE FASCICLE ZA TELEFONE - SVIH 9 JEDNAKE */
+/* STRUKTURIRANI MOBILNI ARANŽMAN - 2 VELIKE FASCIKLE + IZDUŽENI KONTAKT */
 @media (max-width: 992px) {
   header h1 { font-size: 1.8rem !important; }
   header h2 { font-size: 1.1rem !important; }
   .quote { font-size: 0.95rem !important; padding: 0 10px !important; }
   
+  /* STVARAMO DVA VELIKA PROZORA IDENTIČNIH DIMENZIJA NA TELEFONU */
   .buttons, 
   div[style*="flex-direction: row"] {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
     width: 100% !important;
-    margin: 0 0 10px 0 !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 2px solid #334155 !important;
+    border-radius: 16px !important;
+    padding: 15px 10px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    margin: 0 0 20px 0 !important;
+    box-sizing: border-box !important;
+    height: 270px !important; /* Fiksna i identična visina za oba velika prozora */
+    overflow: hidden !important;
   }
 
+  /* UKIDAMO BILO KAKVO ŠIRENJE UNUTRAŠNJIH DUGMIĆA */
   div[style*="border: 2px solid #d4af37"], 
   div[style*="border-color: #00ffcc"],     
   a[href="medicina-teorija-jpg.html"],     
@@ -133,46 +143,65 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     width: 100% !important;
   }
 
-  /* POPRAVKA: FORSIRAMO IDENTIČNU VISINU ZA SVIH 9 KUTIJA UKLJUČUJUĆI I SREDNJE */
+  /* REZERVACIJA I FIX SVIH 8 DUGMADI NA JEDNAKE DIMENZIJE (PUNIH 2X2 UNUTAR OKVIRA) */
   .btn, .book-folder-box, div[style*="border: 2px solid #ff007f"], div[style*="border: 2px solid #38bdf8"] {
-    height: 110px !important; /* Spušteno sa 125px na 110px da budu još manje i preglendije */
+    height: 110px !important; /* Svih 8 unutrašnjih dugmadi su u milimetar iste visine */
     width: 100% !important;   
-    padding: 8px 5px !important;
+    padding: 6px 4px !important;
     overflow: hidden !important; 
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
     box-sizing: border-box !important;
+    margin: 0 !important;
   }
 
-  /* SMANJIVANJE UNUTRAŠNJEG TEKSTA SREDNJIH FASCIKLI DA NE GURAJU OKVIR */
+  /* DEVETO DUGME: KONTAKT AUTORA - IZDUŽENO PO ŠIRINI, SUŽENO PO VISINI */
+  a[href="kontakt.html"] {
+    grid-column: span 2 !important;
+    width: 100% !important;
+    height: 60px !important; /* Suženo po visini */
+    display: flex !important;
+    flex-direction: row !important; /* Horizontalno poravnanje teksta */
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    border: 2px solid #d4af37 !important;
+    background: #1e293b !important;
+    border-radius: 12px !important;
+    padding: 0 15px !important;
+    margin-top: -10px !important;
+  }
+
+  /* PRILAGOĐAVANJE TEKSTA DA SVE BUDE MAKSIMALNO PREGLEDNO */
   .btn-title, h2[style*="color: #d4af37"], h2[style*="color: #ff007f"], h2[style*="color: #38bdf8"] { 
-    font-size: 0.8rem !important; 
+    font-size: 0.78rem !important; 
     line-height: 1.1 !important;
-    margin-top: 0 !important;
-    margin-bottom: 3px !important;
+    margin: 0 0 2px 0 !important;
     font-weight: bold !important;
+    text-align: center !important;
   }
   
   .btn span, .book-folder-box p, p[style*="color: #00ffcc"], p[style*="color: #cbd5e1"] { 
-    font-size: 0.7rem !important; 
+    font-size: 0.68rem !important; 
     line-height: 1.2 !important; 
     margin: 0 !important;
     padding: 0 !important;
+    text-align: center !important;
     display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important; /* Samo dva reda sitnog teksta na telefonu */
+    -webkit-line-clamp: 2 !important; /* Maksimalno 2 reda kraćeg teksta unutar dugmeta */
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
   }
   
-  /* Smanjujemo i sličice u srednjem redu da ne troše prostor */
-  div[style*="font-size: 26px"], div[style*="font-size: 28px"] {
-    font-size: 18px !important;
-    margin-bottom: 2px !important;
+  /* Smanjujemo ikonice na 16px da oslobodimo prostor */
+  div[style*="font-size: 26px"], div[style*="font-size: 28px"], div[style*="font-size: 24px"] {
+    font-size: 16px !important;
+    margin-bottom: 1px !important;
   }
 }
-
+ 
 </style>
 </head>
 <body>
