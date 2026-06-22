@@ -70,11 +70,46 @@ background: #141d34;
 .books { display: flex; flex-direction: column; gap: 15px; max-width: 800px; margin: auto; }
 .book { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border-left: 4px solid #d4af37; font-size: 1.1rem; }
 footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #1e293b; margin-top: 40px; }
-@media(max-width:768px){
-header h1 { font-size: 2rem; }
-header h2 { font-size: 1.2rem; }
-.quote { font-size: 1rem; }
+/* NAPREDNA MOBILNA GEOMETRIJA - KREIRA OKVIR I SMUĆUJE FASCICLE NA EKRANU TELEFONA */
+@media (max-width: 992px) {
+  header h1 { font-size: 1.9rem; }
+  header h2 { font-size: 1.1rem; }
+  .quote { font-size: 0.95rem; }
+  
+  /* PRAVOUGAONIK OKO SVIH FASCICLE NA TELEFONU */
+  .buttons {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid #334155;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  
+  /* ŠIRENJE SREDNJEG REDA U MOBILNU REŠETKU */
+  div[style*="flex-direction: row"] {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  
+  /* ŠIRENJE ŠIROKIH DUGMIĆA DA NE CURE VAN EKRANA */
+  a[href="medicina-teorija-jpg.html"],
+  a[href="donacije.html"] {
+    grid-column: span 2 !important;
+  }
+  
+  .btn {
+    min-height: 110px !important;
+    padding: 12px 8px !important;
+  }
+  .btn-title { font-size: 0.95rem !important; }
 }
+
 </style>
 </head>
 <body>
