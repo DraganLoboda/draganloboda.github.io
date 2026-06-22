@@ -208,7 +208,33 @@ function aktivirajDeliPortal() {
       });
     }
 }
+        .catch(function() {
+        alert(adresaPortala);
+      });
+    }
+}
+
+// ŽIVI PROGRAM: AUTOMATSKI DIŽE CIFRE U VAŠEM PROZORU POČEV OD 542
+window.addEventListener('DOMContentLoaded', function() {
+  var kljucBaze = 'loboda_brojac_poseta_v1';
+  var trenutniBroj = parseInt(localStorage.getItem(kljucBaze)) || 542;
+
+  // Sa svakim novim osvežavanjem ili ulaskom na sajt broj skače za +1
+  if (!sessionStorage.getItem('aktivna_sesija_loboda')) {
+    trenutniBroj += 1;
+    localStorage.setItem(kljucBaze, trenutniBroj);
+    sessionStorage.setItem('aktivna_sesija_loboda', 'da');
+  }
+
+  // Formatiranje i ispisivanje u vašem lepom neon-zelenom prozoru
+  var formatiranTekst = trenutniBroj.toString().padStart(5, '0');
+  var prozorZaCifre = document.getElementById('zivi-brojac-cifre');
+  if (prozorZaCifre) {
+    prozorZaCifre.innerText = formatiranTekst;
+  }
+});
 </script>
 </body>
 </html>
+
 
