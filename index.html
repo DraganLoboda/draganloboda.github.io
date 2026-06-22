@@ -96,14 +96,13 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     height: auto !important;
   }
 
-  /* 🔥 UNIFICIRANA MATEMATIKA: SVE MALE FASCIKLE (1, 2, 4, 5, 7, 8) SU APSOLUTNO IDENTIČNE */
-  .buttons .btn, 
-  div[style*="flex-direction: row"] a,
-  div[style*="flex-direction: row"] div:not([style*="border-color"]) {
+    /* GORNJE I DONJE MALE FASCIKLE (1, 2, 7, 8) */
+  .buttons:nth-of-type(1) .btn,
+  .buttons:nth-of-type(3) .btn {
     min-height: 100px !important;
-    height: auto !important;
+    height: 110px !important; 
     width: 100% !important; 
-    padding: 10px 6px !important;
+    padding: 8px 5px !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -114,13 +113,20 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     overflow: hidden !important;
   }
 
-  /* UNIFICIRANI UNUTRAŠNJI RAM SREDNJIH FASCIKLI (NISTE ZNALI I KNJIGA CENTAR) */
-  div[style*="flex-direction: row"] div {
-    border-width: 2px !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    height: 100% !important;
-    width: 100% !important;
+  /* SREDNJE FASCIKLE (4 i 5) - BLAGO POVEĆANE DA SE VIDI CEO TEKST SA ŠIFROM */
+  .buttons:nth-of-type(2) .btn {
+    min-height: 135px !important;
+    height: 145px !important; 
+    width: 100% !important; 
+    padding: 10px 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    grid-column: auto !important;
+    overflow: hidden !important;
   }
 
   /* 🔥 SVA TRI DONJA IZDUŽENA DUGMETA (3, 6, 9) SU APSOLUTNO IDENTIČNA I ŠIRE SE CELOM ŠIRINOM */
@@ -240,10 +246,10 @@ Podelite kompletnu digitalnu biblioteku, knjige i kalkulator Protokola Loboda. J
    <span>Smešne zanimljivosti</span>
    </a>
 
-   <!-- DUGME 5: REDOKS JURIŠ (CELA KNJIGA PDF) -->
+      <!-- DUGME 5: REDOKS JURIŠ (CELA KNJIGA PDF) -->
    <a href="knjiga-celaPDF-telefoni.html" class="btn" style="border-color: #d4af37;">
    <div class="btn-title" style="color: #d4af37;">📖 REDOKS JURIŠ (Cela knjiga PDF)</div>
-   <span>Knjiga otkriva naučne mehanizme starenja i produženja veka.</span>
+   <span>Knjiga otkriva naučne mehanizme starenja i produženja veka. Šifra: REDOX2026</span>
    </a>
 
    <!-- DUGME 6: JAVNO ĆASKANJE -->
