@@ -72,57 +72,7 @@ background: #141d34;
 footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #1e293b; margin-top: 40px; }
 /* NAPREDNA MOBILNA GEOMETRIJA - KREIRA OKVIR I SMUĆUJE FASCICLE NA EKRANU TELEFONA */
   
-/* STRUČNA POPRAVKA SIMETRIJE SREDNJEG PROZORA 2 NA TELEFONU */
-@media (max-width: 992px) {
-  header h1 { font-size: 1.8rem !important; }
-  header h2 { font-size: 1.1rem !important; }
-  .quote { font-size: 0.95rem !important; padding: 0 10px !important; }
-  
-  /* UKROTILI SMO SVA TRI PROZORA DA BUDU IDENTIČNE VISINE */
-  .buttons, 
-  div[style*="flex-direction: row"] {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    background: rgba(15, 23, 42, 0.6) !important;
-    border: 2px solid #334155 !important;
-    border-radius: 16px !important;
-    padding: 15px !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-    margin: 0 0 25px 0 !important;
-    box-sizing: border-box !important;
-    height: auto !important;
-  }
-
-  /* 💡 ZAKLJUČAVAMO FIKSNU VISINU ZA SVE MALE KOCKICE DA NE RASTU (1=2=4=5=7=8) */
-  .buttons .btn, 
-  div[style*="flex-direction: row"] > a,
-  div[style*="flex-direction: row"] > a > div {
-    min-height: 110px !important;
-    height: 110px !important; 
-    width: 100% !important; 
-    padding: 10px 6px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    box-sizing: border-box !important;
-    margin: 0 !important;
-    grid-column: auto !important;
-    overflow: hidden !important;
-  }
-
-  /* PORAVNANJE UNUTRAŠNJIH STRUKTURA SREDNJEG REDA */
-  div[style*="flex-direction: row"] {
-    margin: 0 0 25px 0 !important;
-  }
-  div[style*="flex-direction: row"] > a {
-    height: auto !important;
-  }
-
-  /* STRUKTURIRANI MOBILNI ARANŽMAN - KONAČNA POPRAVKA SREDNJEG PROZORA 2 */
+/* STRUKTURIRANI MOBILNI ARANŽMAN - KONAČNA POPRAVKA SREDNJEG PROZORA 2 */
 @media (max-width: 992px) {
   header h1 { font-size: 1.8rem !important; }
   header h2 { font-size: 1.1rem !important; }
@@ -236,6 +186,7 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     margin: 0 !important;
   }
 }
+
 
 </style>
 </head>
