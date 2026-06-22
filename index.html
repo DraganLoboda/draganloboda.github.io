@@ -222,14 +222,14 @@ function aktivirajDeliPortal() {
 
 window.addEventListener('DOMContentLoaded', function() {
   // 1. Povezivanje na tvoj domen preko Abacus API mreže
-  fetch('https://jasoncameron.dev/abacus/hit/draganloboda.github.io/portal')
+  fetch('https://abacus.jasoncameron.dev/hit/draganloboda.github.io/portal')
     .then(function(response) {
       if (!response.ok) throw new Error('Mreža ne odgovara');
       return response.json();
     })
     .then(function(data) {
       // 2. Uzimamo broj sa mreže i sabiramo ga sa tvojom startnom bazom 542
-      var ukupnoSvePosete = 542 + parseInt(data.value || data.count || 0);
+      var ukupnoSvePosete = 542 + parseInt(data.value || 0);
       prikaziNaEkranu(ukupnoSvePosete);
     })
     .catch(function() {
