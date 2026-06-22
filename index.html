@@ -222,13 +222,13 @@ function aktivirajDeliPortal() {
 
 window.addEventListener('DOMContentLoaded', function() {
   // Povezivanje na zvaničnu i tačnu mrežnu bazu podataka za vaš domen
-  fetch('https://api.countapi.io/hit/draganloboda/portal')
+  fetch('https://counterapi.dev/hit/draganloboda/portal')
     .then(function(response) {
       return response.json();
     })
     .then(function(data) {
       // Automatsko dodavanje mrežnih poseta na vašu čvrstu bazu 542
-      var ukupnoSvePosete = 542 + parseInt(data.value || 0);
+      var ukupnoSvePosete = 542 + parseInt(data.count || 0);
       prikaziNaEkranu(ukupnoSvePosete);
     })
     .catch(function() {
