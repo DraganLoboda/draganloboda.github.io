@@ -122,32 +122,76 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     height: auto !important;
   }
 
-  /* 💡 SAKRIVAMO PROMO-TEKST KOD ŽUTE KNJIGE SAMO NA TELEFONU DA NE RUŠI GEOMETRIJU */
-  div[style*="flex-direction: row"] p,
-  p[style*="color: #00ffcc"] {
-    display: none !important;
+  /* STRUKTURIRANI MOBILNI ARANŽMAN - KONAČNA POPRAVKA SREDNJEG PROZORA 2 */
+@media (max-width: 992px) {
+  header h1 { font-size: 1.8rem !important; }
+  header h2 { font-size: 1.1rem !important; }
+  .quote { font-size: 0.95rem !important; padding: 0 10px !important; }
+  
+  /* SVA TRI PROZORA SU IDENTIČNIH DIMENZIJA I STRUKTURE */
+  .buttons, 
+  div[style*="flex-direction: row"] {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 2px solid #334155 !important;
+    border-radius: 16px !important;
+    padding: 15px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    margin: 0 0 25px 0 !important;
+    box-sizing: border-box !important;
+    height: auto !important;
   }
 
-  /* 🔥 SVA TRI DONJA ŠIROKA DUGMETA (3, 6, 9) SE SADA ŠIRE IDENTIČNO PREKO CELE ŠIRINE */
+  /* 🔥 UNIFICIRANA MATEMATIKA: SVE MALE FASCIKLE (1, 2, 4, 5, 7, 8) SU APSOLUTNO IDENTIČNE */
+  .buttons .btn, 
+  div[style*="flex-direction: row"] a,
+  div[style*="flex-direction: row"] div:not([style*="border-color"]) {
+    min-height: 100px !important;
+    height: auto !important;
+    width: 100% !important; 
+    padding: 10px 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    grid-column: auto !important;
+    overflow: hidden !important;
+  }
+
+  /* UNIFICIRANI UNUTRAŠNJI RAM SREDNJIH FASCIKLI (NISTE ZNALI I KNJIGA CENTAR) */
+  div[style*="flex-direction: row"] div {
+    border-width: 2px !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  /* 🔥 SVA TRI DONJA IZDUŽENA DUGMETA (3, 6, 9) SU APSOLUTNO IDENTIČNA I ŠIRE SE CELOM ŠIRINOM */
   .buttons div[onclick="aktivirajDeliPortal()"], 
   div[style*="flex-direction: row"] a[href="caskanje.html"], 
   .buttons a[href="kontakt.html"] { 
     grid-column: span 2 !important;
     width: 100% !important;
     min-height: 55px !important;
-    height: 55px !important; 
+    height: auto !important;
     display: flex !important;
     flex-direction: row !important;
     justify-content: center !important;
     align-items: center !important;
     gap: 10px !important;
-    padding: 5px 15px !important;
+    padding: 8px 15px !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
-    margin: 0 !important;
   }
 
-  /* PORAVNANJE UNUTRAŠNJEG RAMA ZA PLAVO ĆASKANJE */
+  /* IZJEDNAČAVANJE RAMOVA ZA IZDUŽENA DUGMADI */
   div[style*="flex-direction: row"] a[href="caskanje.html"] div {
     display: flex !important;
     flex-direction: row !important;
@@ -156,11 +200,9 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     gap: 10px !important;
     border: none !important;
     background: transparent !important;
-    height: auto !important;
-    padding: 0 !important;
   }
 
-  /* REZANJE PREDUGAČKOG TEKSTA NASLOVA ZA TELEFON */
+  /* PRILAGOĐAVANJE VELIČINE TEKSTA NASLOVA ZA SVIH 9 FASCIKLI */
   .btn-title, h2[style*="color: #d4af37"], h2[style*="color: #ff007f"], h2[style*="color: #38bdf8"] { 
     font-size: 0.85rem !important; 
     line-height: 1.2 !important;
@@ -169,7 +211,8 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     text-align: center !important;
   }
   
-  .btn span, .book-folder-box p, p[style*="color: #cbd5e1"] { 
+  /* OPIS UNUTAR FASCIKLI */
+  .btn span, .book-folder-box p, p[style*="color: #00ffcc"], p[style*="color: #cbd5e1"] { 
     font-size: 0.74rem !important; 
     line-height: 1.2 !important; 
     margin: 4px 0 0 0 !important;
@@ -181,7 +224,7 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     overflow: hidden !important;
   }
   
-  /* GASIMO DODATNE OPISA NA ŠIROKIM DUGMADI DA SVE TRI BUDU RAVNE TRAKE */
+  /* SKRIVANJE PODTEKSTA ZBOG GEOMETRIJE */
   .buttons div[onclick="aktivirajDeliPortal()"] span,
   div[style*="flex-direction: row"] a[href="caskanje.html"] p {
     display: none !important;
@@ -193,7 +236,6 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     margin: 0 !important;
   }
 }
-
 
 </style>
 </head>
