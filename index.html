@@ -209,29 +209,37 @@ function aktivirajDeliPortal() {
   }
 }
 
+<script>
 window.addEventListener('DOMContentLoaded', function() {
-  // Centralna internet baza napravljena ekskluzivno za vaš sajt
-  var urlCentralnogSemafora = "https://countapi.xyz";
 
-  fetch(urlCentralnogSemafora)
-    .then(function(odgovor) { return odgovor.json(); })
-    .then(function(podaci) {
-      // Uzimamo jedinstveni broj sa interneta i dodajemo ga na vašu zvaničnu bazu 542
-      var ukupnoSvePosete = 542 + parseInt(podaci.value || 0);
+  fetch('https://api.countapi.xyz/hit/draganloboda/portal')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+
+      var ukupnoSvePosete = 542 + parseInt(data.value || 0);
+
       prikaziNaEkranu(ukupnoSvePosete);
     })
     .catch(function() {
-      // Rezervni plan ako internet štuca - sajt prikazuje bezbednu cifru bez krešovanja
-      prikaziNaEkranu(544);
+
+      prikaziNaEkranu(542);
+
     });
 
   function prikaziNaEkranu(broj) {
-    var tekst = broj.toString().padStart(5, '0');
-    var prozorZaCifre = document.getElementById('zivi-brojac-cifre');
-    if (prozorZaCifre) { prozorZaCifre.innerText = tekst; }
-  }
-});
 
+    var tekst = broj.toString().padStart(5, '0');
+
+    var prozorZaCifre = document.getElementById('zivi-brojac-cifre');
+
+    if (prozorZaCifre) {
+      prozorZaCifre.innerText = tekst;
+    }
+  }
+
+});
 
 </script>
 </body>
