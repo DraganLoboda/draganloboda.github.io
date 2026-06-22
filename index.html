@@ -179,7 +179,19 @@ Informacije i zahtevi za pristup ključevima
 <div class="book">📕 Redoks juriš - Dostizanje maksimalnog genetskog koda dugovečnosti (ISBN 978-86-903366-2-3)</div>
 </div>
 </section>
-<footer>
+
+<div id="zivi-brojac-cifre"
+     style="
+     font-family: monospace;
+     font-size: 32px;
+     font-weight: bold;
+     color: #00ffcc;
+     text-align: center;
+     margin: 30px auto;">
+00000
+</div>
+   
+Da li je sada dobar ovaj tekst?<footer>
 © 2026 Dragan Loboda | Naučna alternativna medicina
 </footer>
 <div style="max-width: 800px; margin: 40px auto 20px auto; padding: 15px; border-top: 1px solid #334155; text-align: center;">
@@ -191,7 +203,7 @@ Informacije i zahtevi za pristup ključevima
 <!-- ISPRAVNA SKRIPTA ZA DELJENJE I AUTOMATSKO BROJANJE -->
 <script>
 function aktivirajDeliPortal() {
-  var adresaPortala = "https://draganloboda.github.io";
+  var adresaPortala = "https://draganloboda.github.io/";
   if (navigator.share) {
     navigator.share({
       title: "★ PROTOKOL LOBODA ★",
@@ -209,40 +221,31 @@ function aktivirajDeliPortal() {
   }
 }
 
-<script>
 window.addEventListener('DOMContentLoaded', function() {
-
+  // Povezivanje na zvaničnu i tačnu mrežnu bazu podataka za vaš domen
   fetch('https://api.countapi.xyz/hit/draganloboda/portal')
     .then(function(response) {
       return response.json();
     })
     .then(function(data) {
-
+      // Automatsko dodavanje mrežnih poseta na vašu čvrstu bazu 542
       var ukupnoSvePosete = 542 + parseInt(data.value || 0);
-
       prikaziNaEkranu(ukupnoSvePosete);
     })
     .catch(function() {
-
+      // Bezbednosni povratak na vašu lepu fiksnu cifru u slučaju pada mreže
       prikaziNaEkranu(542);
-
     });
 
   function prikaziNaEkranu(broj) {
-
     var tekst = broj.toString().padStart(5, '0');
-
     var prozorZaCifre = document.getElementById('zivi-brojac-cifre');
-
     if (prozorZaCifre) {
       prozorZaCifre.innerText = tekst;
     }
   }
-
 });
-
 </script>
 </body>
 </html>
-
 
