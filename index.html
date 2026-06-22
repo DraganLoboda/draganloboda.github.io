@@ -221,23 +221,25 @@ function aktivirajDeliPortal() {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  // Povezivanje na zvaničnu i tačnu mrežnu bazu podataka za vaš domen
-  fetch('https://counterapi.dev/hit/draganloboda/portal')
+  // 1. Povezivanje na tvoj domen preko Abacus API mreže
+  fetch('https://jasoncameron.dev/abacus/hit/draganloboda.github.io/portal')
     .then(function(response) {
+      if (!response.ok) throw new Error('Mreža ne odgovara');
       return response.json();
     })
     .then(function(data) {
-      // Automatsko dodavanje mrežnih poseta na vašu čvrstu bazu 542
-      var ukupnoSvePosete = 542 + parseInt(data.count || 0);
+      // 2. Uzimamo broj sa mreže i sabiramo ga sa tvojom startnom bazom 542
+      var ukupnoSvePosete = 542 + parseInt(data.value || data.count || 0);
       prikaziNaEkranu(ukupnoSvePosete);
     })
     .catch(function() {
-      // Bezbednosni povratak na vašu lepu fiksnu cifru u slučaju pada mreže
+      // 3. Ako mreža padne, bezbedno prikazuje tvoju fiksnu bazu 542
       prikaziNaEkranu(542);
     });
 
   function prikaziNaEkranu(broj) {
     var tekst = broj.toString().padStart(5, '0');
+    // 4. Ispravljena oznaka za tvoj tačan zeleni prozor
     var prozorZaCifre = document.getElementById('zivi-brojac-cifre');
     if (prozorZaCifre) {
       prozorZaCifre.innerText = tekst;
@@ -247,4 +249,6 @@ window.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
+
 
