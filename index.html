@@ -72,35 +72,35 @@ background: #141d34;
 footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #1e293b; margin-top: 40px; }
 /* NAPREDNA MOBILNA GEOMETRIJA - KREIRA OKVIR I SMUĆUJE FASCICLE NA EKRANU TELEFONA */
   
-/* ZLATNI PROZOR TELEFONI 3.0 - POVRATAK NA STABILNU GEOMETRIJU AUTORA */
+/* ZLATNI PROZOR TELEFONI - DODATNO PROŠIRENJE ZA 1/4 PREMA UPUTSTVU AUTORA */
 @media (max-width: 992px) {
   header h1 { font-size: 1.8rem !important; }
   header h2 { font-size: 1.1rem !important; }
   .quote { font-size: 0.95rem !important; padding: 0 10px !important; }
   
-  /* SVA TRI PROZORA SU APSOLUTNO IDENTIČNIH DIMENZIJA */
+  /* SVA TRI PROZORA SU IDENTIČNA I PRODREŽENA ZA JEDNU ČETVRTINU */
   .buttons {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
+    gap: 14px !important;
     width: 100% !important;
     max-width: 100% !important;
     background: rgba(15, 23, 42, 0.6) !important;
     border: 2px solid #334155 !important;
     border-radius: 16px !important;
-    padding: 15px !important;
+    padding: 18px 15px !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-    margin: 0 0 25px 0 !important;
+    margin: 0 0 30px 0 !important;
     box-sizing: border-box !important;
     height: auto !important;
   }
 
-  /* GORNJE FASCIKLE (1, 2, 4, 5, 7, 8) - FIKSIRANO NA 145PX */
+  /* MALE FASCIKLE (1, 2, 4, 5, 7, 8) - RECIPROČNO PRODUŽENE NA KRAVREVSKIH 220PX */
   .buttons .btn {
-    min-height: 145px !important;
-    height: 145px !important; 
+    min-height: 220px !important;
+    height: 220px !important; 
     width: 100% !important; 
-    padding: 12px 8px !important;
+    padding: 15px 10px !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -111,49 +111,49 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     overflow: hidden !important;
   }
 
-  /* DONJE FASCIKLE (3, 6, 9) - ŠIRENJE OD IVICE DO IVICE, VISINA FIKSIRANO NA 55PX */
+  /* ŠIROKE FASCIKLE (3, 6, 9) - RECIPROČNO PROŠIRENE NA MOĆNIH 80PX VISINE */
   .buttons div[onclick="aktivirajDeliPortal()"], 
   .buttons a[href="caskanje.html"], 
   .buttons a[href="kontakt.html"] { 
     grid-column: span 2 !important; 
     width: 100% !important;
-    min-height: 55px !important;
-    height: 55px !important; 
+    min-height: 80px !important;
+    height: 80px !important; 
     display: flex !important;
     flex-direction: row !important; 
     justify-content: center !important;
     align-items: center !important;
-    gap: 10px !important;
-    padding: 5px 15px !important;
+    gap: 12px !important;
+    padding: 10px 20px !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
     margin: 0 !important;
   }
 
-  /* VELIČINA TEKSTA I KOREKCIJA ZA TELEFONE VERZIJA 3.0 */
+  /* VELIČINA TEKSTA ZA APSOLUTNU ČITLJIVOST USMED USKOG EKRANA */
   .btn-title { 
-    font-size: 0.88rem !important; 
-    line-height: 1.2 !important;
+    font-size: 0.92rem !important; 
+    line-height: 1.3 !important;
     margin: 0 !important;
     font-weight: bold !important;
     text-align: center !important;
   }
   
   .btn span { 
-    font-size: 0.76rem !important; 
-    line-height: 1.25 !important; 
-    margin: 6px 0 0 0 !important;
+    font-size: 0.78rem !important; 
+    line-height: 1.35 !important; 
+    margin: 8px 0 0 0 !important;
     padding: 0 !important;
     text-align: center !important;
     display: -webkit-box !important;
-    -webkit-line-clamp: 3 !important; 
+    -webkit-line-clamp: 5 !important; /* Otvaramo komotan prostor za čak 5 punih redova opisa */
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
   }
 
-  /* Ikonice srazmerne */
+  /* Ikonice prate srazmeru */
   div[style*="font-size: 26px"], div[style*="font-size: 28px"], div[style*="font-size: 24px"] {
-    font-size: 16px !important;
+    font-size: 18px !important;
     margin: 0 !important;
     line-height: 1 !important;
   }
@@ -181,80 +181,86 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
 <h2 class="section-title">Pristup sadržaju</h2>
 <div class="buttons">
 
-<section class="section container">
-<h2 class="section-title">Pristup sadržaju</h2>
+<!-- DUGME 1: KALKULATOR -->
+<a href="kalkulator.html" class="btn">
+<div class="btn-title">📊 KALKULATOR DUGOVEČNOSTI</div>
+PROTOKOL LOBODA (15h / 9h)
+</a>
 
-<div class="buttons">
+<!-- DUGME 2: BESPLATNI DEO KNJIGE -->
+<a href="knjiga-sr.html" class="btn">
+<div class="btn-title">📖 REDOKS JURIŠ (Srpsko izdanje)</div>
+Besplatno čitanje dela knjige sa opcijama za dobijanje šifre
+</a>
 
-<section class="section container">
-<h2 class="section-title">Pristup sadržaju</h2>
+<!-- DUGME 3: DELI PORTAL -->
+<div class="btn" onclick="aktivirajDeliPortal()" style="border-color: #00ffcc;">
+<div class="btn-title" style="color: #00ffcc;">📤 DELI PORTAL</div>
+<span style="font-size: 0.95rem; line-height: 1.4; color: #cbd5e1;">
+Podelite kompletnu digitalnu biblioteku, knjige i kalkulator Protokola Loboda. Jednim klikom pošaljite ceo portal prijateljima putem Vibera, WhatsApp-a ili društvenih mreža.
+</span>
+</div> 
 
-<!-- PROZOR 1: GORNJI RED -->
-<div class="buttons">
-   <!-- DUGME 1 -->
-   <a href="kalkulator.html" class="btn">
-   <div class="btn-title">📊 KALKULATOR DUGOVEČNOSTI</div>
-   PROTOKOL LOBODA (15h / 9h)
-   </a>
-
-   <!-- DUGME 2 -->
-   <a href="knjiga-sr.html" class="btn">
-   <div class="btn-title">📖 REDOKS JURIŠ (Srpsko izdanje)</div>
-   Besplatno čitanje dela knjige sa opcijama za dobijanje šifre
-   </a>
-
-   <!-- DUGME 3: DELI PORTAL -->
-   <div class="btn" onclick="aktivirajDeliPortal()" style="border-color: #00ffcc;">
-   <div class="btn-title" style="color: #00ffcc;">📤 DELI PORTAL</div>
-   <span style="font-size: 0.95rem; line-height: 1.4; color: #cbd5e1;">
-   Podelite kompletnu digitalnu biblioteku, knjige i kalkulator Protokola Loboda. Jednim klikom pošaljite ceo portal prijateljima putem Vibera, WhatsApp-a ili društvenih mreža.
-   </span>
-   </div> 
 </div>
 
-<!-- PROZOR 2: SREDNJI RED -->
+  <!-- SREDNJI PROZOR SA TEHNIKOM GORNJEG NIZA (SADA SE SVE PONAŠA JEDNAKO) -->
 <div class="buttons">
-   <!-- DUGME 4 -->
+   <!-- DUGME 4: NISTE ZNALI -->
    <a href="niste-znali.html" class="btn" style="border-color: #ff007f;">
    <div class="btn-title" style="color: #ff007f;">💡 NISTE ZNALI</div>
    <span>Smešne zanimljivosti</span>
    </a>
 
-   <!-- DUGME 5 -->
+      <!-- DUGME 5: REDOKS JURIŠ (CELA KNJIGA PDF) -->
    <a href="knjiga-celaPDF-telefoni.html" class="btn" style="border-color: #d4af37;">
    <div class="btn-title" style="color: #d4af37;">📖 REDOKS JURIŠ (Cela knjiga PDF)</div>
    <span>Knjiga otkriva naučne mehanizme starenja i produženja veka. Šifra: REDOX2026</span>
    </a>
 
-   <!-- DUGME 6 -->
+   <!-- DUGME 6: JAVNO ĆASKANJE -->
    <a href="caskanje.html" class="btn" style="border-color: #38bdf8;">
    <div class="btn-title" style="color: #38bdf8;">💬 JAVNO ĆASKANJE</div>
    <span>Ana kaže, Petar pita, Autor odgovara uživo...</span>
    </a>
 </div>
 
-<!-- PROZOR 3: DONJI RED -->
-<div class="buttons">
-   <!-- DUGME 7 -->
-   <a href="medicina-teorija-jpg.html" class="btn" style="border-color: #ffcc00;">
-   <div class="btn-title" style="color: #ffcc00; font-weight: bold;">🎁 MEDICINSKA TEORIJA "LEČENJE OKSIDO-REDUKCIJOM" (Cela knjiga PDF)</div>
-   Poklon knjiga za čitanje - Potpuno besplatno i otvoreno svima
-   </a>
-
-   <!-- DUGME 8 -->
-   <a href="donacije.html" class="btn" style="border-color: #38bdf8; background: #0f172a;">
-   <div class="btn-title" style="color: #38bdf8;">🔬 DOBROVOLJNE DONACIJE ZA NAUČNA TESTIRANJA</div>
-   Finansiranje laboratorijske studije (75.000 din. za 1 osobu × 1.000 osoba)
-   </a>
-
-   <!-- DUGME 9 -->
-   <a href="kontakt.html" class="btn" style="border-color: #d4af37;">
-   <div class="btn-title" style="color: #d4af37;">📞 KONTAKT AUTORA</div>
-   Informacije i zahtevi za pristup ključevima
-   </a>
+<div class="buttons" style="width: 100%;">
+ 
+<!-- DUGME 4: POKLON KNJIGA BESPLATAN PDF -->
+<a href="medicina-teorija-jpg.html" class="btn" style="border-color: #ffcc00; width: 100%;">
+<div class="btn-title" style="color: #ffcc00; font-weight: bold;">🎁 MEDICINSKA TEORIJA "LEČENJE OKSIDO-REDUKCIJOM" (Cela knjiga PDF)</div>
+Poklon knjiga za čitanje - Potpuno besplatno i otvoreno svima
+</a>
+<!-- DUGME ZA NAUČNA TESTIRANJA -->
+<a href="donacije.html" class="btn" style="border: 2px solid #38bdf8; background: #0f172a; width: 100%;">
+<div class="btn-title" style="color: #38bdf8;">🔬 DOBROVOLJNE DONACIJE ZA NAUČNA TESTIRANJA</div>
+Finansiranje laboratorijske studije (75.000 din. za 1 osobu × 1.000 osoba)
+</a>
+<!-- DUGME 5: KONTAKT -->
+<a href="kontakt.html" class="btn" style="width: 100%; border: 2px solid #d4af37;">
+<div class="btn-title" style="color: #d4af37;">📞 KONTAKT AUTORA</div>
+Informacije i zahtevi za pristup ključevima
+</a>
 </div>
 </section>
 
+<section class="section container">
+<h2 class="section-title">O projektu</h2>
+<div class="about">
+<p>Ova platforma predstavlja rad Dragana Lobode, autora Medicinske teorije oksido-redukcije i kreatora Protokola Loboda.</p>
+<br>
+<p>Na sajtu su dostupni kalkulator dugovečnosti, knjige autora, istraživački materijali i buduća međunarodna izdanja na engleskom, nemačkom, ruskom i kineskom jeziku.</p>
+<br>
+<p>Cilj projekta je proučavanje biofizičkih, elektrohemijskih i oksido-redukcionih procesa povezanih sa zdravljem, vitalnošću i dugovečnošću čovekovog klona.</p>
+</div>
+</section>
+<section class="section container">
+<h2 class="section-title">Knjige autora</h2>
+<div class="books">
+<div class="book">📘 Medicinska teorija - Lečenje oksido-redukcijom (ISBN 978-86-903366-0-9)</div>
+<div class="book">📕 Redoks juriš - Dostizanje maksimalnog genetskog koda dugovečnosti (ISBN 978-86-903366-2-3)</div>
+</div>
+</section>
 
 <div id="zivi-brojac-cifre"
      style="
@@ -325,7 +331,3 @@ window.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-  
-
-
-
