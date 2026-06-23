@@ -72,7 +72,7 @@ background: #141d34;
 footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #1e293b; margin-top: 40px; }
 /* NAPREDNA MOBILNA GEOMETRIJA - KREIRA OKVIR I SMUĆUJE FASCICLE NA EKRANU TELEFONA */
   
-/* ZLATNI PROZOR TELEFONI - PRERASPODELA VISINE PREMA NACRTU AUTORA */
+/* ZLATNI PROZOR TELEFONI - KONAČNA POPRAVKA ŠIRINE ZA 3, 6, 9 */
 @media (max-width: 992px) {
   header h1 { font-size: 1.8rem !important; }
   header h2 { font-size: 1.1rem !important; }
@@ -95,7 +95,7 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     height: auto !important;
   }
 
-  /* GORNJE FASCIKLE (1, 2, 4, 5, 7, 8) - PRODREŽENE PO VISINI NA 145PX DA TEKST PRODIŠE */
+  /* GORNJE FASCIKLE (1, 2, 4, 5, 7, 8) - PRODUŽENE NA 145PX DA TEKST PRODIŠE */
   .buttons .btn {
     min-height: 145px !important;
     height: 145px !important; 
@@ -111,14 +111,16 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     overflow: hidden !important;
   }
 
-  /* DONJE FASCIKLE (3, 6, 9) - IDU OD IVICE DO IVICE, A VISINA SUŽENA NA POLOVINU (55PX) */
-  .buttons .btn-izduzeno { 
-    grid-column: span 2 !important; /* Od levog do desnog kraja prozora */
+  /* 🔥 POPRAVKA: DIREKTNO CILJAMO DUGMAD 3, 6 I 9 DA IDU OD IVICE DO IVICE I BUDU 55PX VISINE */
+  .buttons div[onclick="aktivirajDeliPortal()"], 
+  .buttons a[href="caskanje.html"], 
+  .buttons a[href="kontakt.html"] { 
+    grid-column: span 2 !important; /* Širenje od levog do desnog ruba prozora */
     width: 100% !important;
     min-height: 55px !important;
-    height: 55px !important; /* Suženo za 1/2 */
+    height: 55px !important; /* Suženo za polovinu */
     display: flex !important;
-    flex-direction: row !important; /* Horizontalno poravnanje ikone i naslova */
+    flex-direction: row !important; /* Horizontalno poravnanje teksta i ikone */
     justify-content: center !important;
     align-items: center !important;
     gap: 10px !important;
@@ -128,7 +130,7 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     margin: 0 !important;
   }
 
-  /* VELIČINA TEKSTA I PRILAGOĐAVANJE UNUTRAŠNJOSTI ZA SVIH 9 FASCIKLI */
+  /* VELIČINA TEKSTA I KOREKCIJA ZA SVIH 9 FASCIKLI */
   .btn-title { 
     font-size: 0.88rem !important; 
     line-height: 1.2 !important;
@@ -144,7 +146,7 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
     padding: 0 !important;
     text-align: center !important;
     display: -webkit-box !important;
-    -webkit-line-clamp: 3 !important; /* Dozvoljavamo 3 reda teksta uspravno na telefonu */
+    -webkit-line-clamp: 3 !important; 
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
   }
