@@ -181,68 +181,72 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
 <h2 class="section-title">Pristup sadržaju</h2>
 <div class="buttons">
 
-<!-- DUGME 1: KALKULATOR -->
-<a href="kalkulator.html" class="btn">
-<div class="btn-title">📊 KALKULATOR DUGOVEČNOSTI</div>
-PROTOKOL LOBODA (15h / 9h)
-</a>
+<section class="section container">
+<h2 class="section-title">Pristup sadržaju</h2>
 
-<!-- DUGME 2: BESPLATNI DEO KNJIGE -->
-<a href="knjiga-sr.html" class="btn">
-<div class="btn-title">📖 REDOKS JURIŠ (Srpsko izdanje)</div>
-Besplatno čitanje dela knjige sa opcijama za dobijanje šifre
-</a>
+<!-- PROZOR 1: GORNJI RED -->
+<div class="buttons">
+   <!-- DUGME 1 -->
+   <a href="kalkulator.html" class="btn" style="overflow-y: auto;">
+   <div class="btn-title">📊 KALKULATOR DUGOVEČNOSTI</div>
+   <span>PROTOKOL LOBODA (15h / 9h)</span>
+   </a>
 
-<!-- DUGME 3: DELI PORTAL -->
-<div class="btn" onclick="aktivirajDeliPortal()" style="border-color: #00ffcc;">
-<div class="btn-title" style="color: #00ffcc;">📤 DELI PORTAL</div>
-<span style="font-size: 0.95rem; line-height: 1.4; color: #cbd5e1;">
-Podelite kompletnu digitalnu biblioteku, knjige i kalkulator Protokola Loboda. Jednim klikom pošaljite ceo portal prijateljima putem Vibera, WhatsApp-a ili društvenih mreža.
-</span>
-</div> 
+   <!-- DUGME 2 -->
+   <a href="knjiga-sr.html" class="btn" style="overflow-y: auto;">
+   <div class="btn-title">📖 REDOKS JURIŠ (Srpsko izdanje)</div>
+   <span>Poglavlje 1. sa opcijama za mesečnu šifru</span>
+   </a>
 
+   <!-- DUGME 3: DELI PORTAL (ŠIROKO) -->
+   <div class="btn" onclick="aktivirajDeliPortal()" style="border-color: #00ffcc; overflow-y: auto;">
+   <div class="btn-title" style="color: #00ffcc;">📤 DELI PORTAL</div>
+   <span>Podelite digitalnu biblioteku i kalkulator prijateljima.</span>
+   </div>
 </div>
 
-  <!-- SREDNJI PROZOR SA TEHNIKOM GORNJEG NIZA (SADA SE SVE PONAŠA JEDNAKO) -->
+<!-- PROZOR 2: SREDNJI RED -->
 <div class="buttons">
-   <!-- DUGME 4: NISTE ZNALI -->
-   <a href="niste-znali.html" class="btn" style="border-color: #ff007f;">
+   <!-- DUGME 4 -->
+   <a href="niste-znali.html" class="btn" style="border-color: #ff007f; overflow-y: auto;">
    <div class="btn-title" style="color: #ff007f;">💡 NISTE ZNALI</div>
    <span>Smešne zanimljivosti</span>
    </a>
 
-      <!-- DUGME 5: REDOKS JURIŠ (CELA KNJIGA PDF) -->
-   <a href="knjiga-celaPDF-telefoni.html" class="btn" style="border-color: #d4af37;">
+   <!-- DUGME 5 -->
+   <a href="knjiga-celaPDF-telefoni.html" class="btn" style="border-color: #d4af37; overflow-y: auto;">
    <div class="btn-title" style="color: #d4af37;">📖 REDOKS JURIŠ (Cela knjiga PDF)</div>
    <span>Knjiga otkriva naučne mehanizme starenja i produženja veka. Šifra: REDOX2026</span>
    </a>
 
-   <!-- DUGME 6: JAVNO ĆASKANJE -->
-   <a href="caskanje.html" class="btn" style="border-color: #38bdf8;">
+   <!-- DUGME 6: JAVNO ĆASKANJE (ŠIROKO) -->
+   <a href="caskanje.html" class="btn" style="border-color: #38bdf8; overflow-y: auto;">
    <div class="btn-title" style="color: #38bdf8;">💬 JAVNO ĆASKANJE</div>
    <span>Ana kaže, Petar pita, Autor odgovara uživo...</span>
    </a>
 </div>
 
-<div class="buttons" style="width: 100%;">
- 
-<!-- DUGME 4: POKLON KNJIGA BESPLATAN PDF -->
-<a href="medicina-teorija-jpg.html" class="btn" style="border-color: #ffcc00; width: 100%;">
-<div class="btn-title" style="color: #ffcc00; font-weight: bold;">🎁 MEDICINSKA TEORIJA "LEČENJE OKSIDO-REDUKCIJOM" (Cela knjiga PDF)</div>
-Poklon knjiga za čitanje - Potpuno besplatno i otvoreno svima
-</a>
-<!-- DUGME ZA NAUČNA TESTIRANJA -->
-<a href="donacije.html" class="btn" style="border: 2px solid #38bdf8; background: #0f172a; width: 100%;">
-<div class="btn-title" style="color: #38bdf8;">🔬 DOBROVOLJNE DONACIJE ZA NAUČNA TESTIRANJA</div>
-Finansiranje laboratorijske studije (75.000 din. za 1 osobu × 1.000 osoba)
-</a>
-<!-- DUGME 5: KONTAKT -->
-<a href="kontakt.html" class="btn" style="width: 100%; border: 2px solid #d4af37;">
-<div class="btn-title" style="color: #d4af37;">📞 KONTAKT AUTORA</div>
-Informacije i zahtevi za pristup ključevima
-</a>
+<!-- PROZOR 3: DONJI RED -->
+<div class="buttons">
+   <!-- DUGME 7 -->
+   <a href="medicina-teorija-jpg.html" class="btn" style="border-color: #ffcc00; overflow-y: auto;">
+   <div class="btn-title" style="color: #ffcc00; font-weight: bold;">🎁 MEDICINSKA TEORIJA "LEČENJE OKSIDO-REDUKCIJOM" (Cela knjiga PDF)</div>
+   <span>Poklon knjiga za čitanje</span>
+   </a>
+
+   <!-- DUGME 8 -->
+   <a href="donacije.html" class="btn" style="border-color: #38bdf8; background: #0f172a; overflow-y: auto;">
+   <div class="btn-title" style="color: #38bdf8;">🔬 DOBROVOLJNE DONACIJE ZA NAUČNA TESTIRANJA</div>
+   </a>
+
+   <!-- DUGME 9: KONTAKT AUTORA (ŠIROKO) -->
+   <a href="kontakt.html" class="btn" style="border-color: #d4af37; overflow-y: auto;">
+   <div class="btn-title" style="color: #d4af37;">📞 KONTAKT AUTORA</div>
+   <span>Informacije i zahtevi za pristup ključevima</span>
+   </a>
 </div>
 </section>
+
 
 <section class="section container">
 <h2 class="section-title">O projektu</h2>
