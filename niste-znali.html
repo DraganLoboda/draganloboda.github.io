@@ -28,20 +28,20 @@ margin-bottom: 25px;
 h1 { color: #ff007f; font-size: 2rem; text-transform: uppercase; margin-bottom: 5px; }
 .subtitle { color: #94a3b8; font-size: 13px; }
 
-/* REVOLUCIONARNA DVODELNA STRUKTURA (GRID SA OBAVEZNIH SPREČAVANJEM PRELIVANJA) */
+/* REVOLUCIONARNA DVODELNA STRUKTURA SA STROGO SIMETRIČNIM PARAMETRIMA VISINE */
 .main-layout {
 display: grid;
 grid-template-columns: 1fr 1.111fr; /* Oglas levo, priče desno */
 gap: 20px;
 flex: 1;
-min-height: 0; /* Tera grid da fiksira visinu i otključa unutrašnje klizače */
+min-height: 0; /* Primorava grid da fiksira visinu i otključa unutrašnje klizače */
 height: 100%;
 }
 
 /* LEVA INVESTICIONA KOLONA */
 .invest-column {
 height: 100%;
-overflow-y: scroll; /* TRAJNI I UVEK VIDLJIVI LEVI PLAVI KLIZAČ */
+overflow-y: auto; /* IDENTIČAN PARAMETAR ZA SKROL */
 padding-right: 8px;
 }
 .invest-box {
@@ -63,7 +63,7 @@ text-align: center;
 /* DESNA KOLONA SA PRIČAMA */
 .stories-column {
 height: 100%;
-overflow-y: scroll; /* TRAJNI I UVEK VIDLJIVI DESNI ROZE KLIZAČ */
+overflow-y: auto; /* POTPUNO IDENTIČAN PARAMETAR ZA SKROL */
 padding-right: 8px;
 display: flex;
 flex-direction: column;
@@ -91,7 +91,7 @@ h2 { color: #ffffff; font-size: 1.2rem; margin-bottom: 10px; text-transform: upp
 p { color: #cbd5e1; font-size: 13px; text-align: justify; }
 .mat { color: #00ffcc; font-weight: bold; margin-top: 10px; display: block; }
 
-/* Prefinjena stilizacija izgleda traka oba klizača u tonu portala */
+/* POTPUNO IDENTIČNA STILIZACIJA IZGLEDA TRAKA OBA KLIZAČA */
 .invest-column::-webkit-scrollbar { width: 6px; }
 .invest-column::-webkit-scrollbar-track { background: #0f172a; }
 .invest-column::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 3px; }
@@ -137,18 +137,20 @@ body { padding: 10px; }
 
 <div class="main-layout">
 
-<!-- LEVA KOLONA: STRATEŠKA PONUDA SA NOVIM NASLOVOM I SOPSTVENIM PLAVIM KLIZAČEM -->
+<!-- LEVA KOLONA: STRATEŠKA PONUDA SA VAŠIM ODREĐENIM NASLOVOM I PLAVIM KLIZAČEM -->
 <div class="invest-column">
 <div class="invest-box">
 <div class="datum" style="background: #38bdf8;">INVESTICIONI MEMORANDUM 24.06.2026.</div>
-<h2 style="color: #38bdf8; font-size: 1.1rem; line-height: 1.4;">TRANSFER KOMERCIJALNE FORMULE ZA DUGOVEČNOST – STRATEŠKA PONUDA ZA MECENE I INVESTITORE 3-U-1 [ 50.000€ + ko ponudi više ]</h2>
+<h2 style="color: #38bdf8; font-size: 1.15rem; line-height: 1.4; text-transform: uppercase;">STRATEŠKA PONUDA KO ŽELI DA INVESTIRA: FORMULA PROTIV STARENJA MITOHONDRIJA [ 50.000€ + ]</h2>
+<span style="color: #cbd5e1; font-size: 12px; display: block; margin-top: 5px; font-style: italic;">(Plus je ukoliko bude više ponuda pa veća ponuda dobija pravo)</span>
 <br>
+<h3 style="color: #00ffcc; font-size: 0.95rem; font-weight: bold; margin-bottom: 15px; line-height: 1.3;">Transfer komercijalne recepture za poboljšanu zaštitu ćelijskih elektrana.</h3>
 <p>
-Projekat Loboda Faza 2 predstavlja radikalan tehnološki i biofizički iskorak u sferi preventivne medicine, ćelijske energizacije i bioločkog podmlađivanja tkiva. Dok je bazična monografija „REDOKS JURIŠ“ (zaštićena međunarodnim ISBN brojem) predočila javnosti bazičnu elektrohemijsku teoriju, ovaj dokument otvara vrata Tehnološkog nivoa 2.0 i nudi ekskluzivnu startnu osnovu za izradu budućeg farmakoleka za dugovečnost.
+Projekat Loboda Faza 2 predstavlja radikalan tehnološki i biofizički iskorak u sferi preventivne medicine, ćelijske energizacije i biološkog podmlađivanja tkiva. Dok je bazična monografija „REDOKS JURIŠ“ (zaštićena međunarodnim ISBN brojem) predočila javnosti bazičnu elektrohemijsku teoriju, ovaj dokument otvara vrata Tehnološkog nivoa 2.0 i nudi ekskluzivnu startnu osnovu za izradu budućeg farmakoleka za dugovečnost.
 <br><br>
 Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodologije kovalentne enkapsulacije (3-u-1 Matriks), autor potražuje **fiksno finansiranje / investicioni grant u iznosu od 50.000+ evra (uz opciju licitacije za najbolju ponudu)**. Ulaganjem ovih sredstava, investitor otkupljuje pravo na formulu i dobija uvid u kompletan teorijski model, nakon čega postaje jedini nosilac prava svojine i komercijalni vlasnik predočenog koncepta.
 <br><br>
-<strong>Pravna i naučna napomena:</strong> Predmetni 3-u-1 koncept predstavlja teorijski i inženerski model koji tek treba da prođe kroz opsežna laboratorijska i klinička ispitivanja. Shodno tome, autor predočava rad u viđenom stanju kao vrhunsku naučnu premisu — model u krajnjoj realizaciji može biti u potpunosti ispravan, delimično ispravan ili zahtevati modifikacije. Ulaganjem investicionih sredstava, partner preuzima dalji tehnološki razvoj, doradu, popravku, laboratorijska testiranja i komercijalizaciju formule pod sopstvenom i isključivom odgovornošću, dok autor garantuje iskrenost i naučnu unikatnost predočene osnove. Kompanijama koje obezbede finansiranje nudi se ekskluzivno pravo na transfer, komercijalizaciju i trajnu zaštitu predmetne intelektualne svojine na globalnom tržištu.
+<strong>Pravna i naučna napomena:</strong> Predmetni 3-u-1 koncept predstavlja teorijski i inženirski model koji tek treba da prođe kroz opsežna laboratorijska i klinička ispitivanja. Shodno tome, autor predočava rad u viđenom stanju kao vrhunsku naučnu premisu — model u krajnjoj realizaciji može biti u potpunosti ispravan, delimično ispravan ili zahtevati modifikacije. Ulaganjem investicionih sredstava, partner preuzima dalji tehnološki razvoj, doradu, popravku, laboratorijska testiranja i komercijalizaciju formule pod sopstvenom i isključivom odgovornošću, dok autor garantuje iskrenost i naučnu unikatnost predočene osnove. Kompanijama koje obezbede finansiranje nudi se ekskluzivno pravo na transfer, komercijalizaciju i trajnu zaštitu predmetne intelektualne svojine na globalnom tržištu.
 <br><br>
 <strong>Klauzula o nepovratnosti sredstava:</strong> Podrazumeva se i izričito naglašava da po ličnom prenosu tajne inženerske formule od strane autora i njenog prihvatanja od strane investitora, posao se smatra pravno i komercijalno zaključenim. Investitor nema nikakvo zakonsko pravo na jednostrani raskid, reklamaciju niti pravo da svoj uplaćeni novac traži nazad, bez obzira na ishode budućih laboratorijskih testiranja.
 </p>
@@ -162,7 +164,7 @@ Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodolo
 </div> <!-- KRAJ LEVE KOLONE -->
 
 
-<!-- DESNA KOLONA: PRIČE SA DESNIM SOPSTVENIM ROZE KLIZAČEM (UVEK VIDLJIVIM NA RAČUNARU) -->
+<!-- DESNA KOLONA: PRIČE SA DESNIM SOPSTVENIM ROZE KLIZAČEM (NAJNOVIJA NA VRHU) -->
 <div class="stories-column">
 
 <!-- OVDE NALEPLJUJETE NOVE PRIČE U BUDUĆNOSTI DA BUDU NA VRHU DESNE STRANE -->
@@ -182,15 +184,3 @@ Mnogi čitaoci se uplaše kada na našem kalkulatoru vide aktuarsku projekciju o
 <div class="datum">PRIČA 15.06.2026.</div>
 <h2>Mitohondrijski švercer i krađa struje</h2>
 <p>
-Da li ste znali da prosečan čovek tokom dana u ovom obliku proizvede količinu struje koja je jednaka jačini jakog udara groma? Vaše mitohondrije rade kao nevidljive mini-elektrane. Kada unosite brzu hranu, rafinisane šećere i stres, u organizam ubacujete biološke švercere koji divlje kradu elektrone sa membrana. Ćelijska baterija doživljava pad napona, a zvanična medicina onda taj kratak spoj proglasi za "hronični umor". Rešenje? Umesto skupe popravke spaljene mreže, unesite halogeni jodlipidni oklop i prekinite nelegalni šverc struje!
-<span class="mat">(Čist mat za bio-lopove!)</span>
-</p>
-</div>
-
-</div> <!-- KRAJ DESNE KOLONE -->
-
-</div> <!-- KRAJ MAIN LAYOUT-A -->
-
-</div>
-</body>
-</html>
