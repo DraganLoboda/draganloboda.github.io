@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Niste Znali | Smešne Zanimljivosti</title>
+<title>Niste Znali | Smešne Zanimljivosti & Donatori</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -11,19 +11,32 @@ font-family: monospace;
 background: linear-gradient(135deg,#0f172a,#1e293b);
 color: white;
 line-height: 1.7;
-padding: 40px 20px;
+padding: 30px 20px;
 }
-.container { width: 100%; max-width: 800px; margin: auto; }
-.back-link { display: inline-block; color: #ff007f; text-decoration: none; margin-bottom: 30px; font-size: 14px; font-weight: bold; }
+.container { width: 100%; max-width: 1200px; margin: auto; }
+.back-link { display: inline-block; color: #ff007f; text-decoration: none; margin-bottom: 20px; font-size: 14px; font-weight: bold; }
 .back-link:hover { text-underline-offset: 4px; text-decoration: underline; }
 h1 { color: #ff007f; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
-.subtitle { text-align: center; color: #94a3b8; margin-bottom: 40px; font-size: 14px; }
+.subtitle { text-align: center; color: #94a3b8; margin-bottom: 30px; font-size: 14px; }
+
+/* OSNOVNA STRUKTURA: JEDAN ISPOD DRUGOG (ZA USPRAVNI TELEFON) */
+.main-layout {
+display: flex;
+flex-direction: column;
+gap: 25px;
+}
+
+.stories-column {
+display: flex;
+flex-direction: column;
+gap: 25px;
+}
+
 .podfascikla {
 background: #1e293b;
 border: 2px solid #ff007f;
 border-radius: 12px;
 padding: 25px;
-margin-bottom: 25px;
 box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 .datum {
@@ -39,33 +52,104 @@ border-radius: 4px;
 h2 { color: #ffffff; font-size: 1.3rem; margin-bottom: 12px; text-transform: uppercase; }
 p { color: #cbd5e1; font-size: 14px; text-align: justify; }
 .mat { color: #00ffcc; font-weight: bold; margin-top: 10px; display: block; }
+
+/* INVESTICIONI BLOK */
+.invest-column {
+width: 100%;
+}
+.invest-box {
+background: #1e293b;
+border: 2px solid #38bdf8;
+border-radius: 12px;
+padding: 25px;
+box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+.zakljucano {
+background: #111827;
+border: 2px dashed #ff007f;
+padding: 20px;
+margin-top: 15px;
+border-radius: 8px;
+text-align: center;
+}
+
+/* MEDIJSKI UPIT: RAČUNAR I VODORAVNI TELEFON (ŠIRINA EKRANA VEĆA OD 768px) */
+@media (min-width: 769px) {
+.main-layout {
+display: grid;
+grid-template-columns: 1fr 1fr; /* Deljenje ekrana na pola (Levo i Desno) */
+gap: 30px;
+align-items: start;
+}
+.invest-column {
+position: -webkit-sticky;
+position: sticky;
+top: 20px; /* Prikuje desni oglas za vrh ekrana tokom skrolovanja */
+}
+}
 </style>
 </head>
 <body>
 <div class="container">
-<a href="index.html" class="back-link">⬅ NAZAD NA PORTAL</a>
-<h1>💡 NISTE ZNALI</h1>
-<div class="subtitle">Inženjerske i biofizičke smešne zanimljivosti iz dnevnika autora</div>
+<a href="index.html" class="back-link">← NAZAD NA PORTAL</a>
 
-   <!-- PODFASCIKLA 1 -->
-   <div class="podfascikla">
-      <div class="datum">PRIČA 15.06.2026.</div>
-      <h2>🧠 Mitohondrijski švercer i krađa struje</h2>
-      <p>
-      Da li ste znali da prosečan čovek tokom dana u svojim ćelijama proizvede količinu struje koja je jednaka jačini jakog udara groma? Vaše mitohondrije rade kao nevidljive mini-elektrane. Kada unosite brzu hranu, rafinisane šećere i stres, u organizam ubacujete biološke švercere koji divlje kradu elektrone sa membrana. Ćelijska baterija doživljava pad napona, a zvanična medicina onda taj kratak spoj proglasi za "hronični umor". Rešenje? Umesto skupe popravke spaljene mreže, unesite halogeni jodlipidni oklop i prekinite nelegalni šverc struje!
-      <span class="mat">(Čist mat za bio-lopove!)</span>
-      </p>
-   </div>
+<h1>💡 NISTE ZNALI / 💼 DONATORI</h1>
+<div class="subtitle">Inženjerske i biofizičke zanimljivosti / Ponuda za strateške investitore i mecene</div>
 
-   <!-- PODFASCIKLA 2 -->
-   <div class="podfascikla">
-      <div class="datum">PRIČA 22.06.2026.</div>
-      <h2>🧬 Zamišljeni klon i Ginisova administracija</h2>
-      <p>
-      Mnogi čitaoci se uplaše kada na našem kalkulatoru vide aktuarsku projekciju od 831 godine života za maksimalno zaštićene specimene. Zvanične institucije odmah vade administrativne pravilnike i viču da je to biološki nemoguće. Međutim, zaboravljaju da Ginisovi genetski rekorderi već ruše njihove tabele bez ikakve tehnološke zaštite! Ako prosečan čovek (Subjekat A) sa svim svojim lošim navikama uspeva da dogura do 80. godine na praznu bateriju, zamislite šta se dešava kada se u sistem ugradi satni kontinuitet "kap po kap" u lipidnom medijumu. Ćelijski sat se resetuje, a administracija može samo da prepravlja svoje zastarele tabele.
-      <span class="mat">(Šah-mat aktuarskoj matematici!)</span>
-      </p>
-   </div>
+<div class="main-layout">
+
+<!-- LEVA KOLONA: PRIČE (NAJNOVIJA NA VRHU, KAKO DODAJETE TAKO KLIZE) -->
+<div class="stories-column">
+
+<!-- OVDE NALEPLJUJETE NOVE PRIČE U BUDUĆNOSTI DA BUDU NA VRHU -->
+
+<!-- PODFASCIKLA 2 (Novija priča ide gore) -->
+<div class="podfascikla">
+<div class="datum">PRIČA 22.06.2026.</div>
+<h2>Zamišljeni klon i Ginisova administracija</h2>
+<p>
+Mnogi čitaoci se uplaše kada na našem kalkulatoru vide aktuarsku projekciju od 831 godine života za maksimalno zaštićene specimene. Zvanične institucije odmah vade administrativne pravilnike i viču da je to biološki nemoguće. Međutim, zaboravljaju da Ginisovi genetski rekorderi već ruše njihove tabele bez ikakve tehnološke zaštite! Ako prosečan čovek (Subjekat A) sa svim svojim lošim habitusima uspeva da dogura do 80. godine na praznu bateriju, zamislite šta se dešava kada se u sistem ugradi satni kontinuitet "kap po kap" u lipidnom medijumu. Ćelijski sat se resetuje, a administracija može samo da prepravlja svoje zastarele tabele.
+<span class="mat">(Šah-mat aktuarskoj matematici!)</span>
+</p>
+</div>
+
+<!-- PODFASCIKLA 1 (Starija priča klizi dole) -->
+<div class="podfascikla">
+<div class="datum">PRIČA 15.06.2026.</div>
+<h2>Mitohondrijski švercer i krađa struje</h2>
+<p>
+Da li ste znali da prosečan čovek tokom dana u svojim ćelijama proizvede količinu struje koja je jednaka jačini jakog udara groma? Vaše mitohondrije rade kao nevidljive mini-elektrane. Kada unosite brzu hranu, rafinisane šećere i stres, u organizam ubacujete biološke švercere koji divlje kradu elektrone sa membrana. Ćelijska baterija doživljava pad napona, a zvanična medicina onda taj kratak spoj proglasi za "hronični umor". Rešenje? Umesto skupe popravke spaljene mreže, unesite halogeni jodlipidni oklop i prekinite nelegalni šverc struje!
+<span class="mat">(Čist mat za bio-lopove!)</span>
+</p>
+</div>
+
+</div> <!-- KRAJ LEVE KOLONE -->
+
+
+<!-- DESNA KOLONA: PRIKOVANI INVESTICIONI MEMORANDUM (NEMA KLIZAČ, FIKSIRAN NA EKRANU) -->
+<div class="invest-column">
+<div class="invest-box">
+<div class="datum" style="background: #38bdf8;">INVESTICIONI MEMORANDUM 24.06.2026.</div>
+<h2 style="color: #38bdf8;">STRATEŠKA PONUDA ZA MECENE I INVESTITORE – FINANSIJSKI TRANSFER FORMULE 3-U-1</h2>
+<p>
+Projekat Loboda Faza 2 predstavlja radikalan tehnološki i biofizički iskorak u sferi preventivne medicine, ćelijske energizacije i biološkog podmlađivanja tkiva. Dok je bazična monografija „REDOKS JURIŠ“ (zaštićena međunarodnim ISBN brojem) predočila javnosti bazičnu elektrohemijsku teoriju, ovaj dokument otvara vrata Tehnološkog nivoa 2.0 i nudi ekskluzivnu startnu osnovu za izradu budućeg farmakoleka za dugovečnost.
+<br><br>
+Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodologije kovalentne enkapsulacije (3-u-1 Matriks), autor potražuje **fiksno finansiranje / investicioni grant u iznosu od 50.000+ evra**. Ulaganjem ovih sredstava, investitor otkupljuje pravo na formulu i dobija uvid u kompletan teorijski model, nakon čega postaje jedini nosilac prava svojine i komercijalni vlasnik predočenog koncepta.
+<br><br>
+<strong>Pravna i naučna napomena:</strong> Predmetni 3-u-1 koncept predstavlja teorijski i inženirski model koji tek treba da prođe kroz opsežna laboratorijska i klinička ispitivanja. Shodno tome, autor predočava rad u viđenom stanju kao vrhunsku naučnu premisu — model u krajnjoj realizaciji može biti u potpunosti ispravan, delimično ispravan ili zahtevati modifikacije. Ulaganjem investicionih sredstava, partner preuzima dalji tehnološki razvoj, doradu, popravku, laboratorijska testiranja i komercijalizaciju formule pod sopstvenom i isključivom odgovornošću, dok autor garantuje iskrenost i naučnu unikatnost predočene osnove. Kompanijama koje obezbede finansiranje nudi se ekskluzivno pravo na transfer, komercijalizaciju i trajnu zaštitu predmetne intelektualne svojine na globalnom tržištu.
+<br><br>
+<strong>Klauzula o nepovratnosti sredstava:</strong> Podrazumeva se i izričito naglašava da po ličnom prenosu tajne inženerske formule od strane autora i njenog prihvatanja od strane investitora, posao se smatra pravno i komercijalno zaključenim. Investitor nema nikakvo zakonsko pravo na jednostrani raskid, reklamaciju niti pravo da svoj uplaćeni novac traži nazad, bez obzira na ishode budućih laboratorijskih testiranja.
+</p>
+
+<div class="zakljucano">
+<span style="color: #ff007f; font-weight: bold; display: block; margin-bottom: 10px;">🔒 BEZBEDNOSNI PROTOKOL ZAŠTITE</span>
+<span style="font-size: 13px; color: #94a3b8; display: block; margin-bottom: 15px; text-align: justify;">SISTEMSKO UPOZORENJE: Kompletna laboratorijska tehnologija, proračuni i hemijski kofaktori formule I. TEHNOLOŠKA FORMULA ENKAPSULACIJE (3-u-1 Matriks) se iz bezbednosnih razloga ne nalaze na internet serveru, već se čuvaju u izolovanom sistemu autora. Formula i kompletna dokumentacija se investitoru predaju lično i zvanično, nakon što se u potpunosti realizuje uplata investicionog granta na račun autora, uz zadržavanje neotuđivog moralnog prava pronalazača. Investitor se ugovorom obavezuje da će budući farmakolek, kao i sve njegove naknadne laboratorijske modifikacije i dorade, u komercijalnom ili naučnom nazivu trajno i obavezno nositi oznaku „Protokol Loboda“, čime se autoru priznaje apsolutno doživotno prvenstvo nad osmišljavanjem bazičnog elektrohemijskog koncepta.</span>
+<span style="color: #38bdf8; font-weight: bold; font-size: 16px;">[ PORTAL JE USPEŠNO OSIGURAN VAN MREŽE ]</span>
+</div>
+</div>
+</div> <!-- KRAJ DESNE KOLONE -->
+
+</div> <!-- KRAJ MAIN LAYOUT-A -->
 
 </div>
 </body>
