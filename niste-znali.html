@@ -19,7 +19,7 @@ padding: 30px 20px;
 h1 { color: #ff007f; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
 .subtitle { text-align: center; color: #94a3b8; margin-bottom: 30px; font-size: 14px; }
 
-/* OSNOVNA STRUKTURA: JEDAN ISPOD DRUGOG (ZA USPRAVNI TELEFON) */
+/* OSNOVNA STRUKTURA ZA USPRAVNI TELEFON */
 .main-layout {
 display: flex;
 flex-direction: column;
@@ -53,7 +53,7 @@ h2 { color: #ffffff; font-size: 1.3rem; margin-bottom: 12px; text-transform: upp
 p { color: #cbd5e1; font-size: 14px; text-align: justify; }
 .mat { color: #00ffcc; font-weight: bold; margin-top: 10px; display: block; }
 
-/* INVESTICIONI BLOK */
+/* DESNA INVESTICIONA KOLONA */
 .invest-column {
 width: 100%;
 }
@@ -73,19 +73,35 @@ border-radius: 8px;
 text-align: center;
 }
 
-/* MEDIJSKI UPIT: RAČUNAR I VODORAVNI TELEFON (ŠIRINA EKRANA VEĆA OD 768px) */
+/* MEDIJSKI UPIT: RAČUNAR I POLOŽENI TELEFON (ŠIRINA VEĆA OD 768px) */
 @media (min-width: 769px) {
 .main-layout {
 display: grid;
-grid-template-columns: 1fr 1fr; /* Deljenje ekrana na pola (Levo i Desno) */
+grid-template-columns: 1.111fr 1fr; /* Perfektan balans kolona */
 gap: 30px;
-align-items: start;
+height: calc(100vh - 180px); /* Ograničava visinu na preostali prostor ekrana */
 }
+.stories-column {
+overflow-y: auto; /* AKTIVIRA VERTIKALNI KLIZAČ SAMO ZA PRIČE */
+padding-right: 15px;
+height: 100%;
+}
+/* Stilizacija klizača da bude u tonu sajta */
+.stories-column::-webkit-scrollbar { width: 6px; }
+.stories-column::-webkit-scrollbar-track { background: #0f172a; }
+.stories-column::-webkit-scrollbar-thumb { background: #ff007f; border-radius: 3px; }
+
 .invest-column {
-position: -webkit-sticky;
-position: sticky;
-top: 20px; /* Prikuje desni oglas za vrh ekrana tokom skrolovanja */
+height: 100%;
+overflow: hidden;
 }
+.invest-box {
+height: 100%;
+overflow-y: auto; /* Omogućava skrolovanje unutar oglasa ako je tekst predugačak, dok je boks nepomičan */
+}
+.invest-box::-webkit-scrollbar { width: 6px; }
+.invest-box::-webkit-scrollbar-track { background: #0f172a; }
+.invest-box::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 3px; }
 }
 </style>
 </head>
@@ -98,12 +114,12 @@ top: 20px; /* Prikuje desni oglas za vrh ekrana tokom skrolovanja */
 
 <div class="main-layout">
 
-<!-- LEVA KOLONA: PRIČE (NAJNOVIJA NA VRHU, KAKO DODAJETE TAKO KLIZE) -->
+<!-- LEVA KOLONA: PRIČE SA NEZAVISNIM KLIZAČEM (NAJNOVIJA NA VRHU) -->
 <div class="stories-column">
 
 <!-- OVDE NALEPLJUJETE NOVE PRIČE U BUDUĆNOSTI DA BUDU NA VRHU -->
 
-<!-- PODFASCIKLA 2 (Novija priča ide gore) -->
+<!-- PODFASCIKLA 2 (22.06.2026) -->
 <div class="podfascikla">
 <div class="datum">PRIČA 22.06.2026.</div>
 <h2>Zamišljeni klon i Ginisova administracija</h2>
@@ -113,7 +129,7 @@ Mnogi čitaoci se uplaše kada na našem kalkulatoru vide aktuarsku projekciju o
 </p>
 </div>
 
-<!-- PODFASCIKLA 1 (Starija priča klizi dole) -->
+<!-- PODFASCIKLA 1 (15.06.2026) -->
 <div class="podfascikla">
 <div class="datum">PRIČA 15.06.2026.</div>
 <h2>Mitohondrijski švercer i krađa struje</h2>
@@ -126,15 +142,16 @@ Da li ste znali da prosečan čovek tokom dana u svojim ćelijama proizvede koli
 </div> <!-- KRAJ LEVE KOLONE -->
 
 
-<!-- DESNA KOLONA: PRIKOVANI INVESTICIONI MEMORANDUM (NEMA KLIZAČ, FIKSIRAN NA EKRANU) -->
+<!-- DESNA KOLONA: ZAKUCAN OGLAS SA ISTAKNUTOM CENOM U NASLOVU -->
 <div class="invest-column">
 <div class="invest-box">
 <div class="datum" style="background: #38bdf8;">INVESTICIONI MEMORANDUM 24.06.2026.</div>
-<h2 style="color: #38bdf8;">STRATEŠKA PONUDA ZA MECENE I INVESTITORE – FINANSIJSKI TRANSFER FORMULE 3-U-1</h2>
+<h2 style="color: #38bdf8; font-size: 1.15rem; line-height: 1.4;">STRATEŠKA PONUDA ZA MECENE I INVESTITORE – FINANSIJSKI TRANSFER FORMULE 3-U-1 [ 50.000€ + ko ponudi više ]</h2>
+<br>
 <p>
 Projekat Loboda Faza 2 predstavlja radikalan tehnološki i biofizički iskorak u sferi preventivne medicine, ćelijske energizacije i biološkog podmlađivanja tkiva. Dok je bazična monografija „REDOKS JURIŠ“ (zaštićena međunarodnim ISBN brojem) predočila javnosti bazičnu elektrohemijsku teoriju, ovaj dokument otvara vrata Tehnološkog nivoa 2.0 i nudi ekskluzivnu startnu osnovu za izradu budućeg farmakoleka za dugovečnost.
 <br><br>
-Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodologije kovalentne enkapsulacije (3-u-1 Matriks), autor potražuje **fiksno finansiranje / investicioni grant u iznosu od 50.000+ evra**. Ulaganjem ovih sredstava, investitor otkupljuje pravo na formulu i dobija uvid u kompletan teorijski model, nakon čega postaje jedini nosilac prava svojine i komercijalni vlasnik predočenog koncepta.
+Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodologije kovalentne enkapsulacije (3-u-1 Matriks), autor potražuje **fiksno finansiranje / investicioni grant u iznosu od 50.000+ evra (uz opciju licitacije za najbolju ponudu)**. Ulaganjem ovih sredstava, investitor otkupljuje pravo na formulu i dobija uvid u kompletan teorijski model, nakon čega postaje jedini nosilac prava svojine i komercijalni vlasnik predočenog koncepta.
 <br><br>
 <strong>Pravna i naučna napomena:</strong> Predmetni 3-u-1 koncept predstavlja teorijski i inženirski model koji tek treba da prođe kroz opsežna laboratorijska i klinička ispitivanja. Shodno tome, autor predočava rad u viđenom stanju kao vrhunsku naučnu premisu — model u krajnjoj realizaciji može biti u potpunosti ispravan, delimično ispravan ili zahtevati modifikacije. Ulaganjem investicionih sredstava, partner preuzima dalji tehnološki razvoj, doradu, popravku, laboratorijska testiranja i komercijalizaciju formule pod sopstvenom i isključivom odgovornošću, dok autor garantuje iskrenost i naučnu unikatnost predočene osnove. Kompanijama koje obezbede finansiranje nudi se ekskluzivno pravo na transfer, komercijalizaciju i trajnu zaštitu predmetne intelektualne svojine na globalnom tržištu.
 <br><br>
