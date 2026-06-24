@@ -12,23 +12,38 @@ background: linear-gradient(135deg,#0f172a,#1e293b);
 color: white;
 line-height: 1.7;
 padding: 20px;
+height: 100vh;
+overflow: hidden; /* Zaključava celi ekran da nema glavnog skrola */
 }
-.container { width: 100%; max-width: 1200px; margin: auto; }
-.back-link { display: inline-block; color: #ff007f; text-decoration: none; margin-bottom: 15px; font-size: 14px; font-weight: bold; }
+.container { width: 100%; max-width: 1200px; margin: auto; height: 100%; display: flex; flex-direction: column; }
+.back-link { display: inline-block; color: #ff007f; text-decoration: none; margin-bottom: 15px; font-size: 14px; font-weight: bold; flex-shrink: 0; }
 .back-link:hover { text-underline-offset: 4px; text-decoration: underline; }
-h1 { color: #ff007f; font-size: 2rem; text-transform: uppercase; margin-bottom: 5px; text-align: center; }
-.subtitle { text-align: center; color: #94a3b8; margin-bottom: 25px; font-size: 13px; }
 
-/* OSNOVNA STRUKTURA ZA USPRAVNI TELEFON (SVE IDE U JEDNU KOLONU, JEDAN ISPOD DRUGOG) */
-.main-layout {
-display: flex;
-flex-direction: column;
-gap: 20px;
+/* BANER SA NASLOVIMA */
+.header-banner {
+text-align: center;
+flex-shrink: 0;
+margin-bottom: 25px;
 }
+h1 { color: #ff007f; font-size: 2rem; text-transform: uppercase; margin-bottom: 5px; }
+.subtitle { color: #94a3b8; font-size: 13px; }
+
+/* OSNOVNA DVODELNA STRUKTURA (GRID KOJI RADI I NA RAČUNARU I NA VODORAVNOM TELEFONU) */
+.main-layout {
+display: grid;
+grid-template-columns: 1fr 1.111fr; /* Oglas je levo, priče su desno */
+gap: 20px;
+flex: 1;
+min-height: 0; /* Ključno za ispravan rad unutrašnjih klizača */
+}
+
 .stories-column {
 display: flex;
 flex-direction: column;
 gap: 20px;
+height: 100%;
+overflow-y: scroll; /* TRAJNO UKLJUČEN DESNI ROZE KLIZAČ */
+padding-right: 8px;
 }
 .podfascikla {
 background: #1e293b;
@@ -36,6 +51,7 @@ border: 2px solid #ff007f;
 border-radius: 12px;
 padding: 20px;
 box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+flex-shrink: 0;
 }
 .datum {
 display: inline-block;
@@ -51,9 +67,11 @@ h2 { color: #ffffff; font-size: 1.2rem; margin-bottom: 10px; text-transform: upp
 p { color: #cbd5e1; font-size: 13px; text-align: justify; }
 .mat { color: #00ffcc; font-weight: bold; margin-top: 10px; display: block; }
 
-/* INVESTICIONA KOLONA */
+/* LEVA INVESTICIONA KOLONA */
 .invest-column {
-width: 100%;
+height: 100%;
+overflow-y: scroll; /* TRAJNO UKLJUČEN LEVI PLAVI KLIZAČ */
+padding-right: 8px;
 }
 .invest-box {
 background: #1e293b;
@@ -71,32 +89,37 @@ border-radius: 8px;
 text-align: center;
 }
 
-/* 📱 PRELOMNA TAČKA ZA VODORAVNI TELEFON I RAČUNAR (ŠIRINA VEĆA OD 560px) */
-@media (min-width: 561px) {
-body { height: 100vh; overflow: hidden; padding: 15px; } /* Zaključava celi ekran da nema glavnog skrola */
-.container { height: 100%; display: flex; flex-direction: column; }
+/* Prilagođavanje izgleda trake klizača u tonu portala */
+.invest-column::-webkit-scrollbar { width: 6px; }
+.invest-column::-webkit-scrollbar-track { background: #0f172a; }
+.invest-column::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 3px; }
+
+.stories-column::-webkit-scrollbar { width: 6px; }
+.stories-column::-webkit-scrollbar-track { background: #0f172a; }
+.stories-column::-webkit-scrollbar-thumb { background: #ff007f; border-radius: 3px; }
+
+/* 📱 MEDIJSKI UPIT SAMO ZA USPRAVNI TELEFON (ŠIRINA EKRANA MANJA OD 600px) */
+@media (max-width: 600px) {
+body { overflow: auto; height: auto; } /* Otključava glavni skrol za uspravni telefon */
+.container { height: auto; }
 .main-layout {
-display: grid;
-grid-template-columns: 1fr 1fr; /* Podela ekrana na pola (50% - 50%) */
-gap: 20px;
-flex: 1;
-min-height: 0; /* Sprečava prelivanje u gridu */
+display: flex;
+flex-direction: column; /* Preslaže u jednu vertikalnu kolonu, jedan ispod drugog */
+gap: 25px;
 }
 .invest-column, .stories-column {
-height: 100%;
-overflow-y: auto; /* AKTIVIRA OBA NEZAVISNA KLIZAČA POD VOJNIČKI LENJIR */
-padding-right: 8px;
+height: auto;
+overflow-y: visible; /* Isključuje unutrašnje skrolere jer uspravni telefon klizi celi naniže */
+padding-right: 0;
+}
 }
 
-/* Stilovi za levi (investicioni) klizač */
-.invest-column::-webkit-scrollbar { width: 4px; }
-.invest-column::-webkit-scrollbar-track { background: #0f172a; }
-.invest-column::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 2px; }
-
-/* Stilovi za desni (priče) klizač */
-.stories-column::-webkit-scrollbar { width: 4px; }
-.stories-column::-webkit-scrollbar-track { background: #0f172a; }
-.stories-column::-webkit-scrollbar-thumb { background: #ff007f; border-radius: 2px; }
+/* 📱 MEDIJSKI UPIT ZA VODORAVNI (HORIZONTALNI) TELEFON (MALA VISINA DISPLEJA) */
+@media (max-height: 500px) and (orientation: landscape) {
+body { padding: 10px; }
+.header-banner { display: none; } /* POTPUNO UKLANJA VELIKI NASLOV DA OSLOBODI EKRAN */
+.back-link { margin-bottom: 10px; }
+.main-layout { gap: 15px; }
 }
 </style>
 </head>
@@ -104,12 +127,15 @@ padding-right: 8px;
 <div class="container">
 <a href="index.html" class="back-link">← NAZAD NA PORTAL</a>
 
+<!-- BANER KOJI AUTOMATSKI NESTAJE KADA SE TELEFON OKRENE BOČNO -->
+<div class="header-banner">
 <h1>💡 NISTE ZNALI / 💼 DONATORI</h1>
 <div class="subtitle">Inženjerske i biofizičke zanimljivosti / Ponuda za strateške investitore i mecene</div>
+</div>
 
 <div class="main-layout">
 
-<!-- LEVA KOLONA: LEVI ZAKUCANI PROZOR SA SOPSTVENIM PLAVIM KLIZAČEM -->
+<!-- LEVA KOLONA: STRATEŠKA PONUDA SA SOPSTVENIM PLAVIM KLIZAČEM -->
 <div class="invest-column">
 <div class="invest-box">
 <div class="datum" style="background: #38bdf8;">INVESTICIONI MEMORANDUM 24.06.2026.</div>
