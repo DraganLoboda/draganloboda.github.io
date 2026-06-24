@@ -12,9 +12,8 @@ background: linear-gradient(135deg,#0f172a,#1e293b);
 color: white;
 line-height: 1.7;
 padding: 20px;
-min-height: 100vh;
-overflow-x: hidden;
-overflow-y: auto;
+height: 100vh;
+overflow: hidden; /* Potpuno zaključava glavni skrol celog ekrana */
 }
 .container { 
 width: 100%; 
@@ -36,20 +35,22 @@ margin-bottom: 25px;
 h1 { color: #ff007f; font-size: 2rem; text-transform: uppercase; margin-bottom: 5px; }
 .subtitle { color: #94a3b8; font-size: 13px; }
 
-/* REVOLUCIONARNA DVODELNA STRUKTURA SA INTEGRISANIM KOREKCIJAMA ZA KLIZAČE */
+/* RIGOROZNA REVOLUCIONARNA STRUKTURA SA KOČNICOM ZA VISINU */
 .main-layout {
 display: grid;
 grid-template-columns: 1fr 1.111fr; /* Oglas levo, priče desno */
 gap: 20px;
 flex: 1;
 min-height: 0;
+height: 100%;
 overflow: hidden;
 }
 
 /* LEVA INVESTICIONA KOLONA */
 .invest-column {
 height: 100%;
-overflow-y: auto;
+max-height: 100%;
+overflow-y: scroll; /* STALNO UKLJUČEN LEVI KLIZAČ */
 padding-right: 8px;
 min-height: 0;
 -webkit-overflow-scrolling: touch;
@@ -70,10 +71,11 @@ border-radius: 8px;
 text-align: center;
 }
 
-/* DESNA KOLONA SA PRIČAMA */
+/* DESNA KOLONA SA PRIČAMA - VOJNIČKI UKUCANA VISINA */
 .stories-column {
 height: 100%;
-overflow-y: auto;
+max-height: 100%;
+overflow-y: scroll; /* STALNO UKLJUČEN I PRISILJEN DESNI KLIZAČ */
 padding-right: 8px;
 display: flex;
 flex-direction: column;
@@ -87,7 +89,7 @@ border: 2px solid #ff007f;
 border-radius: 12px;
 padding: 20px;
 box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-flex-shrink: 0;
+flex-shrink: 0; /* Potpuno zabranjuje skupljanje i gnječenje kutija */
 }
 .datum {
 display: inline-block;
@@ -103,7 +105,7 @@ h2 { color: #ffffff; font-size: 1.2rem; margin-bottom: 10px; text-transform: upp
 p { color: #cbd5e1; font-size: 13px; text-align: justify; }
 .mat { color: #00ffcc; font-weight: bold; margin-top: 10px; display: block; }
 
-/* Prefinjena stilizacija izgleda traka oba klizača u tonu portala */
+/* Identološka stilizacija i pojačana vidljivost traka oba klizača */
 .invest-column::-webkit-scrollbar { width: 6px; }
 .invest-column::-webkit-scrollbar-track { background: #0f172a; }
 .invest-column::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 3px; }
@@ -114,21 +116,22 @@ p { color: #cbd5e1; font-size: 13px; text-align: justify; }
 
 /* 📱 MEDIJSKI UPIT SAMO ZA USPRAVNI TELEFON (ŠIRINA EKRANA MANJA OD 600px) */
 @media (max-width: 600px) {
-body { overflow: auto; height: auto; }
+body { overflow: auto; height: auto; } /* Otključava glavni skrol za uspravni ekran */
 .container { height: auto; }
 .main-layout {
 display: flex;
-flex-direction: column;
+flex-direction: column; /* Preslaže u jednu čistu vertikalnu kolonu */
 gap: 25px;
 }
 .invest-column, .stories-column {
 height: auto;
-overflow-y: visible;
+max-height: none;
+overflow-y: visible; /* Isključuje unutrašnje klizače jer se telefon skroluje ceo */
 padding-right: 0;
 }
 }
 
-/* 📱 NAPREDNI KORIGOVANI JURIŠ ZA VODORAVNI (HORIZONTALNI) TELEFON */
+/* 📱 MAPA ZA VODORAVNI (HORIZONTALNI) TELEFON (MALA VISINA DISPLEJA) */
 @media (max-height: 500px) and (orientation: landscape) {
 body {
 padding: 10px;
@@ -150,7 +153,8 @@ overflow: hidden;
 .invest-column,
 .stories-column {
 height: 100%;
-overflow-y: auto;
+max-height: 100%;
+overflow-y: scroll;
 min-height: 0;
 padding-bottom: 40px;
 }
@@ -196,10 +200,8 @@ Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodolo
 </div> <!-- KRAJ LEVE KOLONE -->
 
 
-<!-- DESNA KOLONA: PRIČE SA DESNIM SOPSTVENIM ROZE KLIZAČEM (UVEK VIDLJIVIM NA RAČUNARU) -->
+<!-- DESNA KOLONA: PRIČE SA PRAVILNO ZATVORENIM TAGOVIMA I UKUCANIM SKROLOM -->
 <div class="stories-column">
-
-<!-- OVDE NALEPLJUJETE NOVE PRIČE U BUDUĆNOSTI DA BUDU NA VRHU DESNE STRANE -->
 
 <!-- PODFASCIKLA 2 (22.06.2026) -->
 <div class="podfascikla">
@@ -217,3 +219,14 @@ Mnogi čitaoci se uplaše kada na našem kalkulatoru vide aktuarsku projekciju o
 <h2>Mitohondrijski švercer i krađa struje</h2>
 <p>
 Da li ste znali da prosečan čovek tokom dana u ovom obliku proizvede količinu struje koja je jednaka jačini jakog udara groma? Vaše mitohondrije rade kao nevidljive mini-elektrane. Kada unosite brzu hranu, rafinisane šećere i stres, u organizam ubacujete biološke švercere koji divlje kradu elektrone sa membrana. Ćelijska baterija doživljava pad napona, a zvanična medicina onda taj kratak spoj proglasi za "hronični umor". Rešenje? Umesto skupe popravke spaljene mreže, unesite halogeni jodlipidni oklop i prekinite nelegalni šverc struje!
+<span class="mat">(Čist mat za bio-lopove!)</span>
+</p>
+</div>
+
+</div> <!-- KRAJ DESNE KOLONE -->
+
+</div> <!-- KRAJ MAIN LAYOUT-A -->
+
+</div> <!-- KRAJ KONTEJNERA -->
+</body>
+</html>
