@@ -13,7 +13,7 @@ color: white;
 line-height: 1.7;
 padding: 20px;
 height: 100vh;
-overflow: hidden; /* Zaključava celi ekran da nema glavnog skrola */
+overflow: hidden; /* Potpuno zaključava glavni skrol celog ekrana */
 }
 .container { width: 100%; max-width: 1200px; margin: auto; height: 100%; display: flex; flex-direction: column; }
 .back-link { display: inline-block; color: #ff007f; text-decoration: none; margin-bottom: 15px; font-size: 14px; font-weight: bold; flex-shrink: 0; }
@@ -28,49 +28,20 @@ margin-bottom: 25px;
 h1 { color: #ff007f; font-size: 2rem; text-transform: uppercase; margin-bottom: 5px; }
 .subtitle { color: #94a3b8; font-size: 13px; }
 
-/* OSNOVNA DVODELNA STRUKTURA (GRID KOJI RADI I NA RAČUNARU I NA VODORAVNOM TELEFONU) */
+/* REVOLUCIONARNA DVODELNA STRUKTURA (GRID SA OBAVEZNIH SPREČAVANJEM PRELIVANJA) */
 .main-layout {
 display: grid;
-grid-template-columns: 1fr 1.111fr; /* Oglas je levo, priče su desno */
+grid-template-columns: 1fr 1.111fr; /* Oglas levo, priče desno */
 gap: 20px;
 flex: 1;
-min-height: 0; /* Ključno za ispravan rad unutrašnjih klizača */
-}
-
-.stories-column {
-display: flex;
-flex-direction: column;
-gap: 20px;
+min-height: 0; /* Tera grid da fiksira visinu i otključa unutrašnje klizače */
 height: 100%;
-overflow-y: scroll; /* TRAJNO UKLJUČEN DESNI ROZE KLIZAČ */
-padding-right: 8px;
 }
-.podfascikla {
-background: #1e293b;
-border: 2px solid #ff007f;
-border-radius: 12px;
-padding: 20px;
-box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-flex-shrink: 0;
-}
-.datum {
-display: inline-block;
-background: #ff007f;
-color: white;
-padding: 3px 10px;
-font-size: 11px;
-font-weight: bold;
-margin-bottom: 12px;
-border-radius: 4px;
-}
-h2 { color: #ffffff; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; }
-p { color: #cbd5e1; font-size: 13px; text-align: justify; }
-.mat { color: #00ffcc; font-weight: bold; margin-top: 10px; display: block; }
 
 /* LEVA INVESTICIONA KOLONA */
 .invest-column {
 height: 100%;
-overflow-y: scroll; /* TRAJNO UKLJUČEN LEVI PLAVI KLIZAČ */
+overflow-y: scroll; /* TRAJNI I UVEK VIDLJIVI LEVI PLAVI KLIZAČ */
 padding-right: 8px;
 }
 .invest-box {
@@ -89,7 +60,38 @@ border-radius: 8px;
 text-align: center;
 }
 
-/* Prilagođavanje izgleda trake klizača u tonu portala */
+/* DESNA KOLONA SA PRIČAMA */
+.stories-column {
+height: 100%;
+overflow-y: scroll; /* TRAJNI I UVEK VIDLJIVI DESNI ROZE KLIZAČ */
+padding-right: 8px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+.podfascikla {
+background: #1e293b;
+border: 2px solid #ff007f;
+border-radius: 12px;
+padding: 20px;
+box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+flex-shrink: 0; /* Ne dozvoljava kutijama da se skupe ili zgužvaju */
+}
+.datum {
+display: inline-block;
+background: #ff007f;
+color: white;
+padding: 3px 10px;
+font-size: 11px;
+font-weight: bold;
+margin-bottom: 12px;
+border-radius: 4px;
+}
+h2 { color: #ffffff; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; }
+p { color: #cbd5e1; font-size: 13px; text-align: justify; }
+.mat { color: #00ffcc; font-weight: bold; margin-top: 10px; display: block; }
+
+/* Prefinjena stilizacija izgleda traka oba klizača u tonu portala */
 .invest-column::-webkit-scrollbar { width: 6px; }
 .invest-column::-webkit-scrollbar-track { background: #0f172a; }
 .invest-column::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 3px; }
@@ -100,16 +102,16 @@ text-align: center;
 
 /* 📱 MEDIJSKI UPIT SAMO ZA USPRAVNI TELEFON (ŠIRINA EKRANA MANJA OD 600px) */
 @media (max-width: 600px) {
-body { overflow: auto; height: auto; } /* Otključava glavni skrol za uspravni telefon */
+body { overflow: auto; height: auto; } /* Otključava glavni skrol za uspravni ekran */
 .container { height: auto; }
 .main-layout {
 display: flex;
-flex-direction: column; /* Preslaže u jednu vertikalnu kolonu, jedan ispod drugog */
+flex-direction: column; /* Preslaže u jednu čistu vertikalnu kolonu */
 gap: 25px;
 }
 .invest-column, .stories-column {
 height: auto;
-overflow-y: visible; /* Isključuje unutrašnje skrolere jer uspravni telefon klizi celi naniže */
+overflow-y: visible; /* Isključuje unutrašnje klizače jer se telefon skroluje ceo */
 padding-right: 0;
 }
 }
@@ -117,7 +119,7 @@ padding-right: 0;
 /* 📱 MEDIJSKI UPIT ZA VODORAVNI (HORIZONTALNI) TELEFON (MALA VISINA DISPLEJA) */
 @media (max-height: 500px) and (orientation: landscape) {
 body { padding: 10px; }
-.header-banner { display: none; } /* POTPUNO UKLANJA VELIKI NASLOV DA OSLOBODI EKRAN */
+.header-banner { display: none; } /* POTPUNO UKLANJA VELIKI NASLOV DA OSLOBODI PROSTOR */
 .back-link { margin-bottom: 10px; }
 .main-layout { gap: 15px; }
 }
@@ -135,18 +137,18 @@ body { padding: 10px; }
 
 <div class="main-layout">
 
-<!-- LEVA KOLONA: STRATEŠKA PONUDA SA SOPSTVENIM PLAVIM KLIZAČEM -->
+<!-- LEVA KOLONA: STRATEŠKA PONUDA SA NOVIM NASLOVOM I SOPSTVENIM PLAVIM KLIZAČEM -->
 <div class="invest-column">
 <div class="invest-box">
 <div class="datum" style="background: #38bdf8;">INVESTICIONI MEMORANDUM 24.06.2026.</div>
-<h2 style="color: #38bdf8; font-size: 1.1rem; line-height: 1.4;">STRATEŠKA PONUDA ZA MECENE I INVESTITORE – FINANSIJSKI TRANSFER FORMULE 3-U-1 [ 50.000€ + ko ponudi više ]</h2>
+<h2 style="color: #38bdf8; font-size: 1.1rem; line-height: 1.4;">TRANSFER KOMERCIJALNE FORMULE ZA DUGOVEČNOST – STRATEŠKA PONUDA ZA MECENE I INVESTITORE 3-U-1 [ 50.000€ + ko ponudi više ]</h2>
 <br>
 <p>
-Projekat Loboda Faza 2 predstavlja radikalan tehnološki i biofizički iskorak u sferi preventivne medicine, ćelijske energizacije i biološkog podmlađivanja tkiva. Dok je bazična monografija „REDOKS JURIŠ“ (zaštićena međunarodnim ISBN brojem) predočila javnosti bazičnu elektrohemijsku teoriju, ovaj dokument otvara vrata Tehnološkog nivoa 2.0 i nudi ekskluzivnu startnu osnovu za izradu budućeg farmakoleka za dugovečnost.
+Projekat Loboda Faza 2 predstavlja radikalan tehnološki i biofizički iskorak u sferi preventivne medicine, ćelijske energizacije i bioločkog podmlađivanja tkiva. Dok je bazična monografija „REDOKS JURIŠ“ (zaštićena međunarodnim ISBN brojem) predočila javnosti bazičnu elektrohemijsku teoriju, ovaj dokument otvara vrata Tehnološkog nivoa 2.0 i nudi ekskluzivnu startnu osnovu za izradu budućeg farmakoleka za dugovečnost.
 <br><br>
 Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodologije kovalentne enkapsulacije (3-u-1 Matriks), autor potražuje **fiksno finansiranje / investicioni grant u iznosu od 50.000+ evra (uz opciju licitacije za najbolju ponudu)**. Ulaganjem ovih sredstava, investitor otkupljuje pravo na formulu i dobija uvid u kompletan teorijski model, nakon čega postaje jedini nosilac prava svojine i komercijalni vlasnik predočenog koncepta.
 <br><br>
-<strong>Pravna i naučna napomena:</strong> Predmetni 3-u-1 koncept predstavlja teorijski i inženirski model koji tek treba da prođe kroz opsežna laboratorijska i klinička ispitivanja. Shodno tome, autor predočava rad u viđenom stanju kao vrhunsku naučnu premisu — model u krajnjoj realizaciji može biti u potpunosti ispravan, delimično ispravan ili zahtevati modifikacije. Ulaganjem investicionih sredstava, partner preuzima dalji tehnološki razvoj, doradu, popravku, laboratorijska testiranja i komercijalizaciju formule pod sopstvenom i isključivom odgovornošću, dok autor garantuje iskrenost i naučnu unikatnost predočene osnove. Kompanijama koje obezbede finansiranje nudi se ekskluzivno pravo na transfer, komercijalizaciju i trajnu zaštitu predmetne intelektualne svojine na globalnom tržištu.
+<strong>Pravna i naučna napomena:</strong> Predmetni 3-u-1 koncept predstavlja teorijski i inženerski model koji tek treba da prođe kroz opsežna laboratorijska i klinička ispitivanja. Shodno tome, autor predočava rad u viđenom stanju kao vrhunsku naučnu premisu — model u krajnjoj realizaciji može biti u potpunosti ispravan, delimično ispravan ili zahtevati modifikacije. Ulaganjem investicionih sredstava, partner preuzima dalji tehnološki razvoj, doradu, popravku, laboratorijska testiranja i komercijalizaciju formule pod sopstvenom i isključivom odgovornošću, dok autor garantuje iskrenost i naučnu unikatnost predočene osnove. Kompanijama koje obezbede finansiranje nudi se ekskluzivno pravo na transfer, komercijalizaciju i trajnu zaštitu predmetne intelektualne svojine na globalnom tržištu.
 <br><br>
 <strong>Klauzula o nepovratnosti sredstava:</strong> Podrazumeva se i izričito naglašava da po ličnom prenosu tajne inženerske formule od strane autora i njenog prihvatanja od strane investitora, posao se smatra pravno i komercijalno zaključenim. Investitor nema nikakvo zakonsko pravo na jednostrani raskid, reklamaciju niti pravo da svoj uplaćeni novac traži nazad, bez obzira na ishode budućih laboratorijskih testiranja.
 </p>
@@ -154,13 +156,13 @@ Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodolo
 <div class="zakljucano">
 <span style="color: #ff007f; font-weight: bold; display: block; margin-bottom: 10px;">🔒 BEZBEDNOSNI PROTOKOL ZAŠTITE</span>
 <span style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 15px; text-align: justify;">SISTEMSKO UPOZORENJE: Kompletna laboratorijska tehnologija, proračuni i hemijski kofaktori formule I. TEHNOLOŠKA FORMULA ENKAPSULACIJE (3-u-1 Matriks) se iz bezbednosnih razloga ne nalaze na internet serveru, već se čuvaju u izolovanom sistemu autora. Formula i kompletna dokumentacija se investitoru predaju lično i zvanično, nakon što se u potpunosti realizuje uplata investicionog granta na račun autora, uz zadržavanje neotuđivog moralnog prava pronalazača. Investitor se ugovorom obavezuje da će budući farmakolek, kao i sve njegove naknadne laboratorijske modifikacije i dorade, u komercijalnom ili naučnom nazivu trajno i obavezno nositi oznaku „Protokol Loboda“, čime se autoru priznaje apsolutno doživotno prvenstvo nad osmišljavanjem bazičkog elektrohemijskog koncepta.</span>
-<span style="color: #38bdf8; font-weight: bold; font-size: 14px;">[ PORTAL JE USPEŠNO OSIGURAN VAN MREŽE ]</span>
+<span style="color: #38bdf8; font-weight: bold; font-size: 16px;">[ PORTAL JE USPEŠNO OSIGURAN VAN MREŽE ]</span>
 </div>
 </div>
 </div> <!-- KRAJ LEVE KOLONE -->
 
 
-<!-- DESNA KOLONA: PRIČE SA DESNIM SOPSTVENIM ROZE KLIZAČEM (NAJNOVIJA NA VRHU) -->
+<!-- DESNA KOLONA: PRIČE SA DESNIM SOPSTVENIM ROZE KLIZAČEM (UVEK VIDLJIVIM NA RAČUNARU) -->
 <div class="stories-column">
 
 <!-- OVDE NALEPLJUJETE NOVE PRIČE U BUDUĆNOSTI DA BUDU NA VRHU DESNE STRANE -->
