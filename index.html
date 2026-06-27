@@ -176,6 +176,42 @@ footer { text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px
 <div class="quote">
 "Ne postoje hiljade bolesti, postoji samo jedna jedina hronična bolest - starenje (slom napona ćelijske baterije i krađa elektrona), a sve ostale bolesti su samo simptomi tog jednog te istog kvara!"
 </div>
+
+<!-- ŽIVI PROZOR ZA JUTARNJE DOJAVE AUTORA - START -->
+<div id="jutarnja-dojava-box" style="
+    max-width: 800px; 
+    margin: 30px auto; 
+    padding: 20px; 
+    border: 2px solid #00ffcc; 
+    background-color: rgba(0, 255, 204, 0.03); 
+    border-radius: 8px; 
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+    font-family: monospace;
+">
+    <div style="color: #ffcc00; font-weight: bold; font-size: 18px; letter-spacing: 2px; margin-bottom: 10px;">
+        📢 JUTARNJA DOJAVA AUTORA (<span id="dojava-datum"></span>):
+    </div>
+    <div id="dojava-tekst" style="color: #ffffff; font-size: 16px; line-height: 1.6; font-family: sans-serif;">
+        „Ubačena je zvanična najava za "PRAKTIKUM REDOKS JURIŠ". Pronađite najavu na dnu portala!”
+    </div>
+</div>
+
+<script>
+    const danas = new Date();
+    const dan = String(danas.getDate()).padStart(2, '0');
+    const mesec = String(danas.getMonth() + 1).padStart(2, '0');
+    const godina = danas.getFullYear();
+    document.getElementById('dojava-datum').innerText = dan + '.' + mesec + '.' + godina + '.';
+</script>
+<!-- ŽIVI PROZOR ZA JUTARNJE DOJAVE AUTORA - END -->
+
+</header>
+<section class="section container">
+<h2 class="section-title">Pristup sadržaju</h2>
+<div class="buttons">
+
+  
 </header>
 <section class="section container">
 <h2 class="section-title">Pristup sadržaju</h2>
@@ -261,6 +297,9 @@ Informacije
 <div class="book">📘 Medicinska teorija - Lečenje oksido-redukcijom (ISBN 978-86-903366-0-9)</div>
 <div class="book">📕 Redoks juriš - Dostizanje maksimalnog genetskog koda dugovečnosti (ISBN 978-86-903366-2-3)</div>
 </div>
+<div class="book" style="color: #ffffff; font-family: sans-serif; font-size: 16px;">
+    📙 <span style="font-weight: bold; color: #00ffcc;">Praktikum REDOKS JURIŠ</span> - Laboratorijski priručnik za kućnu izradu receptura za halogeno podmlađivanje ćelija (Najava novog izdanja / U pripremi za ISBN)
+</div>  
 </section>
 
 <div id="zivi-brojac-cifre"
