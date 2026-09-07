@@ -77,10 +77,13 @@ The engineered theoretical cure utilizes this malignant voracity through the <st
 <span class="mat"> COVALENT ENGINEERING CONCLUSION OF STORY 13: The localized destruction of colorectal tumor mass via the starch-iodine cage is successfully integrated with systemic lipid protection against metastasis. The structural waiting time in the healthcare system is transformed into an active redox assault that restores cellular sovereignty to the clone and lifts tissue potential to the factory-fresh −180 mV. The architecture of the Trojan Horse is complete!</span>
 </p>
 
-<div style="display: flex; justify-content: flex-end; margin-top: 25px;">
-<button onclick="shareStory13()">📢 Share Story 13</button>
-</div>
-</div>
+function univerzalniShare(dugme) {
+ var podfascikla = dugme.closest('.podfascikla');
+ var naslov = podfascikla.querySelector('h2') ? podfascikla.querySelector('h2').innerText : 'Nova prica';
+ var pasus = podfascikla.querySelector('p') ? podfascikla.querySelector('p').innerText.substring(0, 60) + '...' : 'Protokol Loboda';
+ shareEngine(naslov, pasus);
+}
+
 
 <!-- STORY 12 -->
 <div class="podfascikla">
