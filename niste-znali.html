@@ -250,13 +250,26 @@ Princip „Тројанског коња” преко хибридног лип
 <span class="mat"> КОВАЛЕНТНИ ИНЖЕНЈЕРСКИ ЗАКЉUЧАК ПРИЧЕ 21: Циљано уништење туморске масе мамарних жлезда дојке кроз Модел А или Модел Б успешно уводи слободни молекуларни јод (253,8 Da) изван домашаја јетрених дејодиназа директно на онколошку мету. Синтеза 6-јодолактона покреће селективну апоптозу рака, фиксирајући унутрашњи напон митохондрија на фабричких −180 mV. Време чекања је претворено у победнички редокс јуриш. Архитектура Тројанског коња за дојку је заптивено комплетна!</span>
 </p>
 
-Архитектура Тројанског коња за дојku је заптивено комплетна!</span>
-</p>
-<!-- DUGME SA UNIVERZALNIM PREKIDAČEM IZ SRPSKOG PROZORA — SADA OTKLOČANO -->
-<div style="display: flex; justify-content: flex-end; margin-top: 25px;">
-<button onclick="univerzalniShare(this)" style="background: #00ffcc; color: #000000; padding: 8px 16px; border: none; border-radius: 4px; font-size: 14px; font-family: sans-serif; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);">📢 Podeli priču 21</button>
+<!-- DUGME I SKRIPTA ZA DELJENJE -->
+<div style="display: flex; justify-content: flex-end; margin-top: 25px; padding-top: 10px;">
+<button onclick="podeliSajt20()" style="background: #00ffcc; color: #000000; padding: 8px 16px; border: none; border-radius: 4px; font-size: 14px; font-family: sans-serif; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);">
+ 📢 Podeli sa prijateljima
+</button>
 </div>
 </div>
+
+<script>
+function podeliSajt20() {
+if (navigator.share) {
+ navigator.share({title: 'Protokol Loboda - Priča 20', text: 'Teorijski model protokola Loboda za model bez žučne kese', url: 'https://draganloboda.github.io'});
+} else {
+ navigator.clipboard.writeText('https://draganloboda.github.io');
+ alert("Link ka portalu je kopiran!");
+}
+}
+</script>
+<!-- KRAJ PODFASCIKLE ZA PRIČU 20 -->
+ 
 
 <!-- VANREDNA PRIČA 20: PRINCIP TROJANSKOG KONJA ZA ONKOLOŠKU SUPRESIJU -->
 <div class="podfascikla">
