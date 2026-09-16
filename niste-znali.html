@@ -204,224 +204,74 @@ Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodolo
 <!-- DESNA KOLONA: PRIČE SA PRAVILNO ZATVORENIM TAGOVIMA I UKUCANIM SKROLOM -->
 <div class="stories-column">
 
-<!DOCTYPE html>
-<html lang="sr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Niste Znali | Smešne Zanimljivosti & Donatori</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-font-family: monospace;
-background: linear-gradient(135deg,#0f172a,#1e293b);
-color: white;
-line-height: 1.7;
-padding: 20px;
-height: 100vh;
-overflow: hidden; /* Potpuno zaključava glavni skrol celog ekrana */
-}
-.container { 
-width: 100%; 
-max-width: 1200px; 
-margin: auto; 
-height: calc(100vh - 40px);
-display: flex; 
-flex-direction: column; 
-}
-.back-link { display: inline-block; color: #ff007f; text-decoration: none; margin-bottom: 15px; font-size: 14px; font-weight: bold; flex-shrink: 0; }
-.back-link:hover { text-underline-offset: 4px; text-decoration: underline; }
-/* BANER SA NASLOVIMA */
-.header-banner {
-text-align: center;
-flex-shrink: 0;
-margin-bottom: 25px;
-}
-h1 { color: #ff007f; font-size: 2rem; text-transform: uppercase; margin-bottom: 5px; }
-.subtitle { color: #94a3b8; font-size: 13px; }
-/* RIGOROZNA REVOLUCIONARNA STRUKTURA SA KOČNICOM ZA VISINU */
-.main-layout {
-display: grid;
-grid-template-columns: 1fr 1.111fr; /* Oglas levo, priče desno */
-gap: 20px;
-flex: 1;
-min-height: 0;
-height: 100%;
-overflow: hidden;
-}
-/* LEVA INVESTICIONA KOLONA */
-.invest-column {
-height: 100%;
-max-height: 100%;
-overflow-y: scroll; /* STALNO UKLJUČEN LEVI KLIZAČ */
-padding-right: 8px;
-min-height: 0;
--webkit-overflow-scrolling: touch;
-}
-.invest-box {
-background: #1e293b;
-border: 2px solid #38bdf8;
-border-radius: 12px;
-padding: 20px;
-box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-}
-.zakljucano {
-background: #111827;
-border: 2px dashed #ff007f;
-padding: 15px;
-margin-top: 15px;
-border-radius: 8px;
-text-align: center;
-}
-/* DESNA KOLONA SA PRIČAMA - VOJNIČKI UKUCANA VISINA */
-.stories-column {
-height: 100%;
-max-height: 100%;
-overflow-y: scroll; /* STALNO UKLJUČEN I PRISILJEN DESNI KLIZAČ */
-padding-right: 8px;
-display: flex;
-flex-direction: column;
-gap: 20px;
-min-height: 0;
--webkit-overflow-scrolling: touch;
-}
-.podfascikla {
-background: #1e293b;
-border: 2px solid #ff007f;
-border-radius: 12px;
-padding: 20px;
-box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-flex-shrink: 0; /* Potpuno zabranjuje skupljanje i gnječenje kutija */
-}
-.datum {
-display: inline-block;
-background: #ff007f;
-color: white;
-padding: 3px 10px;
-font-size: 11px;
-font-weight: bold;
-margin-bottom: 12px;
-border-radius: 4px;
-}
-h2 { color: #ffffff; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; }
-p { color: #cbd5e1; font-size: 13px; text-align: justify; }
-.mat { color: #00ffcc; font-weight: bold; margin-top: 10px; display: block; }
-/* Identološka stilizacija i pojačana vidljivost traka oba klizača */
-.invest-column::-webkit-scrollbar { width: 6px; }
-.invest-column::-webkit-scrollbar-track { background: #0f172a; }
-.invest-column::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 3px; }
-.stories-column::-webkit-scrollbar { width: 6px; }
-.stories-column::-webkit-scrollbar-track { background: #0f172a; }
-.stories-column::-webkit-scrollbar-thumb { background: #ff007f; border-radius: 3px; }
-/* 📱 MEDIJSKI UPIT SAMO ZA USPRAVNI TELEFON (ŠIRINA EKRANA MANJA OD 600px) */
-@media (max-width: 600px) {
-body { overflow: auto; height: auto; } /* Otključava glavni skrol za uspravni ekran */
-.container { height: auto; }
-.main-layout {
-display: flex;
-flex-direction: column; /* Preslaže u jednu čistu vertikalnu kolonu */
-gap: 25px;
-}
-.stories-column { order: 1; } /* FORCE: Priče idu na prvo mesto na telefonu */
-.invest-column { order: 2; }  /* FORCE: Donacije idu na poslednje mesto na telefonu */
-.invest-column, .stories-column {
-height: auto;
-max-height: none;
-overflow-y: visible; /* Isključuje unutrašnje klizače jer se telefon skroluje ceo */
-padding-right: 0;
-}
-}
-/* 📱 MAPA ZA VODORAVNI (HORIZONTALNI) TELEFON (MALA VISINA DISPLEJA) */
-@media (max-height: 500px) and (orientation: landscape) {
-body {
-padding: 10px;
-}
-.container {
-height: calc(100vh - 20px);
-}
-.header-banner {
-display: none;
-}
-.back-link {
-margin-bottom: 10px;
-}
-.main-layout {
-gap: 15px;
-min-height: 0;
-overflow: hidden;
-}
-.invest-column,
-.stories-column {
-height: 100%;
-max-height: 100%;
-overflow-y: scroll;
-min-height: 0;
-padding-bottom: 40px;
-}
-}
-</style>
-</head>
-<body>
-<div class="container">
-<a href="index.html" class="back-link">← NAZAD NA PORTAL</a>
-<!-- BANER KOJI AUTOMATSKI NESTAJE KADA SE TELEFON OKRENE BOČNO -->
-<div class="header-banner">
-<h1>💼 DONATORI / 💡 NISTE ZNALI</h1>
-<div class="subtitle">Ponuda za strateške investitore i mecene / Inženjerske i biofizičke zanimljivosti</div>
+<!-- VANREDNA PRIČA 22 — DUPLI TROJANSKI KONJ — DRAGAN LOBODA -->
+<div style="max-width: 800px; margin: 25px auto; padding: 25px; border: 2px solid #d4af37; background: rgba(212, 175, 55, 0.03); border-radius: 12px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); font-family: sans-serif; color: white;">
+
+  <h3 style="color: #d4af37; font-family: monospace; font-size: 1.5rem; text-align: center; margin-bottom: 20px; letter-spacing: 1.5px; text-transform: uppercase;">
+    📢 VANREDNA PRIČA 22: DUPLI TROJANSKI KONJ
+  </h3>
+
+  <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify; margin-bottom: 15px;">
+    Skoro 6 godina pod delimičnim ili potpunim halogenim oklopom, moje telo izvežbalo je moje filterske senzore! Naučio sam da osetim jod koji ide iz želuca direktno u krvotok, iz portalne vene pravo u jetru, i onaj koji ide kroz limfu (e, taj miruje i oseti se jedva malo, ali dosta kasnije). Dakle, jako je bitan put transporta joda kroz organizam jer na taj način šaljemo halogen na mesto koje želimo. 
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify; margin-bottom: 15px;">
+    Kroz praksu, kada sam osmislio idealne medijume za prenos joda, bilo u elementarnom, bilo u jodidnom obliku, te sam kuhinjske umotvorine pretočio u hemijske formule zaštićene patentnim pravom prvenstva! Svih 6 + 1 predočenih formula skockanih i upakovanih u 2 patentne prijave mogu se u postojećem sistemu nadograđivati na mnogo načina, a predočene ambalaže na tri svetska jezika (srpskom, ruskom i engleskom jeziku) prikazuju samo jednu od brojnih mogućnosti poboljšanja protokola Loboda – Lipidni Kod!
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify; margin-bottom: 15px; font-weight: bold; color: #00ffcc;">
+    Ove, nadam se buduće, ambalaže predočenog gore suplementa i kapsulice u njima su "DUPLI TROJANSKI KONJ". 
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify; margin-bottom: 15px;">
+    Halogen jod, ušuškan u MCT/LCT masne kiseline, a dodatno zaštićen lecitinom, trebalo bi da izbegava ili da maksimalno prolongira susret sa filterskim mehanizmima konzumenta, pošto naravno bude dostavljen na željeno mesto radi osnovnog cilja, a to je zaštita ćelija od starenja i zaštita ćelija od acidoznih bolesti organizma!
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify; margin-bottom: 15px;">
+    Zašto su predočene formulacije DUPLI TROJANSKI KONJ? Prvi put, jer je halogen jod zamaskiran i ušuškan u omotač koji ga štiti od biosenzora organizma. Drugi put, zato što je ovo idealan trojanski konj i za farmako firmu koja se odluči da ga proizvodi. 
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify; margin-bottom: 15px;">
+    Uzimanje 3 x dnevno ovih kapsulica drži imunitet na zdravoj osnovi! Uzimanje 6 x 1 kapsulicu ili 3 x 2 kapsulice prolongira Hajflikove klikove i poklanja konzumentu najmanje 10+ godina života!! Uzimanje više kapsulica, prema kalkulatoru i preporuci lekara, može pomoći kao prateće ili možda čak i kao glavno, osnovno oružje kod malignih bolesti!!!
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify; margin-bottom: 15px;">
+    Kada se sabere korist ovakvog leka, i za zdrave ljude, za obolele ljude, kao i za samu farmako industriju, jasne su prednosti za svakoga od njih! Znamo da farmako kuće vole lekiće koje konzumenti moraju doživotno uzimati, tu je zarada i ovakvi i slični lekovi, kao što su moji, nisu baš oduševljenje za njih. 
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.8; text-align: justify; margin-bottom: 20px; font-style: italic; color: #ffcc00;">
+    Ipak, kada jednoga dana odu gore na ispovest, ukoliko prihvate ovako dobar suplement, možda će im staza kod glavnog sudije biti popločana zlatom, a ne vatrom i trnjem! Do tada, dok ovakav lek ne vidi svetlo dana, ostaje nam samo da se nadamo u milost onih koji žive na muci naroda!
+  </p>
+
+  <div style="border-top: 1px solid #334155; padding-top: 15px; text-align: right; font-family: monospace; font-size: 1rem; color: #00ffcc;">
+    S poštovanjem,<br>
+    <strong>Dragan Loboda</strong><br>
+    <span style="color: #94a3b8; font-size: 0.85rem;">nezavisni istraživač i pronalazač</span>
+  </div>
+
 </div>
-<div class="main-layout">
-<!-- LEVA KOLONA: STRATEŠKA PONUDA SA VAŠIM ODREĐENIM NASLOVOM I PLAVIM KLIZAČEM -->
-<div class="invest-column">
-<div class="invest-box">
-<div class="datum" style="background: #38bdf8;">INVESTICIONI MEMORANDUM 24.06.2026.</div>
-<h2 style="color: #38bdf8; font-size: 1.15rem; line-height: 1.4; text-transform: uppercase;">STRATEŠKA PONUDA KO ŽELI DA INVESTIRA: DVE FORMULE PROTIV STARENJA MITOHONDRIJA [ 500.000€ + ] - Transfer komercijalne recepture za poboljšanu zaštitu ćelijskih elektrana</h2>
-<span style="color: #cbd5e1; font-size: 12px; display: block; margin-top: 5px; font-style: italic;">(Plus je ukoliko bude više ponuda pa veća ponuda dobija pravo)</span>
-<br>
-<h3 style="color: #00ffcc; font-size: 0.95rem; font-weight: bold; margin-bottom: 15px; line-height: 1.3;">Transfer komercijalne recepture za poboljšanu zaštitu ćelijskih elektrana.</h3>
-<p>
-Projekat Loboda Faza 2 predstavlja radikalan tehnološki i biofizički iskorak u sferi preventivne medicine, ćelijske energizacije i biološkog podmlađivanja tkiva. Dok je bazična monografija „REDOKS JURIŠ“ (zaštićena međunarodnim ISBN brojem) predočila javnosti bazičnu elektrohemijsku teoriju, ovaj document otvara vrata Tehnološkog nivoa 2.0 i nudi ekskluzivnu startnu osnovu za izradu budućeg farmakoleka za dugovečnost.
-<br><br>
-Za kompletan transfer intelektualne svojine i predaju tajne inženerske metodologije kovalentne enkapsulacije (3-u-1 Matriks), autor potražuje **fiksno finansiranje / investicioni grant u iznosu od 50.000+ evra (uz opciju licitacije za najbolju ponudu)**. Ulaganjem ovih sredstava, investitor otkupljuje pravo na formulu i dobija uvid u kompletan teorijski model, nakon čega postaje jedini nosilac prava svojine i komercijalni vlasnik predočenog koncepta.
-<br><br>
-<strong>Pravna i naučna napomena:</strong> Predmetni 3-u-1 koncept predstavlja teorijski i inženirski model koji tek treba da prođe kroz opsežna laboratorijska i klinička ispitivanja. Shodno tome, autor predočava rad u viđenom stanju kao vrhunsku naučnu premisu — model u krajnjoj realizaciji može biti u potpunosti ispravan, delimično ispravan ili zahtevati modifikacije. Ulaganjem investicionih sredstava, partner preuzima dalji tehnološki razvoj, doradu, popravku, laboratorijska testiranja i komercijalizaciju formule pod sopstvenom i isključivom odgovornošću, dok autor garantuje iskrenost i naučnu unikatnost predočene osnove. Kompanijama koje obezbede finansiranje nudi se ekskluzivno pravo na transfer, komercijalizaciju i trajnu zaštitu predmetne intelektualne svojine na globalnom tržištu.
-<br><br>
-<strong>Klauzula o nepovratnosti sredstava:</strong> Podrazumeva se i izričito naglašava da po ličnom prenosu tajne inženerske formule od strane autora i njenog prihvatanja od strane investitora, posao se smatra pravno i komercijalno zaključenim. Investitor nema nikakvo zakonsko pravo na jednostrani raskid, reklamaciju niti pravo da svoj uplaćeni novac traži nazad, bez obzira na ishode budućih laboratorijskih testiranja.
-</p>
-<div class="zakljucano">
-<span style="color: #ff007f; font-weight: bold; display: block; margin-bottom: 10px;">🔒 BEZBEDNOSNI PROTOKOL ZAŠTITE</span>
-<span style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 15px; text-align: justify;">SISTEMSKO UPOZORENJE: Kompletna laboratorijska tehnologija, proračuni i hemijski kofaktori formule I. TEHNOLOŠKA FORMULA ENKAPSULACIJE (3-u-1 Matriks) se iz bezbednosnih razloga ne nalaze na internet serveru, već se čuvaju u izolovanom sistemu autora. Formula i kompletna dokumentacija se investitoru predaju lično i zvanično, nakon što se u potpunosti realizuje uplata investicionog granta na račun autora, uz zadržavanje neotuđivog moralnog prava pronalazača. Investitor se ugovorom obavezuje da će budući farmakolek, kao i sve njegove naknadne laboratorijske modifikacije i dorade, u komercijalnom ili naučnom nazivu trajno i obavezno nositi oznaku „Protokol Loboda“, čime se autoru priznaje apsolutno doživotno prvenstvo nad osmišljavanjem bazičkog elektrohemijskog koncepta.</span>
-<span style="color: #38bdf8; font-weight: bold; font-size: 16px;">[ PORTAL JE USPEŠNO OSIGURAN VAN MREŽE ]</span>
-</div>
-</div>
-</div> <!-- KRAJ LEVE KOLONE -->
-<!-- DESNA KOLONA: PRIČE SA PRIRODNIH REZONANCAMA I NOVOOM VANREDNOM PRIČOM 22 NA VRHU -->
-<div class="stories-column">
-<!-- VANREDNA PRIČA 22: DUPLI TROJANSKI KONJ -->
-<div class="podfascikla" style="border-color: #ffcc00; background-color: rgba(255, 204, 0, 0.02);">
-<div class="datum" style="background: #ffcc00; color: #000000;">PRIČA 16.09.2026.</div>
-<h2>👁️ VANREDNA PRIČA 22: „ДУПЛИ ТРОЈАНСКИ КОЊ” — Модуларна СМЕДДС надоградња протокола Лобода-Липидни Код и комерцијална визија за кућни редокс оклоп</h2>
-<p style="margin-top: 10px; margin-bottom: 20px; text-align: justify; font-family: sans-serif;">
+<!-- KRAJ VANREDNE PRIČE 22 -->
 
 <!-- DUGME I SKRIPTA ZA DELJENJE -->
 <div style="display: flex; justify-content: flex-end; margin-top: 25px; padding-top: 10px;">
-<button onclick="podeliSajt22()" style="background: #00ffcc; color: #000000; padding: 8px 16px; border: none; border-radius: 4px; font-size: 14px; font-family: sans-serif; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);">
+<button onclick="podeliSajt20()" style="background: #00ffcc; color: #000000; padding: 8px 16px; border: none; border-radius: 4px; font-size: 14px; font-family: sans-serif; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);">
  📢 Podeli sa prijateljima
 </button>
 </div>
 </div>
 
 <script>
-function podeliSajt22() {
+function podeliSajt20() {
 if (navigator.share) {
- navigator.share({title: 'Protokol Loboda - Priča 22', text: 'DUPLI TROJANSKI KONJ', url: 'https://draganloboda.github.io'});
+ navigator.share({title: 'Protokol Loboda - Priča 20', text: 'Teorijski model protokola Loboda za model bez žučne kese', url: 'https://draganloboda.github.io'});
 } else {
  navigator.clipboard.writeText('https://draganloboda.github.io');
  alert("Link ka portalu je kopiran!");
 }
 }
 </script>
-<!-- KRAJ PODFASCIKLE ZA PRIČU 22 --> 
-
+<!-- KRAJ PODFASCIKLE ZA PRIČU 20 -->
+ 
 <!-- VANREDNA PRIČA 21: PRINCIP TROJANSKOG KONJA ZA MAMARNU SUPRESIJU -->
 <div class="podfascikla">
 <div class="datum">PRIČA 13.09.2026.</div>
@@ -470,7 +320,7 @@ Princip „Тројанског коња” преко хибридног лип
 
 <!-- DUGME I SKRIPTA ZA DELJENJE -->
 <div style="display: flex; justify-content: flex-end; margin-top: 25px; padding-top: 10px;">
-<button onclick="podeliSajt21()" style="background: #00ffcc; color: #000000; padding: 8px 16px; border: none; border-radius: 4px; font-size: 14px; font-family: sans-serif; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);">
+<button onclick="podeliSajt20()" style="background: #00ffcc; color: #000000; padding: 8px 16px; border: none; border-radius: 4px; font-size: 14px; font-family: sans-serif; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);">
  📢 Podeli sa prijateljima
 </button>
 </div>
@@ -479,14 +329,14 @@ Princip „Тројанског коња” преко хибридног лип
 <script>
 function podeliSajt20() {
 if (navigator.share) {
- navigator.share({title: 'Protokol Loboda - Priča 21', text: 'PRINCIP TROJANSKOG KONJA ZA MAMARNU SUPRESIJU', url: 'https://draganloboda.github.io'});
+ navigator.share({title: 'Protokol Loboda - Priča 20', text: 'Teorijski model protokola Loboda za model bez žučne kese', url: 'https://draganloboda.github.io'});
 } else {
  navigator.clipboard.writeText('https://draganloboda.github.io');
  alert("Link ka portalu je kopiran!");
 }
 }
 </script>
-<!-- KRAJ PODFASCIKLE ZA PRIČU 21 -->
+<!-- KRAJ PODFASCIKLE ZA PRIČU 20 -->
  
 
 <!-- VANREDNA PRIČA 20: PRINCIP TROJANSKOG KONJA ZA ONKOLOŠKU SUPRESIJU -->
